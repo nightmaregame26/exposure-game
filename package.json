@@ -1,0 +1,16 @@
+{
+  "name": "exposure-game",
+  "version": "0.2.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "dependencies": {
+    "openai": "latest"
+  },
+  "devDependencies": {
+    "serve": "latest"
+  }
+}
