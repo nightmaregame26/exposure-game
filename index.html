@@ -12,54 +12,23 @@
     <header class="topbar">
       <div>
         <h1>EXPOSURE</h1>
-        <p class="sub">Alpha 0.2 · Blackwood Serial Killer Mystery</p>
+        <p class="sub">Alpha 0.3 · Living Blackwood Foundation</p>
       </div>
       <button class="mini" id="resetBtn">Reset</button>
     </header>
 
     <section id="home" class="screen active">
-      <div class="hero">
-        <div>
-          <h2>Welcome to Blackwood</h2>
-          <p>You moved here yesterday. This morning, someone is missing.</p>
-        </div>
-      </div>
-
-      <div class="card tutorial" id="tutorialBox">
-        <h2>🎮 Tutorial</h2>
-        <p id="tutorialText"></p>
-        <button id="tutorialNext">Next tip</button>
-      </div>
-
-      <div class="card">
-        <h2>📺 Blackwood News</h2>
-        <p id="news" class="news"></p>
-      </div>
-
-      <div class="card">
-        <h2>🕒 Status</h2>
-        <div class="grid">
-          <div class="stat"><span>Day</span><strong id="day"></strong></div>
-          <div class="stat"><span>Time</span><strong id="time"></strong></div>
-          <div class="stat"><span>⚡ Stamina</span><strong id="stamina"></strong><div class="bar"><i id="staminaBar"></i></div></div>
-          <div class="stat"><span>⚠️ Exposure</span><strong id="exposure"></strong><div class="bar red"><i id="exposureBar"></i></div></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>🎯 Today’s Tasks</h2>
-        <p class="small">Tasks cost time and stamina. Some raise Exposure. Some open scenes with sub-branches.</p>
-        <div id="tasks"></div>
-      </div>
-
-      <div class="card">
-        <h2>📖 Story Log</h2>
-        <div id="storyLog" class="storylog"></div>
-      </div>
+      <div class="hero"><div><h2>Welcome to Blackwood</h2><p>You moved here yesterday. This morning, someone is missing.</p></div></div>
+      <div class="card tutorial"><h2>🎮 Tutorial</h2><p id="tutorialText"></p><button id="tutorialNext">Next tip</button></div>
+      <div class="card"><h2>📺 Blackwood News</h2><p id="news" class="news"></p></div>
+      <div class="card"><h2>🕒 Status</h2><div class="grid"><div class="stat"><span>Day</span><strong id="day"></strong></div><div class="stat"><span>Time</span><strong id="time"></strong></div><div class="stat"><span>⚡ Player Stamina</span><strong id="stamina"></strong><div class="bar"><i id="staminaBar"></i></div></div><div class="stat"><span>⚠️ Exposure</span><strong id="exposure"></strong><div class="bar red"><i id="exposureBar"></i></div></div></div></div>
+      <div class="card"><h2>🎯 Today’s Tasks</h2><p class="small">Tasks cost time and stamina. Conversations now drain NPC Focus.</p><div id="tasks"></div></div>
+      <div class="card"><h2>📖 Story Log</h2><div id="storyLog" class="storylog"></div></div>
     </section>
 
     <section id="map" class="screen"><div class="card"><h2>🗺️ Map</h2><div id="mapList"></div></div></section>
     <section id="contacts" class="screen"><div class="card"><h2>👥 Contacts</h2><div id="contactsList"></div></div></section>
+    <section id="phone" class="screen"><div class="card"><h2>📱 Phone</h2><div id="phoneList"></div></div></section>
     <section id="suspects" class="screen"><div class="card"><h2>🕵️ Suspects</h2><div id="suspectsList"></div></div></section>
     <section id="diary" class="screen"><div class="card"><h2>📓 Diary</h2><textarea id="noteInput" placeholder="Write your theory..."></textarea><button id="saveNoteBtn">Save note</button><div id="diaryList"></div></div></section>
     <section id="case" class="screen"><div class="card"><h2>📂 Case File</h2><div id="caseFile"></div></div></section>
@@ -68,9 +37,9 @@
   <aside id="sceneOverlay" class="overlay hidden">
     <div class="scene">
       <div class="sceneArt" id="sceneArt"><h2 id="sceneTitle"></h2><p id="sceneLocation"></p></div>
-      <div class="card"><div id="sceneText" class="sceneText"></div></div>
+      <div class="card"><div id="sceneText" class="sceneText"></div><div id="npcStateBox" class="npcStateBox"></div></div>
       <div class="card"><h2>Choices</h2><div id="sceneChoices"></div></div>
-      <div class="card"><h2>💬 Say Anything</h2><p class="small">Local placeholder now. Backend AI will connect through <code>/api/talk</code>.</p><textarea id="freeTalk" placeholder="Type what you want to say..."></textarea><button id="sendTalkBtn">Send</button></div>
+      <div class="card"><h2>💬 Say Anything</h2><p class="small">Alpha 0.3 uses local Focus rules. Backend AI is ready in <code>/api/talk</code>.</p><textarea id="freeTalk" placeholder="Type what you want to say..."></textarea><button id="sendTalkBtn">Send</button></div>
       <button class="ghost" id="leaveSceneBtn">Leave scene</button>
     </div>
   </aside>
@@ -79,6 +48,7 @@
     <button data-tab="home">🏠<br>Home</button>
     <button data-tab="map">🗺️<br>Map</button>
     <button data-tab="contacts">👥<br>People</button>
+    <button data-tab="phone">📱<br>Phone</button>
     <button data-tab="suspects">🕵️<br>Suspects</button>
     <button data-tab="diary">📓<br>Diary</button>
     <button data-tab="case">📂<br>Case</button>
