@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exposure</title>
+<style>
+body{margin:0;background:#05060b;color:#f5f6fb;font-family:Arial;padding:14px;padding-bottom:80px}
+.card{background:#121625;border:1px solid #303952;border-radius:16px;padding:14px;margin:12px 0}
+button{width:100%;padding:13px;margin:7px 0;border:0;border-radius:12px;background:#b82134;color:white;font-weight:bold;text-align:left}
+.tabs{position:fixed;bottom:0;left:0;right:0;background:#0c0f18;display:grid;grid-template-columns:repeat(5,1fr)}
+.tabs button{font-size:11px;margin:0;border-radius:0;background:#111827;text-align:center}
+.hidden{display:none}
+.small{color:#aeb7ca;font-size:13px}
+</style>
+</head>
+<body>
+
+<h1>EXPOSURE</h1>
+<p class="small">Alpha 0.1 — Blackwood Serial Killer Mystery</p>
+
+<div id="home">
+<div class="card">
+<h2>📺 Blackwood News</h2>
+<p id="news">BREAKING: Noah Williams is missing. Police warn residents to avoid Blackwood Forest after dark.</p>
+</div>
+
+<div class="card">
+<h2>Status</h2>
+<p>Day: <span id="day">1</span></p>
+<p>Time: <span id="time">06:30</span></p>
+<p>⚡ Stamina: <span id="stamina">100</span></p>
+<p>⚠️ Exposure: <span id="exposure">0</span></p>
+</div>
+
+<div class="card">
+<h2>Today's Tasks</h2>
+<div id="tasks"></div>
+</div>
+
+<div class="card">
+<h2>Story</h2>
+<p id="story">You moved to Blackwood yesterday. This morning, someone is missing.</p>
+</div>
+</div>
+
+<div id="people" class="hidden"><div class="card"><h2>👥 Contacts</h2><div id="peopleList"></div></div></div>
+<div id="suspects" class="hidden"><div class="card"><h2>🕵️ Suspects</h2><div id="suspectList"></div></div></div>
+<div id="diary" class="hidden"><div class="card"><h2>📓 Diary / Evidence</h2><textarea id="note" style="width:100%;height:80px;background:#05060b;color:white"></textarea><button onclick="saveNote()">Save Note</button><div id="diaryList"></div></div></div>
+<div id="case" class="hidden"><div class="card"><h2>📂 Case File</h2><p>The killer is known only as <b>The Hunter</b>.</p><p>Style: patient, organised, watches the investigation.</p><p>Identity: UNKNOWN</p></div></div>
+
+<div class="tabs">
+<button onclick="show('home')">🏠<br>Home</button>
+<button onclick="show('people')">👥<br>People</button>
+<button onclick="show('suspects')">🕵️<br>Suspects</button>
+<button onclick="show('diary')">📓<br>Diary</button>
+<button onclick="show('case')">📂<br>Case</button>
+</div>
+
+<script>
+let s=JSON.parse(localStorage.exposure||'null')||{
+day:1,time:390,stamina:100,exposure:0,evidence:[],notes:[],
+people:{
+Emily:{trust:20,sus:"Unknown",info:"Works at Café Hollow. Seems scared."},
+Mason:{trust:5,sus:"Unknown",info:"Detective. Needs evidence before he believes you."},
+Alex:{trust:25,sus:"Unknown",info:"Mechanic. Knows old roads."},
+Mara:{trust:10,sus:"Unknown",info:"Neighbour. Watches the street at night."}
+}
+};
+
+const tasks=[
+["Meet Emily",45,8,4,()=>scene("Emily says Noah was terrified before he vanished.","Emily says Noah was being watched.")],
+["Visit Noah's house",120,18,10,()=>scene("Noah's mother lets you inside. His bedroom window is open.","Muddy footprints at Noah's window.")],
+["Search Blackwood Forest",180,32,18,()=>scene("The forest is silent. You find a torn backpack strap.","Backpack strap in forest.")],
+["Visit Detective Mason",75,8,12,()=>scene("Mason listens, but says you need motive, opportunity and proof.","Mason needs evidence.")],
+["Ask Alex about roads",60,6,3,()=>scene("Alex knows the logging roads better than most locals.","Alex knows old roads.")],
+["Rest at home",120,-30,-4,()=>scene("You rest. The town moves without you.",null)]
+];
+
+function fmt(m){let h=Math.floor(m/60),mm=m%60;return String(h).padStart(2,'0')+':'+String(mm).padStart(2,'0')}
+function save(){localStorage.exposure=JSON.stringify(s)}
+function scene(text,ev){
+s.story=text;
+if(ev&&!s.evidence.includes(ev))s.evidence.push(ev);
+render();
+}
+function doTask(t){
+if(s.stamina<t[2]||s.time+t[1]>1440)return;
+s.time+=t[1];s.stamina=Math.max(0,Math.min(100,s.stamina-t[2]));s.exposure=Math.max(0,Math.min(100,s.exposure+t[3]));
+t[4]();
+}
+function endDay(){
+s.day++;s.time=390;s.stamina=100;s.exposure=Math.max(0,s.exposure-8);
+s.story=s.exposure>60?"You wake up to a car idling outside your house.": "Another day begins in Blackwood.";
+render();
+}
+function render(){
+save();
+day.innerText=s.day;time.innerText=fmt(s.time);stamina.innerText=s.stamina;exposure.innerText=s.exposure;story.innerText=s.story||"";
+tasks.innerHTML=tasksData();
+peopleList.innerHTML=Object.entries(s.people).map(([n,p])=>`<p><b>${n}</b><br>${p.info}<br>Trust: ${p.trust}<br>Phone: ${p.trust>=35?"Unlocked":"Locked"}</p>`).join("");
+suspectList.innerHTML=Object.entries(s.people).map(([n,p])=>`<div><b>${n}</b><br>Rating: ${p.sus}<button onclick="mark('${n}','Cleared')">Clear</button><button onclick="mark('${n}','Suspicious')">Suspicious</button><button onclick="mark('${n}','Prime Suspect')">Prime Suspect</button></div>`).join("");
+diaryList.innerHTML="<h3>Evidence</h3>"+s.evidence.map(e=>"<p>🧩 "+e+"</p>").join("")+"<h3>Notes</h3>"+s.notes.map(n=>"<p>"+n+"</p>").join("");
+}
+function tasksData(){
+return tasks.map((t,i)=>`<button onclick="doTask(tasks[${i}])">${t[0]}<br><span class="small">Time ${t[1]} mins · Stamina -${t[2]} · Exposure +${t[3]}</span></button>`).join("")+`<button onclick="endDay()">🌙 End Day / Sleep</button>`;
+}
+function mark(n,r){s.people[n].sus=r;render()}
+function saveNote(){if(note.value.trim()){s.notes.unshift(note.value.trim());note.value="";render()}}
+function show(id){["home","people","suspects","diary","case"].forEach(x=>document.getElementById(x).classList.add("hidden"));document.getElementById(id).classList.remove("hidden")}
+render();
+</script>
+</body>
+</html>
