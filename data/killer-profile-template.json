@@ -1,0 +1,47 @@
+{
+  "version": "0.3.0",
+  "generatedAtNewGame": true,
+  "fields": {
+    "identityCharacterId": null,
+    "codename": "The Hunter",
+    "motive": null,
+    "victimProfile": {
+      "ageRange": [16, 45],
+      "preferredTraits": [],
+      "riskFactors": ["works late", "isolated route", "knows something", "low social protection"],
+      "exclusions": []
+    },
+    "signature": null,
+    "modusOperandi": {
+      "preferredTime": "night",
+      "preferredLocationType": "isolated",
+      "trophy": null,
+      "staging": null
+    },
+    "riskTolerance": 50,
+    "intelligence": 70,
+    "confidence": 60,
+    "stress": 20,
+    "socialMask": null,
+    "alibiStrategy": null,
+    "knowledgeState": [],
+    "currentTargetId": null,
+    "targetHistory": []
+  },
+  "targetScoringRules": {
+    "matchesVictimProfile": 25,
+    "worksLate": 10,
+    "livesAlone": 10,
+    "connectedToPreviousVictim": 20,
+    "knowsDangerousFact": 25,
+    "highPolicePresencePenalty": -30,
+    "playerInterferencePenalty": -15,
+    "publicLocationPenalty": -20
+  },
+  "hardRules": [
+    "The killer cannot know private player diary notes.",
+    "The killer cannot act on evidence they have not learned about.",
+    "The killer cannot kill a core character without Director approval.",
+    "Every attack must have a believable opportunity and motive."
+  ]
+}
