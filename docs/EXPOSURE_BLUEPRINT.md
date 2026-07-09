@@ -1,129 +1,475 @@
-# EXPOSURE
+# EXPOSURE  
 ## Master Game Blueprint v0.1
 
 Exposure is a single-player AI-driven serial killer investigation game set in the fictional town of Blackwood.
 
 The player has just moved to town. A missing person case begins. Over time, the player investigates, builds trust, gathers evidence, manages stamina and Exposure, and tries to identify the killer before becoming a target.
 
-## Core Identity
+---
 
-Exposure is not a normal horror game. It is a detective mystery, survival RPG, AI town simulation, serial killer investigation, social deduction game and interactive thriller.
+# Core Identity
 
-Main hook:
+Exposure is not a normal horror game.
+
+It is:
+
+- Detective mystery
+- Survival RPG
+- AI town simulation
+- Serial killer investigation
+- Social deduction game
+- Interactive thriller
+
+The main hook:
 
 > You are trying to find the killer before the killer realises you are a threat.
 
-## Core Gameplay Loop
+---
+
+# Core Gameplay Loop
 
 Each day:
 
-1. Wake up.
-2. Watch/read Blackwood News.
-3. Check messages.
-4. Review available tasks.
-5. Choose tasks based on time, stamina, risk and trust.
-6. Visit locations.
-7. Talk to characters.
-8. Collect evidence.
-9. Update suspects.
-10. Write diary notes.
-11. Manage Exposure.
-12. End the day.
-13. The town and killer act overnight.
+1. Wake up
+2. Watch/read Blackwood News
+3. Check messages
+4. Review available tasks
+5. Choose tasks based on time, stamina, risk and trust
+6. Visit locations
+7. Talk to characters
+8. Collect evidence
+9. Update suspects
+10. Write diary notes
+11. Manage Exposure
+12. End the day
+13. The town and killer act overnight
 
-The player cannot do everything in one day. Missed tasks may lead to lost evidence, characters dying, witnesses leaving town, trust opportunities missed, or the killer changing behaviour.
+The player cannot do everything in one day.
 
-## Main Systems
+Missed tasks may lead to:
+- Lost evidence
+- Characters dying
+- Witnesses leaving town
+- Trust opportunities missed
+- Killer changing behaviour
 
-### Time System
+---
 
-The game uses a 24-hour day. Every task costs time. Time affects character availability, location danger, business hours, killer activity, news reports and night events.
+# Main Systems
 
-### Stamina System
+## 1. Time System
 
-Actions cost stamina. Low stamina reduces options such as running, searching longer, fighting back, climbing, or investigating at night safely. Rest restores stamina but costs time.
+The game uses a 24-hour day.
 
-### Exposure System
+Every task costs time.
 
-Exposure measures how much attention the player has attracted. High Exposure causes the killer to watch, threaten, manipulate, target friends, destroy evidence, or hunt the player.
+Examples:
 
-### Trust System
+- Meet Emily: 45 minutes
+- Visit Noah's house: 2 hours
+- Search forest: 3 hours
+- Talk to Detective Mason: 1 hour
+- Stake out motel: 4 hours
+- Rest: 2 hours
 
-Every character has hidden trust toward the player. Trust unlocks phone numbers, rumours, secrets, evidence, warnings and help.
+Time affects:
+- Character availability
+- Location danger
+- Business opening hours
+- Killer activity
+- News reports
+- Night events
 
-### Suspect System
+---
 
-The player can mark characters as Unknown, Cleared, Suspicious or Prime Suspect. The game does not confirm whether the player is right until major story events.
+## 2. Stamina System
 
-### Evidence System
+Actions cost stamina.
 
-Evidence has strength. To convince Detective Mason, the player needs motive, opportunity, physical evidence, witness support and Mason's trust. Knowing the killer is not enough. The player must prove it.
+Low stamina reduces options.
 
-## AI Architecture
+Examples:
 
-### Director AI
+- Cannot run
+- Cannot search longer
+- Cannot fight back
+- Cannot climb
+- Cannot investigate at night safely
 
-The Director AI controls pacing and story structure. It knows the season plot, episode goals, major beats, killer identity, characters and current world state. It ensures the story stays coherent.
+Rest restores stamina but costs time.
 
-### Character AI
+---
 
-Every major character is role-played by AI. Each has name, age, occupation, personality, agenda, secrets, fears, trust, memory, relationships, mood, goals, known facts and hidden facts.
+## 3. Exposure System
 
-The player can type anything and the AI responds in character.
+Exposure measures how much attention the player has attracted.
 
-### Killer AI
+Exposure rises when the player:
 
-The killer is also an AI agent. The killer has identity, victim profile, motive, signature, MO, risk tolerance, intelligence, social mask, alibi strategy and targeting rules.
+- Visits crime scenes
+- Asks too many questions
+- Talks to police
+- Follows anonymous tips
+- Appears in news
+- Interferes with the killer
+- Accuses people publicly
 
-The killer only knows what they could realistically know. The killer does not cheat.
+High Exposure causes:
 
-### Town AI
+- Killer watches player
+- Friends become targets
+- Anonymous messages
+- Break-ins
+- Evidence destroyed
+- Player becomes hunted
 
-The Town AI controls Blackwood as a living place: news, rumours, weather, public fear, business hours, police presence, character schedules, replacement NPCs and town events.
+---
 
-## Killer Rules
+## 4. Trust System
 
-At the start of each game, a killer profile is generated. The killer targets people based on set rules, such as:
+Every character has trust toward the player.
 
-- Works late shifts.
-- Lives alone.
-- Recently discovered something.
-- Connected to a previous victim.
-- Walks home at night.
-- Has low social protection.
-- Matches the killer's psychological pattern.
+Trust is hidden from the player in the final game.
 
-The killer can choose not to kill if risk is too high. The killer can change targets, delay attacks, frame others, destroy evidence, manipulate witnesses, befriend the player, protect the player if useful, or hunt the player if threatened.
+Low trust:
+- Basic conversation only
 
-## Character Death and Replacement
+Medium trust:
+- Character may share rumours
+- Character may give phone number
+
+High trust:
+- Character reveals secrets
+- Character gives evidence
+- Character warns player
+- Character may risk themselves to help
+
+Trust is affected by:
+
+- Dialogue
+- Helping characters
+- Accusing characters
+- Sharing evidence
+- Lying
+- Breaking promises
+- Ignoring requests
+
+---
+
+## 5. Suspect System
+
+The player can mark characters as:
+
+- Unknown
+- Cleared
+- Suspicious
+- Prime Suspect
+
+The game never confirms if the player is right until major story events.
+
+Wrong accusations can:
+- Damage trust
+- Alert the killer
+- Mislead Detective Mason
+- Cause innocent characters to be targeted
+
+---
+
+## 6. Evidence System
+
+Evidence has strength.
+
+Examples:
+
+- Rumour: weak
+- Witness statement: medium
+- CCTV: strong
+- Physical evidence: strong
+- Confession: very strong
+
+To convince Detective Mason, the player needs:
+
+- Motive
+- Opportunity
+- Physical evidence
+- Witness support
+- Mason's trust
+
+Knowing the killer is not enough.
+
+The player must prove it.
+
+---
+
+# AI Architecture
+
+Exposure uses several AI systems.
+
+## Director AI
+
+The Director AI controls pacing and story structure.
+
+It knows:
+- Season plot
+- Episode goals
+- Major story beats
+- Killer identity
+- All characters
+- Current world state
+
+It ensures the story stays coherent.
+
+The Director AI does not allow random story chaos.
+
+---
+
+## Character AI
+
+Every major character is role-played by AI.
+
+Each character has:
+
+- Name
+- Age
+- Occupation
+- Personality
+- Agenda
+- Secrets
+- Fears
+- Trust level
+- Memory
+- Relationships
+- Current mood
+- Current goal
+- Known facts
+- Hidden facts
+- Things they will not reveal yet
+
+The player can type anything.
+
+The AI responds in character.
+
+---
+
+## Killer AI
+
+The killer is also an AI agent.
+
+The killer has:
+
+- Identity
+- Victim profile
+- Motive
+- Signature
+- Modus operandi
+- Risk tolerance
+- Intelligence
+- Social mask
+- Alibi strategy
+- Targeting rules
+
+The killer only knows what they could realistically know.
+
+The killer does not cheat.
+
+---
+
+## Town AI
+
+The Town AI controls Blackwood as a living place.
+
+It manages:
+
+- News reports
+- Rumours
+- Weather
+- Public fear
+- Business hours
+- Police presence
+- Character schedules
+- Replacement NPCs
+- Town events
+
+If people die, move away, or disappear, the town changes.
+
+---
+
+# Killer Rules
+
+At the start of each game, a killer profile is generated.
+
+The killer targets people based on set rules.
+
+Example victim rules:
+
+- Works late shifts
+- Lives alone
+- Recently discovered something
+- Connected to a previous victim
+- Walks home at night
+- Has low social protection
+- Matches killer's psychological pattern
+
+The killer can choose not to kill if risk is too high.
+
+The killer can:
+- Change targets
+- Delay attacks
+- Frame others
+- Destroy evidence
+- Manipulate witnesses
+- Befriend the player
+- Protect the player if useful
+- Hunt the player if threatened
+
+---
+
+# Character Death and Replacement
 
 There are two character types:
 
-### Core Story Characters
+## Core Story Characters
 
-Major story characters. If they die, the season changes significantly. They are not instantly replaced.
+These are major story characters.
 
-### Simulation Characters
+If they die, the season changes significantly.
 
-Town residents. If one dies or leaves, the Town AI may create a replacement with a unique personality, agenda and secrets.
+They are not instantly replaced.
 
-## Blackwood
+Example:
+- Detective Mason dies
+- A new detective may arrive
+- But the new detective has different methods and trust starts low
+
+## Simulation Characters
+
+These are town residents.
+
+If one dies or leaves, the Town AI may create a replacement.
+
+Example:
+- Café worker dies
+- Café hires new worker
+- New worker has unique personality, agenda and secrets
+
+This keeps Blackwood alive.
+
+---
+
+# Blackwood
 
 Blackwood is the permanent setting.
 
-Core locations include Your House, Blackwood High, Café Hollow, Police Station, Blackwood Forest, Lake Road, Blackwood Motel, Hospital, Library, Old Church, Sawmill, Abandoned Mine, Water Tower, Town Hall, Trailer Park and Cemetery.
+The town includes:
 
-## Season 1: The Hunter
+- Your House
+- Blackwood High
+- Café Hollow
+- Police Station
+- Blackwood Forest
+- Lake Road
+- Blackwood Motel
+- Hospital
+- Library
+- Old Church
+- Sawmill
+- Abandoned Mine
+- Water Tower
+- Town Hall
+- Trailer Park
+- Cemetery
 
-The player and family move to Blackwood. Noah Williams goes missing. At first it looks like a runaway case. Then more clues appear. The player realises someone in town is hunting people.
+Locations unlock as the player investigates.
 
-The killer is one of the people the player can meet. The killer may even become the player's friend.
+---
 
-## Core Rule
+# Main Tabs
 
-The AI can improvise scenes, dialogue and behaviour, but the AI cannot break the season.
+## Home
 
-The mystery must always have a real answer. The killer must be discoverable through evidence, behaviour and patterns.
+Shows:
+- Day
+- Time
+- News
+- Messages
+- Available tasks
+- Stamina
+- Exposure
+
+## Map
+
+Shows:
+- Unlocked locations
+- Locked mystery locations
+- Risk level
+- Last known events
+
+## Contacts
+
+Shows:
+- People met
+- Relationship
+- Trust behaviour
+- Phone unlocked or locked
+- Last seen
+- Known facts
+
+## Suspects
+
+Shows:
+- All known people
+- Player suspicion rating
+- Notes
+- Linked evidence
+
+## Diary
+
+Shows:
+- Player notes
+- Theories
+- Evidence
+- Timeline
+
+## Case File
+
+Shows:
+- Killer behavioural profile
+- Evidence strength
+- Victim pattern
+- Detective Mason trust
+- Arrest readiness
+
+---
+
+# Season 1: The Hunter
+
+Opening:
+
+The player and family move to Blackwood.
+
+Noah Williams goes missing.
+
+At first, it looks like a runaway case.
+
+Then more clues appear.
+
+The player realises someone in town is hunting people.
+
+The killer is one of the people the player can meet.
+
+The killer may even become the player's friend.
+
+---
+
+# Core Rule
+
+The AI can improvise scenes, dialogue and behaviour.
+
+But the AI cannot break the season.
+
+The mystery must always have a real answer.
+
+The killer must be discoverable through evidence, behaviour and patterns.
 
 The player should be able to say:
 
