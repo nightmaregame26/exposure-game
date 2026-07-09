@@ -1,0 +1,19 @@
+{
+  "version": "0.3.0",
+  "day": 1,
+  "timeMinutes": 390,
+  "weather": "rain",
+  "publicFear": 18,
+  "policePresence": 22,
+  "mediaAttention": 15,
+  "rumourIntensity": 25,
+  "currentMajorEvent": "Noah Williams is missing",
+  "missingPeopleCount": 1,
+  "murderCount": 0,
+  "simulationTickMinutes": 60,
+  "lastTick": 390,
+  "globalTimeline": [
+    {"day": 1, "time": "06:30", "event": "Noah Williams reported missing.", "public": true},
+    {"day": 1, "time": "07:10", "event": "Police warn residents to avoid Blackwood Forest after dark.", "public": true}
+  ]
+}
