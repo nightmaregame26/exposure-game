@@ -1,0 +1,37 @@
+{
+  "version": "0.3.0",
+  "stats": {
+    "health": {"min": 0, "max": 100, "description": "Physical condition. At 0 the character is dead or incapacitated."},
+    "stamina": {"min": 0, "max": 100, "description": "Physical energy for movement, work, running, resisting danger and late-night activity."},
+    "focus": {"min": 0, "max": 100, "description": "Willingness and mental capacity to talk, think and engage deeply."},
+    "stress": {"min": 0, "max": 100, "description": "Pressure and emotional load. High stress reduces focus and openness."},
+    "fear": {"min": 0, "max": 100, "description": "Perceived danger. High fear changes routines and makes NPCs guarded."},
+    "trust": {"min": 0, "max": 100, "description": "Trust toward the player."},
+    "interest": {"min": 0, "max": 100, "description": "Motivation to continue talking or helping."},
+    "suspicionTowardPlayer": {"min": 0, "max": 100, "description": "How suspicious the NPC is of the player."}
+  },
+  "conversationFocusCosts": {
+    "casualQuestion": 3,
+    "caseQuestion": 6,
+    "emotionalQuestion": 8,
+    "askForSecret": 12,
+    "accusation": 15,
+    "threatOrPressure": 18
+  },
+  "focusBehaviours": [
+    {"range": [0, 10], "behaviour": "NPC refuses to talk or ends conversation."},
+    {"range": [11, 30], "behaviour": "NPC gives short guarded answers."},
+    {"range": [31, 60], "behaviour": "NPC participates but avoids secrets."},
+    {"range": [61, 85], "behaviour": "NPC opens up and may share useful information."},
+    {"range": [86, 100], "behaviour": "NPC is deeply engaged and may risk sharing sensitive information."}
+  ],
+  "backendLimits": {
+    "freeMaxPlayerMessageCharacters": 400,
+    "premiumMaxPlayerMessageCharacters": 800,
+    "freeMaxAiRepliesPerScene": 10,
+    "premiumMaxAiRepliesPerScene": 25,
+    "maxAiReplyWords": 150,
+    "maxTrustDeltaPerMessage": 10,
+    "maxExposureDeltaPerMessage": 10
+  }
+}
