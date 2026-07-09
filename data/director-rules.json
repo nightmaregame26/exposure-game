@@ -1,0 +1,38 @@
+{
+  "version": "0.4.0",
+  "tensionLevels": {
+    "low": {
+      "range": [0, 30],
+      "allowedEvents": ["minor_rumour", "casual_message", "quiet_scene"]
+    },
+    "medium": {
+      "range": [31, 65],
+      "allowedEvents": ["news_update", "witness_pressure", "police_interview", "unknown_warning"]
+    },
+    "high": {
+      "range": [66, 100],
+      "allowedEvents": ["stalking", "evidence_destroyed", "killer_message", "witness_disappears", "attempted_attack"]
+    }
+  },
+  "storyPermissions": {
+    "coreCharacterDeathRequiresDirectorApproval": true,
+    "killerIdentityRevealAllowedBeforeFinale": false,
+    "majorEvidenceMustBeRegistered": true,
+    "wrongArrestAllowed": true,
+    "playerDeathAllowed": true,
+    "caseColdEndingAllowed": true
+  },
+  "cluePacing": {
+    "minimumCluesBeforeMasonTrustsPlayer": 3,
+    "minimumCluesBeforeKillerPressure": 4,
+    "minimumEvidenceTypesForArrest": ["motive", "opportunity", "physical", "witness"]
+  },
+  "directorTickTriggers": [
+    "end_day",
+    "exposure_above_55",
+    "new_major_clue",
+    "npc_focus_exhausted",
+    "wrong_accusation",
+    "public_fear_above_60"
+  ]
+}
