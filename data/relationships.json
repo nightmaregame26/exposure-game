@@ -1,0 +1,68 @@
+[
+  {
+    "from": "emily_hart",
+    "to": "noah_williams",
+    "trust": 78,
+    "affection": 58,
+    "fear": 12,
+    "resentment": 0,
+    "suspicion": 4,
+    "history": "Emily and Noah were close friends. Noah trusted Emily more than most people.",
+    "secretsShared": ["Noah told Emily someone was watching him."]
+  },
+  {
+    "from": "emily_hart",
+    "to": "alex_vale",
+    "trust": 54,
+    "affection": 30,
+    "fear": 4,
+    "resentment": 10,
+    "suspicion": 22,
+    "history": "Emily knows Alex from the cafe and considers him friendly but evasive.",
+    "secretsShared": []
+  },
+  {
+    "from": "detective_mason",
+    "to": "sarah_pike",
+    "trust": 18,
+    "affection": 0,
+    "fear": 0,
+    "resentment": 62,
+    "suspicion": 70,
+    "history": "Mason believes Sarah makes investigations harder by publishing too early.",
+    "secretsShared": []
+  },
+  {
+    "from": "sarah_pike",
+    "to": "detective_mason",
+    "trust": 22,
+    "affection": 0,
+    "fear": 8,
+    "resentment": 55,
+    "suspicion": 64,
+    "history": "Sarah believes Mason hides more from the town than he admits.",
+    "secretsShared": ["Sarah has a police leak but Mason does not know the source."]
+  },
+  {
+    "from": "mara_bell",
+    "to": "detective_mason",
+    "trust": 25,
+    "affection": 0,
+    "fear": 30,
+    "resentment": 20,
+    "suspicion": 48,
+    "history": "Mara distrusts police because of an older case that was buried.",
+    "secretsShared": []
+  },
+  {
+    "from": "alex_vale",
+    "to": "sarah_pike",
+    "trust": 38,
+    "affection": 8,
+    "fear": 12,
+    "resentment": 16,
+    "suspicion": 45,
+    "history": "Alex talks to Sarah when he needs rumours controlled, but he does not trust her fully.",
+    "secretsShared": []
+  }
+]
