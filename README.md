@@ -29,6 +29,8 @@ Includes:
 - Town tick for public fear and rumours
 - Local browser save
 - Backend `/api/talk` scaffold with AI cost controls
+- Backend `/api/director` scaffold for story pacing
+- Backend `/api/killer` scaffold for hidden killer behaviour
 
 ## Play Locally
 
@@ -36,7 +38,7 @@ Open `index.html` in a browser.
 
 ## GitHub Pages
 
-Once GitHub Pages is enabled, the game should be playable at:
+The game should be playable at:
 
 ```text
 https://nightmaregame26.github.io/exposure-game/
@@ -54,6 +56,10 @@ https://nightmaregame26.github.io/exposure-game/
 - `docs/KILLER_ENGINE.md`
 - `docs/TOWN_SIMULATION.md`
 - `docs/MONETISATION_MODEL.md`
+- `docs/DIRECTOR_AI.md`
+- `docs/RELATIONSHIP_ENGINE.md`
+- `docs/WORLD_MEMORY_SYSTEM.md`
+- `docs/CASE_GENERATION_ENGINE.md`
 
 ## Data Files
 
@@ -62,6 +68,9 @@ https://nightmaregame26.github.io/exposure-game/
 - `data/agent-rules.json`
 - `data/killer-profile-template.json`
 - `data/town-state.json`
+- `data/relationships.json`
+- `data/world-memory.json`
+- `data/director-rules.json`
 
 ## Next Milestone
 
@@ -71,6 +80,6 @@ Alpha 0.4:
 - Add real AI NPC replies
 - Add conversation memory compression
 - Add phone message conversations
-- Add first Director tick
-- Add first Killer tick
+- Wire Director tick into end-of-day simulation
+- Wire Killer tick into Director-approved events
 - Add broader 50-character NPC database
