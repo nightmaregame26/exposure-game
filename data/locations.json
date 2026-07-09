@@ -1,0 +1,15 @@
+[
+  {"id":"your_house","name":"Your House","type":"home","risk":"Low","unlocked":true,"open":"00:00","close":"23:59","tags":["safehouse","player_home"]},
+  {"id":"cafe_hollow","name":"Café Hollow","type":"business","risk":"Low","unlocked":true,"open":"06:00","close":"22:00","workers":["emily_hart"],"regulars":["alex_vale","sarah_pike"],"tags":["social_hub","episode_1"]},
+  {"id":"blackwood_high","name":"Blackwood High","type":"school","risk":"Low","unlocked":true,"open":"07:30","close":"17:00","workers":[],"regulars":["noah_williams"],"tags":["noah","students"]},
+  {"id":"police_station","name":"Police Station","type":"government","risk":"Low","unlocked":false,"open":"00:00","close":"23:59","workers":["detective_mason"],"tags":["law","evidence"]},
+  {"id":"blackwood_forest","name":"Blackwood Forest","type":"wilderness","risk":"High","unlocked":false,"open":"00:00","close":"23:59","tags":["danger","killer_hint","old_disappearances"]},
+  {"id":"lake_road","name":"Lake Road","type":"road","risk":"High","unlocked":false,"open":"00:00","close":"23:59","tags":["anonymous_tip","remote"]},
+  {"id":"blackwood_gazette","name":"Blackwood Gazette","type":"business","risk":"Medium","unlocked":false,"open":"08:00","close":"19:00","workers":["sarah_pike"],"tags":["news","rumours"]},
+  {"id":"vales_garage","name":"Vale's Garage","type":"business","risk":"Medium","unlocked":false,"open":"07:00","close":"18:00","workers":["alex_vale"],"tags":["vehicles","old_roads"]},
+  {"id":"hospital","name":"Blackwood Hospital","type":"medical","risk":"Low","unlocked":false,"open":"00:00","close":"23:59","tags":["injury","autopsy"]},
+  {"id":"old_church","name":"Old Church","type":"community","risk":"Medium","unlocked":false,"open":"06:00","close":"20:00","tags":["history","secrets"]},
+  {"id":"blackwood_motel","name":"Blackwood Motel","type":"business","risk":"Medium","unlocked":false,"open":"00:00","close":"23:59","tags":["alibis","travellers"]},
+  {"id":"sawmill","name":"Sawmill","type":"industrial","risk":"High","unlocked":false,"open":"06:00","close":"17:00","tags":["isolated","noise","danger"]},
+  {"id":"cemetery","name":"Cemetery","type":"public","risk":"Medium","unlocked":false,"open":"06:00","close":"21:00","tags":["memorials","symbolic"]}
+]
