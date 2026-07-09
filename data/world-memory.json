@@ -1,0 +1,38 @@
+[
+  {
+    "id": "evt_day1_noah_missing",
+    "day": 1,
+    "time": "06:30",
+    "location": "blackwood_high",
+    "summary": "Noah Williams was reported missing.",
+    "public": true,
+    "witnesses": ["detective_mason"],
+    "knownBy": ["detective_mason", "sarah_pike", "emily_hart", "alex_vale", "mara_bell"],
+    "killerKnows": true,
+    "tags": ["missing_person", "episode_1", "public_news"]
+  },
+  {
+    "id": "evt_day1_police_warning",
+    "day": 1,
+    "time": "07:10",
+    "location": "blackwood_forest",
+    "summary": "Police warned residents to avoid Blackwood Forest after dark.",
+    "public": true,
+    "witnesses": [],
+    "knownBy": ["detective_mason", "sarah_pike", "emily_hart", "alex_vale", "mara_bell"],
+    "killerKnows": true,
+    "tags": ["police", "forest", "public_news"]
+  },
+  {
+    "id": "evt_emily_noah_watched",
+    "day": 1,
+    "time": "08:15",
+    "location": "cafe_hollow",
+    "summary": "Emily knows Noah said someone was watching him before he vanished.",
+    "public": false,
+    "witnesses": ["emily_hart"],
+    "knownBy": ["emily_hart"],
+    "killerKnows": false,
+    "tags": ["private_memory", "noah", "emily"]
+  }
+]
