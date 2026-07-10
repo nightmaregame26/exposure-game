@@ -24,7 +24,6 @@
     observeDialogue();
     syncMode();
     setInterval(syncMode, 250);
-    setInterval(updateDynamicText, 1000);
   }
 
   function buildHome(){
@@ -32,10 +31,6 @@
     if (!screen || document.getElementById('exactHome')) return;
     wrapLegacy(screen);
     const stage = makeStage('exactHome','home');
-    stage.insertAdjacentHTML('beforeend', `
-      <div class="exact-setting-patch exact-home-patch"><strong>Blackwood</strong>Greywick County<br>Est. 1882</div>
-      <div class="exact-dynamic-time exact-home-time"><strong id="exactHomeTime">6:42</strong><span id="exactHomeDate">Living Time · Greywick County</span></div>
-    `);
     addHit(stage,68.5,31.1,25.5,4.5,'Enter Blackwood',()=>openTab('map'));
     addHit(stage,4.0,61.0,45.5,14.3,'Open current chapter',()=>openTab('book'));
     addHit(stage,51.0,64.0,44.0,3.6,'Visit Blackwood Library',()=>triggerTask('library'));
@@ -51,11 +46,6 @@
     if (!screen || document.getElementById('exactMap')) return;
     wrapLegacy(screen);
     const stage = makeStage('exactMap','map');
-    stage.insertAdjacentHTML('beforeend', `
-      <div class="exact-setting-patch exact-map-patch"><strong>Blackwood</strong>Greywick County<br>Est. 1882</div>
-      <div class="exact-map-status"><small>Current objective</small><strong id="exactObjective">Find Noah's next lead</strong><span>Choose a revealed location to continue the investigation.</span></div>
-      <div class="exact-map-risk"><small>Risk level</small><strong id="exactRisk">0%</strong></div>
-    `);
     const locations = [
       [43,20,13,8,'Water Tower',null],
       [70,24,22,10,'Sawmill',null],
@@ -104,16 +94,35 @@
     stage.className='exact-stage';
     const art=document.createElement('div');
     art.className='exact-art';
-    const prefix=type==='home'?'home':type==='map'?'map':'scene';
-    for(let i=0;i<4;i++){
+
+    if(type==='home' && window.__EXPOSURE_HOME){
+      art.classList.add('one');
       const image=document.createElement('img');
-      image.src=`assets/mockups/${prefix}-${i}.svg`;
-      image.alt='';
+      image.src=`data:image/webp;base64,${window.__EXPOSURE_HOME}`;
+      image.alt='Exposure home screen';
       image.draggable=false;
+      image.addEventListener('error',()=>fallbackStrips(art,'home'));
       art.appendChild(image);
+    } else {
+      const prefix=type==='map'?'map':type==='scene'?'scene':'home';
+      fallbackStrips(art,prefix);
     }
+
     stage.appendChild(art);
     return stage;
+  }
+
+  function fallbackStrips(art,prefix){
+    art.classList.remove('one');
+    art.replaceChildren();
+    for(let i=0;i<4;i++){
+      const image=document.createElement('img');
+      image.src=`assets/mockups/${prefix}-${i}.svg?v=approved-images-3`;
+      image.alt='';
+      image.draggable=false;
+      image.addEventListener('error',()=>{ image.style.visibility='hidden'; });
+      art.appendChild(image);
+    }
   }
 
   function wrapLegacy(screen){
@@ -172,7 +181,7 @@
     const hidden=document.getElementById('freeTalk');
     const send=document.getElementById('sendTalkBtn');
     const value=visible?.value.trim();
-    if(!value)return;
+    if(!value||!hidden||!send)return;
     hidden.value=value;
     visible.value='';
     send.click();
@@ -212,32 +221,10 @@
     document.body.classList.toggle('exact-map-active',!emilyOpen&&current==='map');
     const exact=document.getElementById('exactEmily');
     if(exact)exact.style.display=emilyOpen?'block':'none';
-    updateDynamicText();
   }
 
-  function activeTab(){
-    return document.querySelector('.screen.active')?.id||'home';
-  }
-
-  function currentNpcId(){
-    try{return currentScene?.npc||null;}catch{return null;}
-  }
-
-  function updateDynamicText(){
-    const now=new Date();
-    const time=new Intl.DateTimeFormat(undefined,{hour:'numeric',minute:'2-digit'}).format(now).replace(/\s?[AP]M/i,'');
-    const date=new Intl.DateTimeFormat(undefined,{weekday:'long',day:'numeric',month:'short'}).format(now);
-    setText('exactHomeTime',time);
-    setText('exactHomeDate',`${date} · Greywick County`);
-    let game=null;try{game=state;}catch{}
-    if(game){
-      setText('exactRisk',`${Math.max(0,Math.min(100,Number(game.exposure||0)))}%`);
-      const objective=(game.clues?.length||0)<1?'Find out why Noah left the phone':(game.clues.length<3?'Trace Noah’s final movements':'Bring the evidence to Mason');
-      setText('exactObjective',objective);
-    }
-  }
-
-  function setText(id,value){const el=document.getElementById(id);if(el)el.textContent=value;}
+  function activeTab(){return document.querySelector('.screen.active')?.id||'home';}
+  function currentNpcId(){try{return currentScene?.npc||null;}catch{return null;}}
   function escapeHtml(value){return String(value||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));}
   function showToast(text){
     let toast=document.getElementById('exactToast');
