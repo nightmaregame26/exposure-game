@@ -71,6 +71,10 @@
         if (!(title in taskCosts)) return;
         button.disabled = stamina - taskCosts[title] < 0;
       });
+
+      const livingClock = document.getElementById('livingClockLine');
+      const statusCard = document.getElementById('time')?.closest('.card');
+      if (livingClock && statusCard && livingClock.parentElement !== statusCard) statusCard.appendChild(livingClock);
     }, 500);
   });
 })();
