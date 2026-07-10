@@ -1,6 +1,7 @@
 (() => {
   'use strict';
 
+  const START_DATE_KEY = 'exposure-living-start-date-v1';
   const taskCosts = {
     'Meet Emily at Café Hollow':8,
     "Visit Noah's house":18,
@@ -13,6 +14,10 @@
     'Library research':10,
     'Rest at home':-30
   };
+
+  if (!localStorage.getItem(START_DATE_KEY)) {
+    localStorage.setItem(START_DATE_KEY, localDateKey(new Date()));
+  }
 
   const originalStartTask = window.startTask;
   if (typeof originalStartTask === 'function') {
@@ -47,6 +52,7 @@
           save?.();
           render?.();
         }
+        syncLivingDay();
         window.clearInterval(bootstrap);
       } catch {}
     }, 150);
@@ -60,6 +66,7 @@
         localStorage.removeItem('exposure-memory-book-v1');
         localStorage.removeItem('exposure-prologue-complete-v1');
         localStorage.removeItem('exposure-prologue-1-1-migrated');
+        localStorage.removeItem(START_DATE_KEY);
       }, 50);
     });
 
@@ -68,13 +75,41 @@
       try { stamina = Number(state.stamina || 0); } catch {}
       document.querySelectorAll('#tasks button').forEach(button => {
         const title = button.childNodes[0]?.textContent?.trim() || '';
+        if (title.startsWith('🌙 End Day')) {
+          button.style.display = 'none';
+          return;
+        }
         if (!(title in taskCosts)) return;
         button.disabled = stamina - taskCosts[title] < 0;
       });
+
+      syncLivingDay();
 
       const livingClock = document.getElementById('livingClockLine');
       const statusCard = document.getElementById('time')?.closest('.card');
       if (livingClock && statusCard && livingClock.parentElement !== statusCard) statusCard.appendChild(livingClock);
     }, 500);
   });
+
+  function syncLivingDay() {
+    try {
+      const start = parseLocalDate(localStorage.getItem(START_DATE_KEY));
+      const today = parseLocalDate(localDateKey(new Date()));
+      const dayNumber = Math.max(1, Math.floor((today - start) / 86400000) + 1);
+      state.day = dayNumber;
+      const day = document.getElementById('day');
+      if (day) day.textContent = String(dayNumber);
+      save?.();
+    } catch {}
+  }
+
+  function localDateKey(date) {
+    const pad = value => String(value).padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+  }
+
+  function parseLocalDate(value) {
+    const [year, month, day] = String(value).split('-').map(Number);
+    return new Date(year, month - 1, day);
+  }
 })();
