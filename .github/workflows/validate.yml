@@ -1,0 +1,39 @@
+name: Validate Exposure Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check app.js
+          node --check book-engine.js
+          node --check api/talk.js
+          node --check api/director.js
+          node --check api/killer.js
+
+      - name: Validate JSON data
+        run: |
+          node -e "const fs=require('fs'); for (const file of fs.readdirSync('data').filter(f=>f.endsWith('.json'))) JSON.parse(fs.readFileSync('data/'+file,'utf8')); console.log('All JSON files are valid.');"
+
+      - name: Verify required web files
+        run: |
+          test -f index.html
+          test -f style.css
+          test -f app.js
+          test -f book-engine.js
+          test -f data/book-content.json
