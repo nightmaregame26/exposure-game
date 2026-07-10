@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Blackwood at night in the rain</title>
+  <desc id="desc">A dark small town main street with a clock tower, wet road, warm shop windows and forested hills.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#071018"/>
+      <stop offset="0.55" stop-color="#17232b"/>
+      <stop offset="1" stop-color="#0a0d10"/>
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1f2629"/>
+      <stop offset="1" stop-color="#060809"/>
+    </linearGradient>
+    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe0a2"/>
+      <stop offset="0.45" stop-color="#c38742"/>
+      <stop offset="1" stop-color="#5b2c17"/>
+    </linearGradient>
+    <radialGradient id="lamp" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffd899" stop-opacity="0.95"/>
+      <stop offset="0.4" stop-color="#eaa65f" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#eaa65f" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="rain" width="42" height="42" patternUnits="userSpaceOnUse" patternTransform="rotate(12)">
+      <line x1="6" y1="0" x2="6" y2="18" stroke="#b8c8cf" stroke-opacity="0.14" stroke-width="2"/>
+      <line x1="28" y1="12" x2="28" y2="34" stroke="#d9e3e8" stroke-opacity="0.11" stroke-width="1.5"/>
+    </pattern>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="9" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+      <feBlend in="SourceGraphic" in2="g" mode="soft-light"/>
+    </filter>
+    <symbol id="pine" viewBox="0 0 60 120">
+      <path d="M30 0 5 44h16L0 78h22L8 112h44L38 78h22L39 44h16z" fill="#08100f"/>
+      <rect x="27" y="92" width="6" height="28" fill="#090a09"/>
+    </symbol>
+    <symbol id="window" viewBox="0 0 70 46">
+      <rect width="70" height="46" rx="2" fill="#171514" stroke="#7b5d3c" stroke-width="3"/>
+      <rect x="6" y="6" width="58" height="34" fill="url(#warm)"/>
+      <path d="M35 6v34M6 23h58" stroke="#201813" stroke-width="3"/>
+    </symbol>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <path d="M0 260Q220 130 430 250T820 220T1210 240T1600 190V490H0z" fill="#0c1518"/>
+  <g opacity="0.92">
+    <use href="#pine" x="10" y="120" width="88" height="176"/>
+    <use href="#pine" x="78" y="105" width="96" height="192"/>
+    <use href="#pine" x="150" y="138" width="80" height="160"/>
+    <use href="#pine" x="1225" y="94" width="108" height="216"/>
+    <use href="#pine" x="1304" y="126" width="86" height="172"/>
+    <use href="#pine" x="1376" y="84" width="112" height="224"/>
+    <use href="#pine" x="1470" y="120" width="94" height="188"/>
+  </g>
+
+  <g filter="url(#soft)" opacity="0.45">
+    <ellipse cx="290" cy="130" rx="280" ry="90" fill="#54606a"/>
+    <ellipse cx="800" cy="110" rx="380" ry="120" fill="#52606a"/>
+    <ellipse cx="1330" cy="150" rx="300" ry="100" fill="#4b5963"/>
+  </g>
+
+  <g id="leftBuildings">
+    <path d="M0 330 165 290 310 330V700H0z" fill="#101416" stroke="#334047" stroke-width="5"/>
+    <path d="M0 330 165 250 328 330z" fill="#080a0b"/>
+    <rect x="28" y="390" width="240" height="225" fill="#121719" stroke="#293239" stroke-width="4"/>
+    <use href="#window" x="48" y="410" width="86" height="58"/>
+    <use href="#window" x="162" y="410" width="86" height="58"/>
+    <use href="#window" x="48" y="490" width="86" height="58"/>
+    <use href="#window" x="162" y="490" width="86" height="58"/>
+    <rect x="44" y="579" width="206" height="62" fill="#090b0c" stroke="#725132" stroke-width="3"/>
+    <text x="147" y="617" fill="#b89c73" font-family="Georgia,serif" font-size="24" text-anchor="middle" letter-spacing="3">BLACKWOOD GOODS</text>
+
+    <path d="M250 350 425 318 510 357V686H250z" fill="#111619" stroke="#2e3a40" stroke-width="4"/>
+    <path d="M250 350 385 280 530 357z" fill="#090b0c"/>
+    <use href="#window" x="286" y="382" width="78" height="52"/>
+    <use href="#window" x="389" y="382" width="78" height="52"/>
+    <use href="#window" x="286" y="468" width="78" height="52"/>
+    <use href="#window" x="389" y="468" width="78" height="52"/>
+  </g>
+
+  <g id="rightBuildings">
+    <path d="M1100 330 1280 284 1600 330V700H1100z" fill="#111517" stroke="#354147" stroke-width="5"/>
+    <path d="M1084 330 1278 240 1600 330z" fill="#080a0b"/>
+    <rect x="1160" y="365" width="390" height="250" fill="#15191a" stroke="#3a4140" stroke-width="4"/>
+    <use href="#window" x="1194" y="394" width="110" height="72"/>
+    <use href="#window" x="1332" y="394" width="110" height="72"/>
+    <use href="#window" x="1194" y="493" width="110" height="72"/>
+    <use href="#window" x="1332" y="493" width="110" height="72"/>
+    <rect x="1180" y="578" width="320" height="64" fill="#090b0c" stroke="#8c6338" stroke-width="3"/>
+    <text x="1340" y="618" fill="#d0aa73" font-family="Georgia,serif" font-size="29" text-anchor="middle" letter-spacing="5">BLACKWOOD HOTEL</text>
+
+    <path d="M960 360 1120 322 1210 360V690H960z" fill="#101517" stroke="#2d383d" stroke-width="4"/>
+    <path d="M950 360 1084 290 1222 360z" fill="#080a0b"/>
+    <use href="#window" x="988" y="390" width="80" height="54"/>
+    <use href="#window" x="1083" y="390" width="80" height="54"/>
+    <use href="#window" x="988" y="485" width="80" height="54"/>
+    <use href="#window" x="1083" y="485" width="80" height="54"/>
+  </g>
+
+  <g id="clockTower">
+    <rect x="735" y="190" width="132" height="322" fill="#14191b" stroke="#455158" stroke-width="6"/>
+    <path d="M720 190 801 68 882 190z" fill="#0b0d0e" stroke="#3a444a" stroke-width="6"/>
+    <rect x="778" y="104" width="46" height="86" fill="#111618"/>
+    <circle cx="801" cy="255" r="48" fill="#d0b276" stroke="#29231b" stroke-width="9"/>
+    <circle cx="801" cy="255" r="35" fill="#2d302f"/>
+    <path d="M801 255V228M801 255l22 13" stroke="#e0c488" stroke-width="6" stroke-linecap="round"/>
+    <g stroke="#cbb47e" stroke-width="3">
+      <path d="M801 222v8M801 280v8M768 255h8M826 255h8"/>
+    </g>
+    <rect x="761" y="327" width="80" height="122" fill="#0b0f10" stroke="#3d494e" stroke-width="4"/>
+    <path d="M773 449v-92a28 28 0 0 1 56 0v92" fill="#091011"/>
+  </g>
+
+  <path d="M505 900 690 500 912 500 1100 900z" fill="url(#road)" stroke="#343c40" stroke-width="5"/>
+  <path d="M770 900 790 520M854 900 817 520" stroke="#8a7e6b" stroke-opacity="0.24" stroke-width="5" stroke-dasharray="34 35"/>
+  <path d="M0 900 0 660 590 600 505 900z" fill="#0b0e0f"/>
+  <path d="M1600 900V660L1010 600l90 300z" fill="#0b0e0f"/>
+
+  <g opacity="0.62">
+    <path d="M624 720 666 545 706 545 688 720z" fill="#d39858"/>
+    <path d="M905 720 872 545 842 545 856 720z" fill="#c88545"/>
+    <path d="M730 900 766 557 786 557 778 900z" fill="#b33a2f"/>
+    <path d="M880 900 839 557 819 557 830 900z" fill="#7f2826"/>
+  </g>
+
+  <g id="lamps" stroke="#1f2426" stroke-width="8" fill="none">
+    <path d="M382 350v322M1218 350v322M566 392v260M1036 392v260"/>
+    <path d="M352 360h60M1188 360h60M543 400h46M1013 400h46"/>
+  </g>
+  <g fill="#f6c982" stroke="#2a2118" stroke-width="5">
+    <rect x="354" y="334" width="56" height="54" rx="9"/>
+    <rect x="1190" y="334" width="56" height="54" rx="9"/>
+    <rect x="544" y="382" width="44" height="45" rx="8"/>
+    <rect x="1014" y="382" width="44" height="45" rx="8"/>
+  </g>
+  <g opacity="0.55" filter="url(#soft)">
+    <circle cx="382" cy="360" r="95" fill="url(#lamp)"/>
+    <circle cx="1218" cy="360" r="95" fill="url(#lamp)"/>
+    <circle cx="566" cy="405" r="70" fill="url(#lamp)"/>
+    <circle cx="1036" cy="405" r="70" fill="url(#lamp)"/>
+  </g>
+
+  <g id="car">
+    <path d="M720 555q18-52 80-52h48q56 0 78 52l16 84H704z" fill="#111517" stroke="#3f484b" stroke-width="5"/>
+    <path d="M750 548q15-30 51-30h44q35 0 48 30z" fill="#2a353b"/>
+    <rect x="716" y="584" width="58" height="26" rx="9" fill="#b33631"/>
+    <rect x="872" y="584" width="58" height="26" rx="9" fill="#b33631"/>
+    <circle cx="760" cy="642" r="21" fill="#050607"/>
+    <circle cx="890" cy="642" r="21" fill="#050607"/>
+  </g>
+
+  <rect width="1600" height="900" fill="url(#rain)"/>
+  <rect width="1600" height="900" fill="none" stroke="#9c7b52" stroke-opacity="0.18" stroke-width="14"/>
+  <rect width="1600" height="900" fill="url(#sky)" opacity="0.06" filter="url(#grain)"/>
+  <radialGradient id="vignette" cx="50%" cy="45%" r="72%">
+    <stop offset="0.48" stop-color="#000" stop-opacity="0"/>
+    <stop offset="1" stop-color="#000" stop-opacity="0.78"/>
+  </radialGradient>
+  <rect width="1600" height="900" fill="url(#vignette)"/>
+</svg>
