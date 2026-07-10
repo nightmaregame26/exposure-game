@@ -1,38 +1,26 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "prologue": {
     "id": "prologue_arrival",
     "day": 0,
     "chapter": "Prologue",
     "title": "The Road Into Blackwood",
     "pages": [
-      {
-        "text": "Rain follows you for the last forty kilometres. It runs in silver lines across the passenger window, bending the trees and road signs into shapes that vanish before you can understand them."
-      },
-      {
-        "text": "The radio loses the city stations one by one. Music becomes static. Static becomes a local newsreader describing a road closure near Blackwood Forest. The driver turns the volume down before you hear why."
-      },
-      {
-        "text": "BLACKWOOD — POPULATION 18,421. The sign appears through the rain and is gone behind you a second later. Beyond it, the town is all wet roofs, dark pines and people who look at the car without waving."
-      },
-      {
-        "text": "Your new house smells of cardboard, damp timber and someone else's paint. Boxes crowd the hallway. Through the front window, a woman across the street watches from behind a flyscreen. When you look directly at her, she steps back into the dark."
-      },
-      {
-        "text": "Your phone becomes your connection to Blackwood. Messages, contacts, news, notes and evidence will gather there. What people tell you is not always true. What they remember is not always complete."
-      },
-      {
-        "text": "Time matters. Travelling, searching and talking consume the day. Stamina limits what you can safely do. Exposure measures how much attention your investigation attracts—from the town, the police and whoever wants the truth buried."
-      },
-      {
-        "text": "The Memory Book records what you experience. Journeys, conversations, observations and choices become chapters you can reread. A detail that means nothing today may become evidence later."
-      },
-      {
-        "text": "At 6:41 the next morning, your phone vibrates against the floorboards. BLACKWOOD NEWS: Local teenager Noah Williams has been reported missing. Police are asking residents to avoid the forest after dark."
-      },
-      {
-        "text": "Outside, rain taps softly against the glass. Across the street, the woman behind the flyscreen is watching your house again. DAY ONE begins."
-      }
+      {"text": "Rain follows you for the last forty kilometres. It runs in silver lines across the passenger window, bending the trees and road signs into shapes that vanish before you can understand them."},
+      {"text": "The radio loses the city stations one by one. Music becomes static. Static becomes a local newsreader describing a road closure near Blackwood Forest. The driver turns the volume down before you hear why."},
+      {"text": "BLACKWOOD — POPULATION 18,421. The sign appears through the rain and is gone behind you a second later. Beyond it, the town is all wet roofs, dark pines and people who look at the car without waving."},
+      {"text": "Your new house smells of cardboard, damp timber and someone else's paint. Boxes crowd the hallway. Through the front window, a woman across the street watches from behind a flyscreen. When you look directly at her, she steps back into the dark."},
+      {"text": "A box splits open beside the front gate. Books and loose papers slide into the wet grass. A teenager crossing the road stops to help before anyone asks. He introduces himself as Noah Williams."},
+      {"text": "Noah keeps looking past you toward a vehicle parked without lights near the corner. Before he leaves, he lowers his voice. 'Keep the back gate locked tonight.' You ask what he means. He says he was joking, but he does not smile."},
+      {"text": "Sometime after midnight, gravel shifts behind the house. The back gate strikes the fence once. When you switch on the outside light, the yard is empty. Beneath the gate lies a damaged phone wrapped in a clear plastic bag."},
+      {"text": "The phone will not start, but the case contains Noah's school identification card and a memory card. You put everything inside a moving box, unsure whether to contact the police or wait until morning."},
+      {"text": "Your own phone becomes your connection to Blackwood. Messages, contacts, news, notes and evidence will gather there. What people tell you is not always true. What they remember is not always complete."},
+      {"text": "Blackwood follows your real local time. Morning, evening and night change who is available, where people go and what can happen. Meetings can be negotiated, but trust, fear, reliability and suspicion decide whether someone agrees."},
+      {"text": "The Memory Book records what you experience. Journeys, conversations, observations, missed appointments and choices become chapters you can reread. A detail that means nothing today may become evidence later."},
+      {"text": "At 6:41 the next morning, your phone vibrates against the floorboards. BLACKWOOD NEWS: Local teenager Noah Williams has been reported missing. Police are asking residents to avoid the forest after dark."},
+      {"text": "Noah's photograph fills the screen. He is the teenager who helped you at the gate—the last person you remember seeing before the noise behind the house."},
+      {"text": "A second message arrives from Emily Hart: 'You spoke to Noah last night. Café Hollow, 10:00. Please come alone. I need to know what he left with you.'"},
+      {"text": "Outside, rain taps softly against the glass. Across the street, the woman behind the flyscreen is watching your house again. You have Noah's damaged phone, Emily knows about it, and someone else may know too. DAY ONE begins."}
     ]
   },
   "tasks": {
@@ -43,178 +31,118 @@
           {"text": "Café Hollow is fifteen minutes away on foot. The rain has weakened to a cold mist, leaving Main Street bright with reflections and almost empty of people."},
           {"text": "You pass a council worker peeling waterlogged notices from a power pole. Most tear apart in his hands. One remains intact long enough for you to recognise Noah Williams smiling beneath the word MISSING."},
           {"text": "A black ute rolls through the intersection ahead. It is moving too slowly for the empty road. Mud covers most of the rear plate, but three pale numbers remain visible."},
-          {
-            "text": "The ute turns toward Lake Road. You have only a few seconds before it disappears.",
-            "choices": [
-              {"label": "Memorise the visible numbers", "result": "You repeat the three visible numbers until they settle into memory.", "clue": "Partial plate observed on a slow-moving black ute"},
-              {"label": "Take a quick photograph", "result": "The image is blurred, but the black ute and muddy plate are visible.", "clue": "Blurred phone photo of a black ute near Main Street"},
-              {"label": "Ignore it and keep walking", "result": "You tell yourself half the town probably drives a black ute. The thought does not make you feel better."}
-            ]
-          },
+          {"text": "The ute turns toward Lake Road. You have only a few seconds before it disappears.", "choices": [
+            {"label": "Memorise the visible numbers", "result": "You repeat the three visible numbers until they settle into memory.", "clue": "Partial plate observed on a slow-moving black ute"},
+            {"label": "Take a quick photograph", "result": "The image is blurred, but the black ute and muddy plate are visible.", "clue": "Blurred phone photo of a black ute near Main Street"},
+            {"label": "Ignore it and keep walking", "result": "You tell yourself half the town probably drives a black ute. The thought does not make you feel better."}
+          ]},
           {"text": "Café Hollow appears at the end of the block, its windows fogged from within. Behind the glass, Emily Hart wipes the same table twice while watching the television above the counter."}
         ]
       },
-      "return": {
-        "title": "What Emily Did Not Say",
-        "pages": [
-          {"text": "The café door closes behind you with a tired bell. Emily's words follow you into the cold: Noah felt watched. A parked vehicle. An argument she nearly chose not to mention."},
-          {"text": "You replay her pauses more carefully than her answers. Fear can make a person hesitate. So can loyalty."},
-          {"text": "By the time you reach home, Café Hollow has already become a chapter in your Memory Book. You are no longer certain whether Emily asked for help—or warned you away."}
-        ]
-      }
+      "return": {"title": "What Emily Did Not Say", "pages": [
+        {"text": "The café door closes behind you with a tired bell. Emily's words follow you into the cold: Noah felt watched. A parked vehicle. An argument she nearly chose not to mention."},
+        {"text": "You replay her pauses more carefully than her answers. Fear can make a person hesitate. So can loyalty."},
+        {"text": "By the time you reach home, Café Hollow has already become a chapter in your Memory Book. You are no longer certain whether Emily asked for help—or warned you away."}
+      ]}
     },
     "noah": {
-      "outbound": {
-        "title": "The House With the Open Window",
-        "pages": [
-          {"text": "Noah's street sits behind the school where the houses become smaller and the gardens less certain. Police tyre marks darken the wet curb outside number seventeen."},
-          {"text": "A neighbour drags a rubbish bin to the road and watches you approach. He stops moving when you look back."},
-          {"text": "One upstairs window is open despite the rain. The curtain lifts and falls like someone breathing behind it."}
-        ]
-      },
-      "return": {
-        "title": "A Room Left Behind",
-        "pages": [
-          {"text": "Noah's mother closes the door gently, as though a louder sound might damage whatever hope remains inside the house."},
-          {"text": "The open window stays with you. So do the footprints, the silence and the ordinary objects waiting for someone who may never return."}
-        ]
-      }
+      "outbound": {"title": "The House With the Open Window", "pages": [
+        {"text": "Noah's street sits behind the school where the houses become smaller and the gardens less certain. Police tyre marks darken the wet curb outside number seventeen."},
+        {"text": "A neighbour drags a rubbish bin to the road and watches you approach. He stops moving when you look back."},
+        {"text": "One upstairs window is open despite the rain. The curtain lifts and falls like someone breathing behind it."}
+      ]},
+      "return": {"title": "A Room Left Behind", "pages": [
+        {"text": "Noah's mother closes the door gently, as though a louder sound might damage whatever hope remains inside the house."},
+        {"text": "The open window stays with you. So do the footprints, the silence and the ordinary objects waiting for someone who may never return."}
+      ]}
     },
     "forest": {
-      "outbound": {
-        "title": "Where the Town Ends",
-        "pages": [
-          {"text": "The sealed road gives way to gravel, then mud. Blackwood Forest begins without a gate or warning—only a sudden wall of trees where daylight seems to lose confidence."},
-          {"text": "Someone has tied strips of red search tape to the lower branches. Several point deeper into the forest. One points back toward town."},
-          {"text": "Your phone signal drops to a single bar. Somewhere beyond the path, wood knocks against wood in a slow, deliberate rhythm."}
-        ]
-      },
-      "return": {
-        "title": "The Trees Behind You",
-        "pages": [
-          {"text": "You leave the forest faster than you entered it. The path seems shorter on the way out, although the light has faded and every tree looks newly unfamiliar."},
-          {"text": "At the road, you turn back once. Nothing follows. A branch moves after the wind has stopped."}
-        ]
-      }
+      "outbound": {"title": "Where the Town Ends", "pages": [
+        {"text": "The sealed road gives way to gravel, then mud. Blackwood Forest begins without a gate or warning—only a sudden wall of trees where daylight seems to lose confidence."},
+        {"text": "Someone has tied strips of red search tape to the lower branches. Several point deeper into the forest. One points back toward town."},
+        {"text": "Your phone signal drops to a single bar. Somewhere beyond the path, wood knocks against wood in a slow, deliberate rhythm."}
+      ]},
+      "return": {"title": "The Trees Behind You", "pages": [
+        {"text": "You leave the forest faster than you entered it. The path seems shorter on the way out, although the light has faded and every tree looks newly unfamiliar."},
+        {"text": "At the road, you turn back once. Nothing follows. A branch moves after the wind has stopped."}
+      ]}
     },
     "mason": {
-      "outbound": {
-        "title": "Evidence, Not Fear",
-        "pages": [
-          {"text": "The police station occupies an old brick building beside Town Hall. News vans have already claimed the best parking spaces."},
-          {"text": "A reporter speaks into a camera beneath the awning. Behind her, an officer carries a clear evidence bag through a side entrance before anyone can ask what is inside."},
-          {"text": "Detective Mason is visible through the front glass, standing over a desk crowded with maps. He looks like a man trying to hold several bad possibilities in his head at once."}
-        ]
-      },
-      "return": {
-        "title": "The Weight of Proof",
-        "pages": [
-          {"text": "Mason's requirements sound simple outside the station: motive, opportunity, physical evidence, a reliable witness."},
-          {"text": "Simple things become difficult when everyone in town has a reason to protect someone."}
-        ]
-      }
+      "outbound": {"title": "Evidence, Not Fear", "pages": [
+        {"text": "The police station occupies an old brick building beside Town Hall. News vans have already claimed the best parking spaces."},
+        {"text": "A reporter speaks into a camera beneath the awning. Behind her, an officer carries a clear evidence bag through a side entrance before anyone can ask what is inside."},
+        {"text": "Detective Mason is visible through the front glass, standing over a desk crowded with maps. He looks like a man trying to hold several bad possibilities in his head at once."}
+      ]},
+      "return": {"title": "The Weight of Proof", "pages": [
+        {"text": "Mason's requirements sound simple outside the station: motive, opportunity, physical evidence, a reliable witness."},
+        {"text": "Simple things become difficult when everyone in town has a reason to protect someone."}
+      ]}
     },
     "alex": {
-      "outbound": {
-        "title": "Oil on the Rain",
-        "pages": [
-          {"text": "Vale's Garage sits beyond the service station where Main Street narrows toward the old logging roads."},
-          {"text": "The air changes before you reach it—wet bitumen, petrol and warm engine oil. Three utes wait beside the workshop. One is black."},
-          {"text": "Alex Vale is beneath an open bonnet. He looks up before your shoes touch the concrete, as though he has been expecting someone."}
-        ]
-      },
-      "return": {
-        "title": "Half the Town Drives a Ute",
-        "pages": [
-          {"text": "Alex's answer follows you down the road: half the town drives a ute."},
-          {"text": "It was not what he said that stays with you. It was the half-second before he said it."}
-        ]
-      }
+      "outbound": {"title": "Oil on the Rain", "pages": [
+        {"text": "Vale's Garage sits beyond the service station where Main Street narrows toward the old logging roads."},
+        {"text": "The air changes before you reach it—wet bitumen, petrol and warm engine oil. Three utes wait beside the workshop. One is black."},
+        {"text": "Alex Vale is beneath an open bonnet. He looks up before your shoes touch the concrete, as though he has been expecting someone."}
+      ]},
+      "return": {"title": "Half the Town Drives a Ute", "pages": [
+        {"text": "Alex's answer follows you down the road: half the town drives a ute."},
+        {"text": "It was not what he said that stays with you. It was the half-second before he said it."}
+      ]}
     },
     "mara": {
-      "outbound": {
-        "title": "The Woman Behind the Flyscreen",
-        "pages": [
-          {"text": "Mara Bell lives across from you, close enough to know when your lights go out and when they come back on."},
-          {"text": "Her porch is crowded with dead pot plants and old newspapers tied into careful bundles. The newest paper is folded to Noah's photograph."},
-          {"text": "Before you knock, Mara speaks from behind the flyscreen. She already knows why you came."}
-        ]
-      },
-      "return": {
-        "title": "Headlights Without an Engine",
-        "pages": [
-          {"text": "The distance between Mara's porch and your front door is less than twenty metres. Tonight it feels exposed."},
-          {"text": "You look for tyre marks near the curb. Rain has washed the road clean."}
-        ]
-      }
+      "outbound": {"title": "The Woman Behind the Flyscreen", "pages": [
+        {"text": "Mara Bell lives across from you, close enough to know when your lights go out and when they come back on."},
+        {"text": "Her porch is crowded with dead pot plants and old newspapers tied into careful bundles. The newest paper is folded to Noah's photograph."},
+        {"text": "Before you knock, Mara speaks from behind the flyscreen. She already knows why you came."}
+      ]},
+      "return": {"title": "Headlights Without an Engine", "pages": [
+        {"text": "The distance between Mara's porch and your front door is less than twenty metres. Tonight it feels exposed."},
+        {"text": "You look for tyre marks near the curb. Rain has washed the road clean."}
+      ]}
     },
     "sarah": {
-      "outbound": {
-        "title": "The Gazette Keeps Everything",
-        "pages": [
-          {"text": "The Blackwood Gazette operates above a closed pharmacy. Its staircase is narrow and lined with framed front pages documenting fires, elections and disappearances the town no longer discusses."},
-          {"text": "One frame is missing from the wall. A pale rectangle marks where it hung."},
-          {"text": "Upstairs, Sarah Pike's office light is on. Paper covers every surface except the chair waiting opposite her desk."}
-        ]
-      },
-      "return": {
-        "title": "A Story Cannot Be Unpublished",
-        "pages": [
-          {"text": "Sarah wants evidence, but she also wants a story. In Blackwood, those things may not always be the same."},
-          {"text": "Outside the Gazette, someone has removed Noah's poster from the pharmacy window. Four pieces of tape remain."}
-        ]
-      }
+      "outbound": {"title": "The Gazette Keeps Everything", "pages": [
+        {"text": "The Blackwood Gazette operates above a closed pharmacy. Its staircase is narrow and lined with framed front pages documenting fires, elections and disappearances the town no longer discusses."},
+        {"text": "One frame is missing from the wall. A pale rectangle marks where it hung."},
+        {"text": "Upstairs, Sarah Pike's office light is on. Paper covers every surface except the chair waiting opposite her desk."}
+      ]},
+      "return": {"title": "A Story Cannot Be Unpublished", "pages": [
+        {"text": "Sarah wants evidence, but she also wants a story. In Blackwood, those things may not always be the same."},
+        {"text": "Outside the Gazette, someone has removed Noah's poster from the pharmacy window. Four pieces of tape remain."}
+      ]}
     },
     "anonymous": {
-      "outbound": {
-        "title": "Come Alone",
-        "pages": [
-          {"text": "The message contains no greeting and no name. COME ALONE. LAKE ROAD. 4:30."},
-          {"text": "Lake Road runs beyond the last houses, following dark water through reeds and abandoned picnic grounds. There are no pedestrians and nowhere nearby to ask for help."},
-          {"text": "At 4:27, a vehicle passes in the opposite direction. The driver turns their face away."},
-          {"text": "At 4:30 exactly, you see the paper bag waiting on the centre line."}
-        ]
-      },
-      "return": {
-        "title": "You Are Learning",
-        "pages": [
-          {"text": "The road behind you remains empty. That does not mean you are alone."},
-          {"text": "Whoever arranged the meeting knew you would come. More troublingly, they knew what would make you curious enough to ignore the danger."}
-        ]
-      }
+      "outbound": {"title": "Come Alone", "pages": [
+        {"text": "The message contains no greeting and no name. COME ALONE. LAKE ROAD. 4:30."},
+        {"text": "Lake Road runs beyond the last houses, following dark water through reeds and abandoned picnic grounds. There are no pedestrians and nowhere nearby to ask for help."},
+        {"text": "At 4:27, a vehicle passes in the opposite direction. The driver turns their face away."},
+        {"text": "At 4:30 exactly, you see the paper bag waiting on the centre line."}
+      ]},
+      "return": {"title": "You Are Learning", "pages": [
+        {"text": "The road behind you remains empty. That does not mean you are alone."},
+        {"text": "Whoever arranged the meeting knew you would come. More troublingly, they knew what would make you curious enough to ignore the danger."}
+      ]}
     },
     "library": {
-      "outbound": {
-        "title": "Names in Old Newsprint",
-        "pages": [
-          {"text": "Blackwood Library is warm, quiet and nearly empty. Rain ticks against the high windows while the archive computer struggles awake."},
-          {"text": "The librarian asks what year you need. When you say you are looking for disappearances, her hand stops above the keyboard."},
-          {"text": "She points you toward the microfilm room without asking another question."}
-        ]
-      },
-      "return": {
-        "title": "A Pattern Beneath the Dates",
-        "pages": [
-          {"text": "Old articles reduce missing people to columns of facts: age, height, last known location, what they were wearing."},
-          {"text": "The names are different. The forest remains."}
-        ]
-      }
+      "outbound": {"title": "Names in Old Newsprint", "pages": [
+        {"text": "Blackwood Library is warm, quiet and nearly empty. Rain ticks against the high windows while the archive computer struggles awake."},
+        {"text": "The librarian asks what year you need. When you say you are looking for disappearances, her hand stops above the keyboard."},
+        {"text": "She points you toward the microfilm room without asking another question."}
+      ]},
+      "return": {"title": "A Pattern Beneath the Dates", "pages": [
+        {"text": "Old articles reduce missing people to columns of facts: age, height, last known location, what they were wearing."},
+        {"text": "The names are different. The forest remains."}
+      ]}
     },
     "rest": {
-      "outbound": {
-        "title": "The House After Dark",
-        "pages": [
-          {"text": "You lock the front door, check it, then check it again. Rainwater moves through the gutter above the bedroom like quiet footsteps."},
-          {"text": "Rest restores the body more easily than the mind. Every conversation returns in fragments when you close your eyes."},
-          {"text": "Somewhere outside, a vehicle slows near the house and continues without stopping."}
-        ]
-      },
-      "return": {
-        "title": "A Little Strength Returned",
-        "pages": [
-          {"text": "You wake without knowing how long you slept. The room is darker. Your phone shows no missed calls, but the battery has dropped nine percent."}
-        ]
-      }
+      "outbound": {"title": "The House After Dark", "pages": [
+        {"text": "You lock the front door, check it, then check it again. Rainwater moves through the gutter above the bedroom like quiet footsteps."},
+        {"text": "Rest restores the body more easily than the mind. Every conversation returns in fragments when you close your eyes."},
+        {"text": "Somewhere outside, a vehicle slows near the house and continues without stopping."}
+      ]},
+      "return": {"title": "A Little Strength Returned", "pages": [
+        {"text": "You wake without knowing how long you slept. The room is darker. Your phone shows no missed calls, but the battery has dropped nine percent."}
+      ]}
     }
   }
 }
