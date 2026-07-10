@@ -24,10 +24,15 @@ const FOCUS_COSTS = {
 export default async function handler(req, res) {
   if (!prepareApi(req, res, { methods: ['POST'], bucket: 'talk', limit: 24, maxBodyBytes: 24_000 })) return;
 
-  if (!process.env.OPENAI_API_KEY) {
+  const model = process.env.OPENAI_MODEL;
+  if (!process.env.OPENAI_API_KEY || !model) {
     return res.status(503).json({
       error: 'OPENAI_NOT_CONFIGURED',
-      reply: null
+      reply: null,
+      missing: [
+        !process.env.OPENAI_API_KEY ? 'OPENAI_API_KEY' : null,
+        !model ? 'OPENAI_MODEL' : null
+      ].filter(Boolean)
     });
   }
 
@@ -106,7 +111,7 @@ export default async function handler(req, res) {
 
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const response = await client.chat.completions.create({
-      model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
+      model,
       temperature: 0.75,
       max_tokens: 220,
       response_format: { type: 'json_object' },
