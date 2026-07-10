@@ -6,51 +6,54 @@ The player has just moved to town. Noah Williams helps them during the move, war
 
 ## Current Milestone
 
-**Milestone 3 — The First Case Loop**
+**Phase 2 — Premium Vertical Slice**
 
-Exposure is presented as an interactive crime novel connected to the player's real local time. Travel, appointments, relationships and suspicion affect what happens. The repository is now prepared for a Vercel deployment that serves both the game and its protected AI conversation endpoint.
+Exposure is now presented through a bespoke dark crime-noir interface built around the Living Book identity. The current vertical slice upgrades the playable Home, Blackwood Map and NPC scene experience without removing the real-time, appointment, relationship, Memory Book or AI foundations.
 
 Includes:
 
+- Premium commercial-style Home investigation dashboard
+- Custom illustrated Blackwood main-street artwork
+- Dynamic Living Time date and period presentation
+- Blackwood News, Stamina, Exposure and Social Tension panels
+- Current objectives, upcoming appointments and Memory Book previews
+- Custom illustrated interactive Blackwood town map
+- Clickable location markers with locked, available and high-risk states
+- Location intelligence and direct travel actions from the map
+- Custom Café Hollow scene artwork
+- Custom Emily Hart portrait artwork
+- Premium NPC scene layout with Trust, Focus, Fear and Suspicion
+- Restyled narrative reader, dialogue choices and open conversation input
+- Responsive mobile-first navigation and layout
 - Revised opening prologue connecting the player directly to Noah
-- Real local time displayed as Blackwood time
 - Day, evening and night mission variations
 - Living appointment system and phone-based rescheduling
-- NPC willingness based on trust, affection, respect, reliability, fear, suspicion, interest and schedule conflicts
 - Social Score and player-suspicion states
 - `While You Were Away` Memory Book chapters
-- Book-style reader, travel chapters and saved evidence
 - Real AI scene-dialogue bridge with automatic local fallback
-- AI health indicator inside NPC scenes
-- Server-side Focus, Trust, Stress, Fear, Interest, Suspicion and Exposure updates
 - Protected `/api/talk`, `/api/director` and `/api/killer` routes
-- API origin checks, body limits, prototype rate limiting and no-store headers
-- Vercel deployment configuration and environment-variable template
-- Automated JavaScript and JSON validation through GitHub Actions
+- Automated JavaScript, JSON and required-asset validation
 
 ## Play Current Static Build
 
 ```text
-https://nightmaregame26.github.io/exposure-game/?v=ai1
+https://nightmaregame26.github.io/exposure-game/?v=premium1
 ```
 
-GitHub Pages runs the game with local dialogue fallback. Live AI dialogue becomes available on the Vercel deployment after `OPENAI_API_KEY` is configured.
+GitHub Pages runs the full visual and gameplay prototype with local dialogue fallback. Live AI dialogue becomes available on the Vercel deployment after the required OpenAI environment variables are configured.
 
-## Deploy Live AI Build
+## Premium UI Files
 
-Import this repository into Vercel, then add:
+- `premium-ui.css` — visual design system and responsive premium interface
+- `premium-ui.js` — dashboard, social tension, appointment preview, map and scene enhancements
+- `assets/blackwood-main-street.svg` — custom Home artwork
+- `assets/cafe-hollow.svg` — custom Café Hollow artwork
+- `assets/blackwood-map.svg` — custom map illustration
+- `assets/emily-hart.svg` — custom fictional character portrait
 
-```text
-OPENAI_API_KEY=<secret key>
-OPENAI_MODEL=<supported JSON-capable chat model>
-APP_ORIGIN=<production Exposure URL>
-```
+## Core Files
 
-Full instructions are in `docs/VERCEL_DEPLOYMENT.md`.
-
-## Main Files
-
-- `index.html` — game, Phone, scene and reader interface
+- `index.html` — game, dashboard, Phone, map, scene and reader interface
 - `app.js` — current game simulation and local dialogue fallback
 - `ai-bridge.js` — live AI conversation connection and fallback handling
 - `book-engine.js` — prologue, travel chapters and Memory Book
@@ -65,6 +68,18 @@ Full instructions are in `docs/VERCEL_DEPLOYMENT.md`.
 - `.env.example` — environment-variable names without secrets
 - `data/book-content.json` — authored prologue and travel content
 - `data/living-appointments.json` — schedules, social defaults and time-based mission outcomes
+
+## Deploy Live AI Build
+
+Import this repository into Vercel, then add:
+
+```text
+OPENAI_API_KEY=<secret key>
+OPENAI_MODEL=<supported JSON-capable chat model>
+APP_ORIGIN=<production Exposure URL>
+```
+
+Full instructions are in `docs/VERCEL_DEPLOYMENT.md`.
 
 ## Project Documents
 
@@ -88,9 +103,9 @@ Full instructions are in `docs/VERCEL_DEPLOYMENT.md`.
 
 ## Next Build Block
 
-- Deploy the repository through the owner's Vercel account
-- Confirm the configured OpenAI model is available to the account
-- Test Emily's complete AI conversation and appointment flow
-- Add server-authoritative player sessions and persistent rate limiting
-- Add Mason's formal witness/suspect interview
-- Connect AI conversation memory to the social graph and Director
+- Finish the complete Emily investigation loop using the premium layout
+- Add Noah's house, Police Station and forest artwork
+- Add unique portraits for Mason, Sarah, Alex and Mara
+- Build the evidence-board interface
+- Add map travel transitions and location-specific ambient effects
+- Deploy and test the live AI backend
