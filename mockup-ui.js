@@ -14,8 +14,28 @@
   const navIds = ['home','book','map','contacts','phone','suspects','diary','case'];
   let lastSceneHtml = '';
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once:true });
-  else init();
+  boot();
+
+  async function boot(){
+    try{
+      await loadScript('assets/mockup-data/home-1.js?v=approved-images-3');
+      await loadScript('assets/mockup-data/home-2.js?v=approved-images-3');
+    }catch(error){
+      console.warn('Approved home artwork could not be preloaded.', error);
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+    else init();
+  }
+
+  function loadScript(src){
+    return new Promise((resolve,reject)=>{
+      const script=document.createElement('script');
+      script.src=src;
+      script.onload=resolve;
+      script.onerror=reject;
+      document.head.appendChild(script);
+    });
+  }
 
   function init(){
     buildHome();
@@ -23,14 +43,14 @@
     buildEmilyScene();
     observeDialogue();
     syncMode();
-    setInterval(syncMode, 250);
+    setInterval(syncMode,250);
   }
 
   function buildHome(){
-    const screen = document.getElementById('home');
-    if (!screen || document.getElementById('exactHome')) return;
+    const screen=document.getElementById('home');
+    if(!screen||document.getElementById('exactHome')) return;
     wrapLegacy(screen);
-    const stage = makeStage('exactHome','home');
+    const stage=makeStage('exactHome','home');
     addHit(stage,68.5,31.1,25.5,4.5,'Enter Blackwood',()=>openTab('map'));
     addHit(stage,4.0,61.0,45.5,14.3,'Open current chapter',()=>openTab('book'));
     addHit(stage,51.0,64.0,44.0,3.6,'Visit Blackwood Library',()=>triggerTask('library'));
@@ -42,11 +62,11 @@
   }
 
   function buildMap(){
-    const screen = document.getElementById('map');
-    if (!screen || document.getElementById('exactMap')) return;
+    const screen=document.getElementById('map');
+    if(!screen||document.getElementById('exactMap')) return;
     wrapLegacy(screen);
-    const stage = makeStage('exactMap','map');
-    const locations = [
+    const stage=makeStage('exactMap','map');
+    const locations=[
       [43,20,13,8,'Water Tower',null],
       [70,24,22,10,'Sawmill',null],
       [24,28,21,10,'Your House','rest'],
@@ -68,11 +88,11 @@
   }
 
   function buildEmilyScene(){
-    const scene = document.querySelector('#sceneOverlay .scene');
-    if (!scene || document.getElementById('exactEmily')) return;
-    const stage = makeStage('exactEmily','scene');
+    const scene=document.querySelector('#sceneOverlay .scene');
+    if(!scene||document.getElementById('exactEmily')) return;
+    const stage=makeStage('exactEmily','scene');
     stage.classList.add('exact-scene-stage');
-    stage.insertAdjacentHTML('beforeend', `
+    stage.insertAdjacentHTML('beforeend',`
       <div id="exactLiveReply" class="exact-live-reply"></div>
       <textarea id="exactTalkInput" class="exact-talk-input" maxlength="400" placeholder="Say anything to Emily..."></textarea>
       <button id="exactTalkSend" class="exact-talk-send" type="button" aria-label="Send message">➤</button>
@@ -95,7 +115,7 @@
     const art=document.createElement('div');
     art.className='exact-art';
 
-    if(type==='home' && window.__EXPOSURE_HOME){
+    if(type==='home'&&window.__EXPOSURE_HOME){
       art.classList.add('one');
       const image=document.createElement('img');
       image.src=`data:image/webp;base64,${window.__EXPOSURE_HOME}`;
@@ -103,7 +123,7 @@
       image.draggable=false;
       image.addEventListener('error',()=>fallbackStrips(art,'home'));
       art.appendChild(image);
-    } else {
+    }else{
       const prefix=type==='map'?'map':type==='scene'?'scene':'home';
       fallbackStrips(art,prefix);
     }
@@ -120,7 +140,7 @@
       image.src=`assets/mockups/${prefix}-${i}.svg?v=approved-images-3`;
       image.alt='';
       image.draggable=false;
-      image.addEventListener('error',()=>{ image.style.visibility='hidden'; });
+      image.addEventListener('error',()=>{image.style.visibility='hidden';});
       art.appendChild(image);
     }
   }
@@ -229,6 +249,9 @@
   function showToast(text){
     let toast=document.getElementById('exactToast');
     if(!toast){toast=document.createElement('div');toast.id='exactToast';toast.className='exact-toast';document.body.appendChild(toast);}
-    toast.textContent=text;toast.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>toast.classList.remove('show'),2400);
+    toast.textContent=text;
+    toast.classList.add('show');
+    clearTimeout(showToast.timer);
+    showToast.timer=setTimeout(()=>toast.classList.remove('show'),2400);
   }
 })();
