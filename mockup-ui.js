@@ -27,6 +27,7 @@
   let lastSceneHtml='';
   let dockStartY=0;
   let dockDragging=false;
+  let dockMoved=false;
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
   else init();
@@ -228,7 +229,11 @@
       </div>
     `;
     document.body.appendChild(dock);
-    dock.querySelector('#gameDockGrab').addEventListener('click',toggleDock);
+    const grab=dock.querySelector('#gameDockGrab');
+    grab.addEventListener('click',()=>{
+      if(dockMoved){dockMoved=false;return;}
+      toggleDock();
+    });
     dock.querySelectorAll('[data-dock-tab]').forEach(button=>button.addEventListener('click',()=>{
       openTab(button.dataset.dockTab);
       closeDock();
@@ -236,16 +241,21 @@
     dock.addEventListener('pointerdown',event=>{
       dockStartY=event.clientY;
       dockDragging=true;
+      dockMoved=false;
       dock.setPointerCapture?.(event.pointerId);
+    });
+    dock.addEventListener('pointermove',event=>{
+      if(dockDragging&&Math.abs(event.clientY-dockStartY)>8)dockMoved=true;
     });
     dock.addEventListener('pointerup',event=>{
       if(!dockDragging)return;
       dockDragging=false;
       const delta=event.clientY-dockStartY;
-      if(delta<-34)openDock();
-      if(delta>34)closeDock();
+      if(delta<-34){dockMoved=true;openDock();}
+      if(delta>34){dockMoved=true;closeDock();}
+      setTimeout(()=>{dockMoved=false;},220);
     });
-    dock.addEventListener('pointercancel',()=>{dockDragging=false;});
+    dock.addEventListener('pointercancel',()=>{dockDragging=false;dockMoved=false;});
   }
 
   function brandMarkup(){
