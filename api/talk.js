@@ -1,6 +1,5 @@
 import OpenAI from 'openai';
-
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+import { prepareApi } from './_security.js';
 
 const LIMITS = {
   freeMaxPlayerMessageCharacters: 400,
@@ -23,8 +22,13 @@ const FOCUS_COSTS = {
 };
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'POST only' });
+  if (!prepareApi(req, res, { methods: ['POST'], bucket: 'talk', limit: 24, maxBodyBytes: 24_000 })) return;
+
+  if (!process.env.OPENAI_API_KEY) {
+    return res.status(503).json({
+      error: 'OPENAI_NOT_CONFIGURED',
+      reply: null
+    });
   }
 
   try {
@@ -49,14 +53,19 @@ export default async function handler(req, res) {
       conversationIntent = 'caseQuestion'
     } = req.body || {};
 
-    if (!npcId || !playerMessage) {
+    const cleanMessage = String(playerMessage || '').trim();
+    if (!npcId || !cleanMessage) {
       return res.status(400).json({ error: 'npcId and playerMessage are required' });
     }
 
-    const maxLength = tier === 'premium' ? LIMITS.premiumMaxPlayerMessageCharacters : LIMITS.freeMaxPlayerMessageCharacters;
-    const maxReplies = tier === 'premium' ? LIMITS.premiumMaxAiRepliesPerScene : LIMITS.freeMaxAiRepliesPerScene;
+    const maxLength = tier === 'premium'
+      ? LIMITS.premiumMaxPlayerMessageCharacters
+      : LIMITS.freeMaxPlayerMessageCharacters;
+    const maxReplies = tier === 'premium'
+      ? LIMITS.premiumMaxAiRepliesPerScene
+      : LIMITS.freeMaxAiRepliesPerScene;
 
-    if (playerMessage.length > maxLength) {
+    if (cleanMessage.length > maxLength) {
       return res.status(400).json({
         error: 'MESSAGE_TOO_LONG',
         reply: `Keep it shorter. This character can only process ${maxLength} characters at once.`
@@ -70,49 +79,60 @@ export default async function handler(req, res) {
         trustChange: 0,
         exposureChange: 0,
         focusChange: 0,
+        stressChange: 0,
+        fearChange: 0,
+        interestChange: 0,
+        suspicionChange: 0,
         newEvidenceId: null,
         memory: null
       });
     }
 
     const focusCost = FOCUS_COSTS[conversationIntent] ?? FOCUS_COSTS.caseQuestion;
-
     if (Number(focus) <= 8) {
       return res.status(200).json({
         reply: 'They look exhausted and guarded. “Not now. I cannot talk about this.”',
         trustChange: 0,
         exposureChange: 0,
         focusChange: 0,
+        stressChange: 0,
+        fearChange: 0,
+        interestChange: 0,
+        suspicionChange: 0,
         newEvidenceId: null,
         memory: `${npcName || npcId} refused to continue because their Focus was too low.`
       });
     }
 
+    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const response = await client.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
       temperature: 0.75,
       max_tokens: 220,
       response_format: { type: 'json_object' },
       messages: [
         {
           role: 'system',
-          content: `You are roleplaying as ${npcName || npcId} in Exposure, a serial killer mystery game set in Blackwood.
+          content: `You are roleplaying as ${npcName || npcId} in Exposure, an original small-town psychological crime mystery set in Blackwood.
 
 Rules:
-- Stay in character.
-- Do not reveal the killer.
-- Only use facts this NPC would know.
-- Only reveal secrets from allowedSecrets.
-- Never invent final evidence.
-- Do not contradict the season blueprint.
-- Keep replies under ${LIMITS.maxAiReplyWords} words.
-- The NPC has human state: trust=${trust}, focus=${focus}, stress=${stress}, fear=${fear}, interest=${interest}, suspicionTowardPlayer=${suspicionTowardPlayer}.
-- Low focus means short guarded answers.
-- High stress or fear means evasive, defensive, or emotional answers.
-- High trust and high interest allows more openness.
-- Return JSON only.
+- Stay fully in character.
+- Never reveal or guess the killer's identity.
+- Only use facts this NPC would reasonably know.
+- Only reveal secrets included in allowedSecrets.
+- Never invent final evidence, forensic proof, a confession, or a solved case.
+- Do not contradict established facts or the NPC memory supplied to you.
+- Treat the player as a possible witness, suspect, ally or threat according to the supplied social state.
+- Low Focus means short, guarded answers.
+- High Stress or Fear means evasive, defensive or emotional answers.
+- High Trust and Interest permit more openness, but Fear or Suspicion can still override Trust.
+- Keep the spoken reply under ${LIMITS.maxAiReplyWords} words.
+- Return valid JSON only.
 
-Return:
+Current state:
+trust=${trust}, focus=${focus}, stress=${stress}, fear=${fear}, interest=${interest}, suspicionTowardPlayer=${suspicionTowardPlayer}
+
+Return exactly this shape:
 {
   "reply": "NPC dialogue",
   "trustChange": 0,
@@ -123,7 +143,7 @@ Return:
   "interestChange": 0,
   "suspicionChange": 0,
   "newEvidenceId": null,
-  "memory": "what this NPC remembers"
+  "memory": "one concise fact this NPC will remember"
 }`
         },
         {
@@ -131,7 +151,7 @@ Return:
           content: JSON.stringify({
             npcId,
             npcName,
-            playerMessage,
+            playerMessage: cleanMessage,
             day,
             time,
             location,
@@ -141,9 +161,9 @@ Return:
             fear,
             interest,
             suspicionTowardPlayer,
-            knownFacts: knownFacts.slice(0, 12),
-            npcMemory: npcMemory.slice(0, 8),
-            allowedSecrets: allowedSecrets.slice(0, 6),
+            knownFacts: safeStringArray(knownFacts, 12, 220),
+            npcMemory: safeStringArray(npcMemory, 8, 220),
+            allowedSecrets: safeStringArray(allowedSecrets, 6, 220),
             conversationIntent,
             focusCost
           })
@@ -151,8 +171,7 @@ Return:
       ]
     });
 
-    const parsed = JSON.parse(response.choices[0].message.content || '{}');
-
+    const parsed = JSON.parse(response.choices?.[0]?.message?.content || '{}');
     return res.status(200).json({
       reply: limitWords(String(parsed.reply || 'They hesitate, like something is being left unsaid.'), LIMITS.maxAiReplyWords),
       trustChange: clampNumber(parsed.trustChange, -LIMITS.maxTrustDeltaPerMessage, LIMITS.maxTrustDeltaPerMessage),
@@ -162,13 +181,19 @@ Return:
       fearChange: clampNumber(parsed.fearChange, -10, 10),
       interestChange: clampNumber(parsed.interestChange, -10, 10),
       suspicionChange: clampNumber(parsed.suspicionChange, -10, 10),
-      newEvidenceId: parsed.newEvidenceId || null,
-      memory: parsed.memory || null
+      newEvidenceId: typeof parsed.newEvidenceId === 'string' ? parsed.newEvidenceId.slice(0, 100) : null,
+      memory: typeof parsed.memory === 'string' ? parsed.memory.slice(0, 240) : null
     });
   } catch (error) {
+    console.error('Exposure talk endpoint failed', {
+      name: error?.name,
+      status: error?.status,
+      message: error?.message
+    });
+
     return res.status(500).json({
       error: 'AI_FAILED',
-      reply: 'They hesitate, like something is being left unsaid.',
+      reply: null,
       trustChange: 0,
       exposureChange: 0,
       focusChange: 0,
@@ -190,5 +215,13 @@ function clampNumber(value, min, max) {
 function limitWords(text, maxWords) {
   const words = text.split(/\s+/).filter(Boolean);
   if (words.length <= maxWords) return text;
-  return words.slice(0, maxWords).join(' ') + '...';
+  return `${words.slice(0, maxWords).join(' ')}...`;
+}
+
+function safeStringArray(value, maxItems, maxLength) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .slice(0, maxItems)
+    .map(item => String(item || '').trim().slice(0, maxLength))
+    .filter(Boolean);
 }
