@@ -12,23 +12,23 @@
     <header class="topbar">
       <div>
         <h1>EXPOSURE</h1>
-        <p class="sub">Milestone 1 · The Book</p>
+        <p class="sub">Milestone 2 · The Living Book</p>
       </div>
       <button class="mini" id="resetBtn">Reset</button>
     </header>
 
     <section id="home" class="screen active">
-      <div class="hero"><div><h2>Welcome to Blackwood</h2><p>A living crime novel where every journey becomes part of the investigation.</p></div></div>
+      <div class="hero"><div><h2>Welcome to Blackwood</h2><p>A living crime novel where the real clock, every relationship and every missed meeting changes the investigation.</p></div></div>
       <div class="card tutorial"><h2>📖 Reader Guidance</h2><p id="tutorialText"></p><button id="tutorialNext">Next tip</button></div>
       <div class="card"><h2>📺 Blackwood News</h2><p id="news" class="news"></p></div>
-      <div class="card"><h2>🕒 Status</h2><div class="grid"><div class="stat"><span>Day</span><strong id="day"></strong></div><div class="stat"><span>Time</span><strong id="time"></strong></div><div class="stat"><span>⚡ Player Stamina</span><strong id="stamina"></strong><div class="bar"><i id="staminaBar"></i></div></div><div class="stat"><span>⚠️ Exposure</span><strong id="exposure"></strong><div class="bar red"><i id="exposureBar"></i></div></div></div></div>
-      <div class="card"><h2>🎯 Today’s Chapters</h2><p class="small">Choose where to go. The Memory Book will open first and record the journey, observations and choices before the destination scene begins.</p><div id="tasks"></div></div>
+      <div class="card"><h2>🕒 Status</h2><div class="grid"><div class="stat"><span>Day</span><strong id="day"></strong></div><div class="stat"><span>Living Time</span><strong id="time"></strong></div><div class="stat"><span>⚡ Player Stamina</span><strong id="stamina"></strong><div class="bar"><i id="staminaBar"></i></div></div><div class="stat"><span>⚠️ Exposure</span><strong id="exposure"></strong><div class="bar red"><i id="exposureBar"></i></div></div></div></div>
+      <div class="card"><h2>🎯 Available Chapters</h2><p class="small">The real time changes each journey. Meetings may require an appointment; use the Phone to negotiate another time if trust and the relationship allow it.</p><div id="tasks"></div></div>
       <div class="card"><h2>🕯 Recent Events</h2><div id="storyLog" class="storylog"></div></div>
     </section>
 
-    <section id="book" class="screen"><div class="card book-library"><h2>📖 Memory Book</h2><p class="small">Every journey and reflection is saved here. Search old chapters and revisit details that may matter later.</p><input id="bookSearch" class="book-search" type="search" placeholder="Search chapters, places or clues..." /><div id="bookList"></div></div></section>
+    <section id="book" class="screen"><div class="card book-library"><h2>📖 Memory Book</h2><p class="small">Journeys, reflections, offline events and missed appointments are saved here.</p><input id="bookSearch" class="book-search" type="search" placeholder="Search chapters, places or clues..." /><div id="bookList"></div></div></section>
     <section id="map" class="screen"><div class="card"><h2>🗺️ Map</h2><div id="mapList"></div></div></section>
-    <section id="contacts" class="screen"><div class="card"><h2>👥 Contacts</h2><div id="contactsList"></div></div></section>
+    <section id="contacts" class="screen"><div class="card"><h2>👥 Contacts</h2><p class="small">Each resident forms a private opinion of you. Trust, respect, reliability, fear and suspicion affect what they will do.</p><div id="contactsList"></div></div></section>
     <section id="phone" class="screen"><div class="card"><h2>📱 Phone</h2><div id="phoneList"></div></div></section>
     <section id="suspects" class="screen"><div class="card"><h2>🕵️ Suspects</h2><div id="suspectsList"></div></div></section>
     <section id="diary" class="screen"><div class="card"><h2>📓 Case Notes</h2><textarea id="noteInput" placeholder="Write your theory..."></textarea><button id="saveNoteBtn">Save note</button><div id="diaryList"></div></div></section>
@@ -49,37 +49,12 @@
     <div class="book-reader">
       <div class="book-reader-top">
         <button id="bookCloseBtn" class="book-icon-button" aria-label="Close Memory Book">✕</button>
-        <div class="book-reader-meta">
-          <span id="bookDay"></span>
-          <span id="bookChapter"></span>
-        </div>
+        <div class="book-reader-meta"><span id="bookDay"></span><span id="bookChapter"></span></div>
         <button id="bookBookmarkBtn" class="book-icon-button">Bookmark page</button>
       </div>
-
-      <article class="book-page">
-        <div class="book-page-inner">
-          <div class="book-rule"></div>
-          <h2 id="bookTitle"></h2>
-          <p id="bookText" class="book-prose"></p>
-          <div id="bookChoices" class="book-choices"></div>
-          <div class="book-page-footer"><span id="bookPageNumber"></span></div>
-        </div>
-      </article>
-
-      <div class="book-controls">
-        <button id="bookPrevBtn" class="secondary">Previous page</button>
-        <button id="bookRevealBtn" class="secondary">Reveal text</button>
-        <button id="bookNextBtn">Continue</button>
-      </div>
-
-      <label class="reader-speed-label">Text speed
-        <select id="readerSpeed">
-          <option value="32">Slow</option>
-          <option value="18">Normal</option>
-          <option value="8">Fast</option>
-          <option value="0">Instant</option>
-        </select>
-      </label>
+      <article class="book-page"><div class="book-page-inner"><div class="book-rule"></div><h2 id="bookTitle"></h2><p id="bookText" class="book-prose"></p><div id="bookChoices" class="book-choices"></div><div class="book-page-footer"><span id="bookPageNumber"></span></div></div></article>
+      <div class="book-controls"><button id="bookPrevBtn" class="secondary">Previous page</button><button id="bookRevealBtn" class="secondary">Reveal text</button><button id="bookNextBtn">Continue</button></div>
+      <label class="reader-speed-label">Text speed<select id="readerSpeed"><option value="32">Slow</option><option value="18">Normal</option><option value="8">Fast</option><option value="0">Instant</option></select></label>
     </div>
   </aside>
 
@@ -95,6 +70,13 @@
   </nav>
 
   <script src="app.js"></script>
+  <script>
+    if (!localStorage.getItem('exposure-prologue-1-1-migrated')) {
+      localStorage.removeItem('exposure-prologue-complete-v1');
+      localStorage.setItem('exposure-prologue-1-1-migrated', 'true');
+    }
+  </script>
+  <script src="living-social-engine.js"></script>
   <script src="book-engine.js"></script>
 </body>
 </html>
