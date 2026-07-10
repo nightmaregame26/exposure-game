@@ -1,0 +1,367 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --ink:#07090b;
+  --ink-2:#0d1114;
+  --panel:#111519;
+  --panel-soft:#171b1f;
+  --line:#4b4033;
+  --line-soft:rgba(191,159,111,.24);
+  --paper:#d8c7a8;
+  --paper-dark:#ad9878;
+  --ivory:#eee3ce;
+  --muted:#aa9d87;
+  --amber:#d29b52;
+  --amber-2:#8a5d2c;
+  --danger:#b63836;
+  --danger-dark:#6e1d25;
+  --green:#77866d;
+  --shadow:0 18px 50px rgba(0,0,0,.48);
+}
+
+*{box-sizing:border-box}
+html{background:#050607}
+body{
+  margin:0;
+  color:var(--ivory);
+  font-family:Inter,system-ui,sans-serif;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(126,94,53,.18),transparent 31%),
+    linear-gradient(180deg,#080b0d,#050607 48%,#090806);
+  min-height:100vh;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.22;
+  z-index:100;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+  mix-blend-mode:soft-light;
+}
+
+#app{max-width:920px;margin:0 auto;padding:18px 16px 118px}
+.topbar{
+  position:relative;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:12px 64px 14px;
+  border-bottom:1px solid var(--line-soft);
+}
+.topbar>div{text-align:center}
+.topbar h1{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(42px,8vw,72px);
+  line-height:.9;
+  letter-spacing:.18em;
+  margin:0;
+  color:#f3e9d8;
+  text-shadow:0 4px 24px rgba(0,0,0,.8);
+}
+.topbar h1:after{
+  content:"";
+  display:block;
+  width:70%;
+  height:1px;
+  margin:10px auto 0;
+  background:linear-gradient(90deg,transparent,var(--amber),transparent);
+}
+.topbar .sub{
+  margin:8px 0 0;
+  font-family:"Cormorant Garamond",serif;
+  text-transform:uppercase;
+  letter-spacing:.28em;
+  color:#b7a78f;
+  font-size:12px;
+}
+.topbar .mini{
+  position:absolute;
+  right:0;
+  top:12px;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  padding:0;
+  text-align:center;
+  font-size:0;
+  border:1px solid var(--line);
+  background:#101316;
+}
+.topbar .mini:before{content:"⚙";font-size:20px;color:var(--paper)}
+
+.screen{display:none}.screen.active{display:block}
+.card{
+  background:linear-gradient(180deg,rgba(20,24,28,.96),rgba(9,12,14,.98));
+  border:1px solid var(--line-soft);
+  border-radius:18px;
+  box-shadow:var(--shadow),inset 0 1px rgba(255,255,255,.025);
+  padding:18px;
+  margin:14px 0;
+}
+h2,h3{font-family:"Cormorant Garamond",Georgia,serif;letter-spacing:.04em}
+.card h2{
+  margin:0 0 12px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:18px;
+  color:#d8c5a6;
+}
+.small,.sub{color:var(--muted)}
+
+.premium-hero{
+  position:relative;
+  min-height:390px;
+  overflow:hidden;
+  border-radius:24px;
+  border:1px solid rgba(195,160,108,.32);
+  background:#0b0d10 url('assets/blackwood-main-street.svg') center/cover no-repeat;
+  box-shadow:0 25px 70px rgba(0,0,0,.56);
+  margin:16px 0;
+}
+.premium-hero:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.22) 45%,rgba(3,4,5,.92));
+}
+.hero-copy{
+  position:absolute;
+  z-index:2;
+  left:26px;
+  right:26px;
+  bottom:24px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:flex-end;
+}
+.hero-copy h2{font-size:32px;margin:0 0 4px;color:#f0dfc4}
+.hero-kicker{font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:#cfb185}
+.hero-quote{max-width:330px;font-family:"Cormorant Garamond",serif;font-size:22px;font-style:italic;color:#d4c2a6;margin:12px 0 0}
+.hero-day{
+  flex:0 0 auto;
+  min-width:150px;
+  padding:14px 16px;
+  text-align:right;
+  background:rgba(7,9,11,.78);
+  border:1px solid var(--line-soft);
+  border-radius:14px;
+  backdrop-filter:blur(8px);
+}
+.hero-day span{display:block;color:#9d8e78;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.hero-day strong{font-family:"Cormorant Garamond",serif;font-size:30px;color:#f0dfc4}
+
+.dashboard-grid{display:grid;gap:14px}
+.dashboard-grid.two{grid-template-columns:1.2fr .8fr}
+.dashboard-grid.three{grid-template-columns:repeat(3,1fr)}
+.dashboard-grid.equal{grid-template-columns:repeat(2,1fr)}
+.dashboard-card{margin:0;min-height:100%}
+.news-card{position:relative;overflow:hidden}
+.news-card:after{
+  content:"";
+  position:absolute;
+  right:-15px;
+  bottom:-20px;
+  width:150px;
+  height:150px;
+  background:url('assets/blackwood-map.svg') center/cover;
+  opacity:.12;
+  transform:rotate(-8deg);
+  border:1px solid var(--line-soft);
+}
+.news{position:relative;z-index:1;border-left:3px solid var(--danger);padding-left:14px;line-height:1.55;color:#e8d8c1}
+.date-card{display:flex;flex-direction:column;justify-content:center;text-align:center}
+.date-card .big-time{font-family:"Cormorant Garamond",serif;font-size:clamp(48px,9vw,78px);line-height:.9;color:#f1e5d2}
+.date-card .date-line{margin:10px 0 0;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#aa9b83}
+.date-card .weather-line{margin-top:16px;padding-top:12px;border-top:1px solid var(--line-soft);color:#bca98d}
+
+.metric-card{position:relative;overflow:hidden;min-height:148px}
+.metric-card:after{content:"";position:absolute;inset:auto -20px -30px auto;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(181,55,54,.17),transparent 70%)}
+.metric-label{text-transform:uppercase;letter-spacing:.18em;color:#c7b494;font-size:12px}
+.metric-value{font-family:"Cormorant Garamond",serif;font-size:48px;line-height:1;margin:10px 0 8px;color:#eee0c8}
+.metric-value.danger{color:#c84843}
+.metric-caption{font-size:10px;text-transform:uppercase;letter-spacing:.14em;line-height:1.6;color:#8f8370}
+.bar{height:9px;border-radius:99px;overflow:hidden;border:1px solid #5a4b38;background:#050607}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#76501f,#e6b465);box-shadow:0 0 12px rgba(221,165,83,.35)}
+.bar.red i{background:linear-gradient(90deg,#6e1d25,#d0423d);box-shadow:0 0 12px rgba(194,52,53,.4)}
+.social-bar i{background:linear-gradient(90deg,#4e544b,#92977d)}
+
+.objective-card,.appointment-card,.memory-preview,.events-card{position:relative}
+.objective-card .section-kicker,.appointment-card .section-kicker,.memory-preview .section-kicker{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:#a89983;margin-bottom:10px}
+.objective-card{background:linear-gradient(135deg,rgba(18,22,25,.98),rgba(8,10,12,.98)),url('assets/blackwood-map.svg') center/cover}
+.objective-card #tasks button{
+  background:rgba(7,9,11,.78);
+  border:1px solid var(--line-soft);
+  border-radius:12px;
+  text-align:left;
+  color:#eadac1;
+  padding:14px 15px;
+  margin:8px 0;
+  box-shadow:none;
+}
+.objective-card #tasks button:hover,.objective-card #tasks button:focus{border-color:#a77742;transform:translateY(-1px)}
+.objective-card #tasks button .meta{color:#887b69;font-size:11px;margin-top:4px}
+.appointment-person{display:grid;grid-template-columns:86px 1fr;gap:15px;align-items:center}
+.appointment-portrait{width:86px;height:110px;object-fit:cover;border-radius:12px;border:1px solid var(--line);background:#0b0d10 url('assets/emily-hart.svg') center/cover no-repeat}
+.appointment-name{font-family:"Cormorant Garamond",serif;font-size:28px;color:#ebd9bd}
+.appointment-time{color:#d14a46;text-transform:uppercase;letter-spacing:.14em;font-size:12px}
+.appointment-copy{color:#a99c88;font-size:13px;line-height:1.6}
+.memory-preview:before{content:"";float:right;width:140px;height:160px;margin:-8px -3px 8px 16px;background:linear-gradient(145deg,#4b251f,#1d1212);border-radius:9px 15px 15px 8px;border:1px solid #6c4b38;box-shadow:8px 12px 20px rgba(0,0,0,.45)}
+.memory-title{font-family:"Cormorant Garamond",serif;font-size:30px;color:#dfc7a3}
+.memory-stats{display:flex;gap:18px;margin:14px 0;color:#a99a84;font-size:12px}
+.storylog{line-height:1.6;color:#c7b9a3}.storylog hr{border:0;border-top:1px solid var(--line-soft)}
+.tutorial{opacity:.82}
+
+.tabs{
+  position:fixed;
+  z-index:90;
+  left:0;right:0;bottom:0;
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  background:rgba(7,9,11,.96);
+  backdrop-filter:blur(16px);
+  border-top:1px solid var(--line-soft);
+  box-shadow:0 -12px 35px rgba(0,0,0,.55);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.tabs button{
+  min-height:74px;
+  padding:10px 2px 8px;
+  margin:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  color:#978a76;
+  font-family:"Cormorant Garamond",serif;
+  font-size:12px;
+  text-align:center;
+  letter-spacing:.05em;
+}
+.tabs button.active{color:#e9c08b;background:linear-gradient(180deg,rgba(176,51,47,.13),transparent);box-shadow:inset 0 2px #a73a34}
+
+input,textarea,select{
+  width:100%;
+  background:#090c0f;
+  color:#eee1cc;
+  border:1px solid var(--line-soft);
+  border-radius:12px;
+  padding:13px 14px;
+  font:inherit;
+}
+textarea{min-height:110px;resize:vertical}
+button{
+  font:600 14px Inter,sans-serif;
+  border:1px solid rgba(190,148,88,.35);
+  background:linear-gradient(180deg,#7d362e,#531c22);
+  color:#fff0db;
+  border-radius:12px;
+  padding:13px 15px;
+  cursor:pointer;
+  transition:.18s ease;
+}
+button:hover{filter:brightness(1.08)}
+button:disabled{opacity:.38;cursor:not-allowed}
+.secondary{background:linear-gradient(180deg,#2b302f,#171b1b)}
+.ghost{background:transparent;border-color:var(--line-soft)}
+.badge{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line-soft);border-radius:99px;padding:5px 8px;color:#bbaa90;font-size:11px;margin:3px 3px 3px 0;background:rgba(0,0,0,.16)}
+.badge.gold{color:#e5bb78}.badge.red{color:#dc6a67}
+.item{background:rgba(13,16,18,.9);border:1px solid var(--line-soft);border-radius:13px;padding:14px;margin:10px 0}
+
+.map-layout{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:14px}
+.map-stage{
+  position:relative;
+  min-height:760px;
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid var(--line-soft);
+  background:#0b0d0d url('assets/blackwood-map.svg') center/cover no-repeat;
+  box-shadow:var(--shadow);
+}
+.map-stage:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at center,transparent 55%,rgba(0,0,0,.5));}
+#mapList{position:absolute;inset:0;z-index:2}
+.map-marker{
+  position:absolute;
+  width:auto;
+  min-width:42px;
+  transform:translate(-50%,-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  padding:0;
+  background:transparent;
+  border:0;
+  color:#dbc7a7;
+  text-shadow:0 2px 7px #000;
+}
+.map-marker .pin{
+  width:26px;height:26px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);
+  border:2px solid #d6a15c;background:#171411;box-shadow:0 0 18px rgba(212,151,76,.5);
+}
+.map-marker .pin:after{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:#e2bd84;left:7px;top:7px}
+.map-marker span:last-child{font-family:"Cormorant Garamond",serif;font-size:12px;letter-spacing:.04em;background:rgba(5,7,8,.82);padding:3px 6px;border:1px solid rgba(193,157,105,.22);border-radius:5px;white-space:nowrap}
+.map-marker.locked{filter:grayscale(1);opacity:.48}.map-marker.locked .pin{border-color:#6d6a61;box-shadow:none}
+.map-marker.high .pin{border-color:#bd3b37;box-shadow:0 0 18px rgba(189,54,52,.55)}
+.map-marker.current .pin{background:#d39b52}.map-marker.current .pin:after{background:#14110d}
+.map-side .card{margin:0 0 14px}
+.map-side h3{margin:0 0 8px;color:#e1c9a5}
+.map-detail-copy{color:#aa9d87;line-height:1.55;font-size:13px}
+.map-action{width:100%;margin-top:12px}
+.map-legend{display:grid;gap:9px;font-size:12px;color:#a99a84}.map-legend div{display:flex;align-items:center;gap:8px}.legend-dot{width:12px;height:12px;border-radius:50%;border:2px solid #d6a15c}.legend-dot.red{border-color:#bd3b37}.legend-dot.grey{border-color:#6d6a61}
+
+.overlay,.book-overlay{position:fixed;inset:0;z-index:120;overflow:auto;background:rgba(3,5,6,.97);padding:18px}.hidden{display:none!important}
+.scene{max-width:920px;margin:0 auto 40px}
+.sceneArt{
+  min-height:430px;
+  border-radius:24px;
+  overflow:hidden;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  border:1px solid var(--line-soft);
+  box-shadow:var(--shadow);
+  background:#0b0d10 url('assets/blackwood-main-street.svg') center/cover no-repeat;
+  position:relative;
+}
+.sceneArt:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.88));}
+.sceneArt.cafe{background-image:url('assets/cafe-hollow.svg')}
+.sceneArt.forest{background-image:url('assets/blackwood-map.svg')}
+.sceneArt.police{background-image:linear-gradient(rgba(8,12,18,.28),rgba(3,5,7,.74)),url('assets/blackwood-main-street.svg')}
+.sceneArt h2,.sceneArt p{position:relative;z-index:1}.sceneArt h2{font-size:38px;margin:0;color:#f0dfc5}.sceneArt p{letter-spacing:.15em;text-transform:uppercase;color:#c0aa88}
+.scene .card{margin:14px 0}
+.sceneText{font-family:"Cormorant Garamond",serif;font-size:21px;line-height:1.65;color:#e6d6bd}
+.sceneText hr{border:0;border-top:1px solid var(--line-soft);margin:18px 0}
+.speaker{color:#e0b46f;font-weight:700}.player{color:#c1b39a;font-weight:700}.danger{color:#dc6763}
+.npcStateBox{display:flex;flex-wrap:wrap;gap:4px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line-soft)}
+.scene-character{display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:center;margin-bottom:14px}.scene-character-art{width:110px;height:140px;border-radius:12px;border:1px solid var(--line);background:#0b0d10 center/cover no-repeat}.scene-character h3{font-size:30px;margin:0;color:#ebd7b8}.scene-character p{margin:4px 0;color:#a89983}
+#sceneChoices button{width:100%;margin:7px 0;text-align:left;background:#0d1113;border:1px solid var(--line-soft);color:#ddccb0}
+#sceneChoices button:hover{border-color:#b27f43;background:#151716}
+#sendTalkBtn{width:100%;margin-top:9px}
+
+.book-reader{max-width:860px;margin:0 auto}.book-reader-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.book-icon-button{width:auto;background:#101315;border:1px solid var(--line-soft)}
+.book-page{border-radius:18px;padding:26px;background:linear-gradient(135deg,#d9c8aa,#b9a17c);color:#2e261d;box-shadow:0 25px 70px rgba(0,0,0,.6);border:1px solid #79674d}
+.book-page-inner{min-height:420px;border:1px solid rgba(76,56,35,.28);padding:clamp(22px,5vw,46px);background:rgba(255,248,230,.15)}
+.book-page h2{font-size:38px;margin:0 0 24px;color:#3d2d21;text-align:center}.book-prose{font-family:"Cormorant Garamond",serif;font-size:24px;line-height:1.65;white-space:pre-wrap}.book-rule{height:1px;background:linear-gradient(90deg,transparent,#715d43,transparent);margin-bottom:18px}.book-page-footer{text-align:center;margin-top:20px;color:#725d41}.book-controls{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}.book-choices button{width:100%;margin:7px 0;background:#382b21;border-color:#6a5037}.memory-entry{width:100%;text-align:left;margin:8px 0;background:#0d1113;border:1px solid var(--line-soft)}
+
+.living-modal-card{background:linear-gradient(180deg,#171b1e,#090b0d);border:1px solid var(--line);box-shadow:var(--shadow)}
+.phoneMsg{border-left:3px solid #7f6a4c;padding-left:12px}.phoneMsg.threat{border-left-color:var(--danger);color:#e1b1ac}
+
+@media(max-width:740px){
+  #app{padding-left:10px;padding-right:10px}
+  .dashboard-grid.two,.dashboard-grid.three,.dashboard-grid.equal{grid-template-columns:1fr}
+  .premium-hero{min-height:360px}
+  .hero-copy{display:block}.hero-day{margin-top:15px;text-align:left;display:inline-block}
+  .map-layout{grid-template-columns:1fr}.map-stage{min-height:680px}.map-side{display:grid;grid-template-columns:1fr 1fr;gap:10px}.map-side .card{margin:0}
+  .sceneArt{min-height:320px}.scene-character{grid-template-columns:85px 1fr}.scene-character-art{width:85px;height:110px}
+  .tabs button{font-size:10px;min-height:68px}
+}
+@media(max-width:480px){
+  .topbar{padding-left:48px;padding-right:48px}.topbar h1{font-size:42px;letter-spacing:.12em}.topbar .sub{font-size:9px}
+  .premium-hero{min-height:330px}.hero-copy{left:18px;right:18px;bottom:18px}.hero-copy h2{font-size:27px}.hero-quote{font-size:19px}
+  .map-stage{min-height:590px}.map-marker span:last-child{font-size:10px}.map-side{grid-template-columns:1fr}
+  .tabs{overflow-x:auto;grid-template-columns:repeat(8,minmax(55px,1fr))}.tabs button{min-width:55px}
+  .book-page{padding:12px}.book-page-inner{padding:20px}.book-prose{font-size:20px}.book-controls{grid-template-columns:1fr}
+}
