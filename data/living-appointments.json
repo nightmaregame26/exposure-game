@@ -1,0 +1,179 @@
+{
+  "version": "1.0.0",
+  "defaultMode": "living",
+  "timezoneSource": "device",
+  "offlineSimulation": {
+    "minimumAwayMinutes": 30,
+    "maximumSimulatedHours": 24,
+    "summaryTitle": "While You Were Away"
+  },
+  "npcs": {
+    "emily_hart": {
+      "displayName": "Emily Hart",
+      "taskId": "emily",
+      "baseSocial": {"trust": 22, "affection": 18, "respect": 24, "reliability": 50, "fear": 38, "suspicion": 34, "interest": 58},
+      "rescheduleThreshold": 39,
+      "nightAversion": 14,
+      "availability": [
+        {"days": [1,2,3,4,5], "start": "09:30", "end": "11:30", "label": "morning break"},
+        {"days": [1,2,3,4,5,6], "start": "17:45", "end": "19:30", "label": "after work"},
+        {"days": [0,6], "start": "10:00", "end": "16:00", "label": "weekend"}
+      ],
+      "acceptedReplies": [
+        "I can do {time}. Meet me at Café Hollow. Please do not bring anyone.",
+        "Alright. {time} works, but I cannot stay long.",
+        "I can move things around. Meet me at {time}."
+      ],
+      "refusedReplies": [
+        "No. Ten is the only time I can safely do this.",
+        "I cannot make that time. Maybe tomorrow.",
+        "Not after dark. I am sorry."
+      ]
+    },
+    "detective_mason": {
+      "displayName": "Detective Mason",
+      "taskId": "mason",
+      "baseSocial": {"trust": 8, "affection": 2, "respect": 18, "reliability": 45, "fear": 8, "suspicion": 48, "interest": 36},
+      "rescheduleThreshold": 52,
+      "nightAversion": 0,
+      "availability": [
+        {"days": [1,2,3,4,5], "start": "07:00", "end": "18:00", "label": "on duty"},
+        {"days": [0,6], "start": "09:00", "end": "13:00", "label": "weekend shift"}
+      ],
+      "acceptedReplies": ["Come to the station at {time}. Bring evidence, not theories."],
+      "refusedReplies": ["I do not arrange my investigation around you. Come during station hours."]
+    },
+    "alex_vale": {
+      "displayName": "Alex Vale",
+      "taskId": "alex",
+      "baseSocial": {"trust": 28, "affection": 16, "respect": 34, "reliability": 48, "fear": 14, "suspicion": 26, "interest": 48},
+      "rescheduleThreshold": 36,
+      "nightAversion": 0,
+      "availability": [
+        {"days": [1,2,3,4,5,6], "start": "08:00", "end": "17:30", "label": "garage hours"},
+        {"days": [1,2,3,4,5], "start": "18:30", "end": "20:30", "label": "after closing"}
+      ],
+      "acceptedReplies": ["Yeah, {time} is fine. Garage will be quieter then."],
+      "refusedReplies": ["Can't do it. Come by while the garage is open."]
+    },
+    "mara_bell": {
+      "displayName": "Mara Bell",
+      "taskId": "mara",
+      "baseSocial": {"trust": 16, "affection": 10, "respect": 20, "reliability": 55, "fear": 64, "suspicion": 42, "interest": 38},
+      "rescheduleThreshold": 45,
+      "nightAversion": 30,
+      "availability": [
+        {"days": [0,1,2,3,4,5,6], "start": "08:00", "end": "18:30", "label": "at home"}
+      ],
+      "acceptedReplies": ["Before sunset. {time}. Do not knock loudly."],
+      "refusedReplies": ["Not after sunset. People who visit after dark are remembered."]
+    },
+    "sarah_pike": {
+      "displayName": "Sarah Pike",
+      "taskId": "sarah",
+      "baseSocial": {"trust": 10, "affection": 4, "respect": 24, "reliability": 42, "fear": 18, "suspicion": 30, "interest": 78},
+      "rescheduleThreshold": 32,
+      "nightAversion": 0,
+      "availability": [
+        {"days": [1,2,3,4,5], "start": "09:00", "end": "21:00", "label": "newsroom"},
+        {"days": [0,6], "start": "11:00", "end": "18:00", "label": "weekend reporting"}
+      ],
+      "acceptedReplies": ["{time}. Bring whatever you found. If it is real, I will make time."],
+      "refusedReplies": ["Not worth moving my deadline for. Send me something concrete first."]
+    }
+  },
+  "tasks": {
+    "emily": {
+      "npcId": "emily_hart",
+      "requiresAppointment": true,
+      "initialSuggestedTime": "10:00",
+      "durationMinutes": 90,
+      "allowUnannounced": true,
+      "outcomes": {
+        "day": {"label": "Busy café", "exposure": 0, "npcFear": -2, "npcSuspicion": -1, "text": "Morning light follows you through Blackwood. Café Hollow is busy enough to feel safe, but every nearby table can hear more than Emily wants them to."},
+        "evening": {"label": "Closing time", "exposure": 4, "npcFear": 3, "npcSuspicion": 0, "text": "The café is closing when you arrive. Chairs scrape across the floor and the conversation can finally become private. Outside, someone remains parked across the street."},
+        "night": {"label": "After dark", "exposure": 9, "npcFear": 8, "npcSuspicion": 3, "text": "Café Hollow is locked and dark. Emily waits beneath the rear security light, checking the lane each time a vehicle slows."}
+      }
+    },
+    "noah": {
+      "requiresAppointment": false,
+      "outcomes": {
+        "day": {"label": "Neighbourhood awake", "exposure": 1, "text": "Curtains move as you approach Noah's house. In daylight, the street offers witnesses as well as protection."},
+        "evening": {"label": "Family home", "exposure": 5, "text": "Lights glow behind Noah's curtains. His family is home, tired and less patient with strangers."},
+        "night": {"label": "Suspicious visit", "exposure": 14, "text": "The house is mostly dark. Visiting a missing teenager's home this late will be difficult to explain if anyone sees you."}
+      }
+    },
+    "forest": {
+      "requiresAppointment": false,
+      "outcomes": {
+        "day": {"label": "Search conditions", "exposure": 3, "text": "Daylight reaches only partway beneath the pines. Search tape and footprints are easier to read before the shadows merge."},
+        "evening": {"label": "Fading light", "exposure": 9, "text": "The light is failing as you reach the forest edge. Details become harder to trust, and sounds carry farther between the trees."},
+        "night": {"label": "High danger", "exposure": 18, "text": "At night the forest no longer resembles public land. Your torch reveals only fragments, while everything beyond the beam remains free to move."}
+      }
+    },
+    "mason": {
+      "npcId": "detective_mason",
+      "requiresAppointment": false,
+      "allowUnannounced": true,
+      "outcomes": {
+        "day": {"label": "Station hours", "exposure": 2, "npcSuspicion": -1, "text": "The station is open and crowded. Mason is busy, but your visit appears ordinary."},
+        "evening": {"label": "Late shift", "exposure": 5, "npcSuspicion": 2, "text": "Most desks are empty. Mason wants to know why this could not wait until morning."},
+        "night": {"label": "After-hours report", "exposure": 8, "npcSuspicion": 5, "text": "A night officer records your name before allowing you through. Mason arrives already suspicious of the urgency."}
+      }
+    },
+    "alex": {
+      "npcId": "alex_vale",
+      "requiresAppointment": false,
+      "allowUnannounced": true,
+      "outcomes": {
+        "day": {"label": "Garage open", "exposure": 1, "text": "Tools, customers and ringing phones interrupt the conversation. Alex has witnesses around him."},
+        "evening": {"label": "After closing", "exposure": 5, "npcSuspicion": 1, "text": "The roller door is half lowered. With the customers gone, Alex has fewer reasons to avoid your questions."},
+        "night": {"label": "Private workshop", "exposure": 10, "npcSuspicion": 5, "text": "One workshop light remains on. Meeting Alex here after dark feels less like an interview and more like entering his territory."}
+      }
+    },
+    "mara": {
+      "npcId": "mara_bell",
+      "requiresAppointment": false,
+      "allowUnannounced": true,
+      "outcomes": {
+        "day": {"label": "Curtains open", "exposure": 0, "npcFear": -3, "text": "Mara can see you coming from across the street. Daylight makes her cautious rather than frightened."},
+        "evening": {"label": "Before sunset", "exposure": 3, "npcFear": 3, "text": "Mara speaks through the locked flyscreen as the last daylight leaves the street."},
+        "night": {"label": "Unwelcome caller", "exposure": 8, "npcFear": 12, "npcSuspicion": 8, "text": "Mara does not open the door after dark. She watches you through a gap in the curtain and keeps one hand near the phone."}
+      }
+    },
+    "sarah": {
+      "npcId": "sarah_pike",
+      "requiresAppointment": false,
+      "allowUnannounced": true,
+      "outcomes": {
+        "day": {"label": "Newsroom active", "exposure": 4, "text": "The Gazette is busy. Anything you say could become a headline before sunset."},
+        "evening": {"label": "Deadline pressure", "exposure": 7, "text": "Sarah is working against a deadline. She will make time only if your information is useful."},
+        "night": {"label": "Off-record meeting", "exposure": 11, "npcSuspicion": 2, "text": "The newsroom is dark except for Sarah's office. There are no witnesses to what either of you agrees to."}
+      }
+    },
+    "anonymous": {
+      "requiresAppointment": false,
+      "outcomes": {
+        "day": {"label": "Visible road", "exposure": 10, "text": "Lake Road is exposed in daylight. Passing vehicles may witness the exchange, including whoever arranged it."},
+        "evening": {"label": "Planned meeting", "exposure": 18, "text": "The lake reflects the last light. It is late enough for privacy and early enough for someone to watch from a parked car."},
+        "night": {"label": "Killer's advantage", "exposure": 30, "text": "There are no lights along Lake Road. Whoever invited you chose a place where distance and darkness erase witnesses."}
+      }
+    },
+    "library": {
+      "requiresAppointment": false,
+      "outcomes": {
+        "day": {"label": "Archives open", "exposure": 0, "text": "The library is open. Staff can help, but they may remember exactly what you searched for."},
+        "evening": {"label": "Closing soon", "exposure": 2, "text": "The librarian announces closing time while you search. You will need to decide what matters most."},
+        "night": {"label": "Closed archive", "exposure": 20, "text": "The library is closed. A side window near the archive room does not appear to latch properly."}
+      }
+    },
+    "rest": {
+      "requiresAppointment": false,
+      "outcomes": {
+        "day": {"label": "Day rest", "exposure": -2, "text": "Resting during daylight restores some strength, but the town continues without you."},
+        "evening": {"label": "Quiet evening", "exposure": -3, "text": "The house settles around you as the streetlights come on."},
+        "night": {"label": "Sleep", "exposure": -5, "text": "You lock the doors and let the night simulation continue beyond the walls."}
+      }
+    }
+  }
+}
