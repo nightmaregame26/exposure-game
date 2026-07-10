@@ -12,7 +12,7 @@
     <header class="topbar">
       <div>
         <h1>EXPOSURE</h1>
-        <p class="sub">Milestone 2 · The Living Book</p>
+        <p class="sub">Milestone 3 · The First Case Loop</p>
       </div>
       <button class="mini" id="resetBtn">Reset</button>
     </header>
@@ -40,7 +40,7 @@
       <div class="sceneArt" id="sceneArt"><h2 id="sceneTitle"></h2><p id="sceneLocation"></p></div>
       <div class="card"><div id="sceneText" class="sceneText"></div><div id="npcStateBox" class="npcStateBox"></div></div>
       <div class="card"><h2>Choices</h2><div id="sceneChoices"></div></div>
-      <div class="card"><h2>💬 Say Anything</h2><p class="small">Characters react through Focus, Trust, Stress, Fear, Interest and Suspicion.</p><textarea id="freeTalk" placeholder="Type what you want to say..."></textarea><button id="sendTalkBtn">Send</button></div>
+      <div class="card"><h2>💬 Say Anything</h2><p class="small">Characters react through Focus, Trust, Stress, Fear, Interest and Suspicion. <span id="aiStatus" class="badge">Checking AI…</span></p><textarea id="freeTalk" maxlength="400" placeholder="Type what you want to say..."></textarea><button id="sendTalkBtn">Send</button></div>
       <button class="ghost" id="leaveSceneBtn">Leave scene</button>
     </div>
   </aside>
@@ -79,5 +79,6 @@
   <script src="living-time-patch.js"></script>
   <script src="living-social-engine.js"></script>
   <script src="book-engine.js"></script>
+  <script src="ai-bridge.js"></script>
 </body>
 </html>
