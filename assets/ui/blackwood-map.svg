@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" role="img" aria-labelledby="title desc">
+<title id="title">Map of Blackwood</title><desc id="desc">A dark illustrated town map with forest, roads, a lake, river and district landmarks.</desc>
+<defs>
+  <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#121614"/><stop offset=".52" stop-color="#171813"/><stop offset="1" stop-color="#090c0c"/></linearGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#142a31"/><stop offset=".5" stop-color="#0b1b22"/><stop offset="1" stop-color="#071117"/></linearGradient>
+  <pattern id="contours" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M-10 30Q20 5 48 25T90 30M-15 60Q22 35 52 57T94 62" fill="none" stroke="#8e795d" stroke-opacity=".055" stroke-width="2"/></pattern>
+  <pattern id="forest" width="70" height="82" patternUnits="userSpaceOnUse"><path d="M35 4 16 36h12L11 61h48L42 36h12z" fill="#15211d" stroke="#52634f" stroke-opacity=".22" stroke-width="2"/><rect x="32" y="58" width="6" height="14" fill="#1a1a15"/></pattern>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".65"/></filter>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".45" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="saturate" values="0" result="g"/><feBlend in="SourceGraphic" in2="g" mode="soft-light"/></filter>
+</defs>
+<rect width="1200" height="1500" fill="url(#paper)"/>
+<rect width="1200" height="1500" fill="url(#contours)"/>
+<path d="M0 0h430v515H0zM0 0h1200v250H0zM920 0h280v570H920zM0 1050h340v450H0zM850 1100h350v400H850z" fill="url(#forest)" opacity=".92"/>
+<path d="M1020-20q-85 190-56 345t-13 278q-27 115 18 224t-10 306q-33 134 50 387h191V-20z" fill="url(#water)" stroke="#52666d" stroke-opacity=".48" stroke-width="12"/>
+<path d="M768 260q177-78 281 36 94 103 40 258-56 160-222 162-166 2-242-121-79-128-6-242 50-76 149-93z" fill="url(#water)" stroke="#58696c" stroke-opacity=".42" stroke-width="10"/>
+<path d="M250 190Q410 390 535 530T840 732Q690 820 580 1010T520 1400" fill="none" stroke="#8d806b" stroke-width="26" stroke-linecap="round" stroke-opacity=".58"/>
+<path d="M105 438Q330 540 535 530T960 570M70 860Q330 805 580 820T1005 980M210 1280Q430 1120 580 1010T910 780M410 250Q470 390 535 530T520 860M875 1320Q720 1160 580 1010" fill="none" stroke="#8b7b64" stroke-width="18" stroke-linecap="round" stroke-opacity=".52"/>
+<path d="M45 1310Q380 1190 730 1230t470-20" fill="none" stroke="#5e2730" stroke-width="13" stroke-opacity=".45"/>
+<path d="M65 1355Q390 1235 730 1280t470-15" fill="none" stroke="#5e2730" stroke-width="9" stroke-opacity=".32"/>
+<g fill="#2b2a22" stroke="#8b7657" stroke-width="6" filter="url(#shadow)">
+  <rect x="228" y="365" width="155" height="115" rx="4"/><rect x="414" y="450" width="148" height="122" rx="4"/><rect x="575" y="515" width="134" height="112" rx="4"/>
+  <rect x="220" y="585" width="142" height="120" rx="4"/><rect x="390" y="620" width="155" height="116" rx="4"/><rect x="570" y="685" width="150" height="118" rx="4"/>
+  <rect x="760" y="760" width="150" height="115" rx="4"/><rect x="287" y="820" width="164" height="120" rx="4"/><rect x="470" y="865" width="143" height="112" rx="4"/>
+  <rect x="630" y="910" width="152" height="119" rx="4"/><rect x="318" y="1030" width="165" height="123" rx="4"/><rect x="530" y="1110" width="150" height="118" rx="4"/>
+  <rect x="735" y="1160" width="164" height="122" rx="4"/>
+</g>
+<g fill="#c17a38" opacity=".86">
+  <rect x="260" y="400" width="28" height="42"/><rect x="450" y="488" width="30" height="43"/><rect x="620" y="552" width="30" height="42"/>
+  <rect x="255" y="623" width="28" height="40"/><rect x="433" y="659" width="30" height="43"/><rect x="612" y="724" width="30" height="42"/>
+  <rect x="808" y="798" width="29" height="42"/><rect x="332" y="858" width="29" height="42"/><rect x="514" y="901" width="29" height="42"/>
+  <rect x="672" y="948" width="29" height="42"/><rect x="365" y="1070" width="29" height="42"/><rect x="575" y="1148" width="29" height="42"/>
+</g>
+<g stroke="#9f875f" stroke-width="6" fill="#171917" filter="url(#shadow)">
+  <path d="M330 230h76v158h-76zM318 230h100l-50-72z"/>
+  <path d="M819 305h86v170h-86zM805 305h114l-57-80z"/>
+  <path d="M820 1010h92v178h-92zM805 1010h122l-61-85z"/>
+  <path d="M446 1195h88v165h-88zM430 1195h120l-60-80z"/>
+</g>
+<circle cx="368" cy="264" r="27" fill="#d4b274" stroke="#403323" stroke-width="7"/><circle cx="862" cy="340" r="29" fill="#d4b274" stroke="#403323" stroke-width="7"/>
+<g fill="none" stroke="#a58b63" stroke-opacity=".5"><circle cx="1040" cy="1290" r="95" stroke-width="5"/><circle cx="1040" cy="1290" r="62" stroke-width="3"/><path d="M1040 1172v236M922 1290h236M970 1220l140 140M1110 1220l-140 140" stroke-width="3"/></g>
+<text x="1040" y="1160" fill="#a58b63" font-family="Georgia,serif" font-size="34" text-anchor="middle" letter-spacing="8">N</text>
+<rect x="32" y="32" width="1136" height="1436" rx="22" fill="none" stroke="#9f8159" stroke-opacity=".36" stroke-width="8"/>
+<rect width="1200" height="1500" fill="#000" opacity=".03" filter="url(#grain)"/>
+<radialGradient id="vig" cx="50%" cy="48%" r="76%"><stop offset=".58" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".68"/></radialGradient><rect width="1200" height="1500" fill="url(#vig)"/>
+</svg>
