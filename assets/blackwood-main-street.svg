@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Rainy Blackwood main street</title>
+  <desc id="desc">A dark illustrated small-town street with rain, lamps and distant forest.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#111823"/><stop offset=".5" stop-color="#28313a"/><stop offset="1" stop-color="#080b0f"/></linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#1b2025"/><stop offset="1" stop-color="#050608"/></linearGradient>
+    <radialGradient id="lamp"><stop stop-color="#ffd38b" stop-opacity=".95"/><stop offset=".25" stop-color="#e39a45" stop-opacity=".42"/><stop offset="1" stop-color="#e39a45" stop-opacity="0"/></radialGradient>
+    <linearGradient id="shop" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2b211c"/><stop offset="1" stop-color="#090a0c"/></linearGradient>
+    <pattern id="rain" width="38" height="58" patternUnits="userSpaceOnUse" patternTransform="skewX(-14)"><path d="M10 0v30M30 18v34" stroke="#c7d7df" stroke-opacity=".13" stroke-width="2"/></pattern>
+    <filter id="glow"><feGaussianBlur stdDeviation="14"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <path d="M0 315L170 210l95 80 130-170 145 170 120-145 125 145 135-205 130 210 155-110 145 160v95H0z" fill="#11181b" opacity=".95"/>
+  <g fill="#080b0d" opacity=".9">
+    <path d="M40 390l70-210 70 210zM130 400l78-245 78 245zM1230 380l72-220 72 220zM1350 395l80-250 80 250z"/>
+  </g>
+  <path d="M0 900V400l390-74 130 123 560-10 130-120 390 65v516z" fill="url(#road)"/>
+  <path d="M555 900L720 448h165l178 452z" fill="#171d22"/>
+  <path d="M633 900L753 452h92l134 448z" fill="#242a2f" opacity=".8"/>
+  <g fill="url(#shop)" stroke="#40362d" stroke-width="4">
+    <path d="M0 286h375v420H0z"/><path d="M1225 268h375v438h-375z"/>
+    <path d="M315 360h250v325H315z"/><path d="M1035 345h245v340h-245z"/>
+  </g>
+  <g fill="#d99a4f" opacity=".9">
+    <rect x="50" y="390" width="78" height="88" rx="3"/><rect x="154" y="390" width="78" height="88" rx="3"/><rect x="1270" y="370" width="84" height="94" rx="3"/><rect x="1376" y="370" width="84" height="94" rx="3"/>
+    <rect x="352" y="430" width="60" height="75"/><rect x="445" y="430" width="60" height="75"/><rect x="1084" y="420" width="58" height="74"/><rect x="1168" y="420" width="58" height="74"/>
+  </g>
+  <g fill="#16191c">
+    <rect x="70" y="405" width="16" height="73"/><rect x="195" y="405" width="16" height="73"/><rect x="1294" y="382" width="16" height="82"/><rect x="1410" y="382" width="16" height="82"/>
+  </g>
+  <g stroke="#7e6650" fill="none" stroke-width="4"><path d="M0 520h375M1225 510h375M315 545h250M1035 535h245"/></g>
+  <g>
+    <circle cx="295" cy="540" r="105" fill="url(#lamp)" filter="url(#glow)"/><circle cx="1185" cy="520" r="105" fill="url(#lamp)" filter="url(#glow)"/>
+    <path d="M295 385v305M1185 365v325" stroke="#090a0b" stroke-width="14"/>
+    <path d="M266 390h58l-9 48h-40zM1156 370h58l-9 48h-40z" fill="#d9a45c" stroke="#111" stroke-width="8"/>
+  </g>
+  <g fill="#d89147">
+    <circle cx="710" cy="484" r="8"/><circle cx="820" cy="480" r="8"/><circle cx="900" cy="477" r="7"/>
+  </g>
+  <g fill="#0a0c0f" stroke="#4f3d33" stroke-width="4">
+    <path d="M905 690l90-14 45 33-12 70-150 8-16-61z"/><path d="M948 661l40 3 28 29-91 7z"/>
+  </g>
+  <g fill="#b82230"><rect x="895" y="755" width="22" height="11" rx="3"/><rect x="1004" y="746" width="22" height="11" rx="3"/></g>
+  <g stroke="#b7d0da" stroke-opacity=".18" stroke-width="5"><path d="M580 840l145-378M690 900l95-438M1090 820L928 452M1008 900L870 452"/></g>
+  <g stroke="#e0ad65" stroke-opacity=".18" stroke-width="8"><path d="M710 900l78-420M890 900L820 480"/></g>
+  <rect width="1600" height="900" fill="url(#rain)"/>
+  <rect y="760" width="1600" height="140" fill="#050608" opacity=".48"/>
+  <g font-family="Georgia,serif" fill="#e7d7bc"><text x="80" y="92" font-size="34" letter-spacing="8">BLACKWOOD</text><text x="82" y="132" font-size="18" letter-spacing="5" fill="#b8a78f">EST. 1882</text></g>
+</svg>
