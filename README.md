@@ -2,36 +2,40 @@
 
 Exposure is a single-player AI-driven serial-killer investigation game set in the fictional town of Blackwood.
 
-The player has just moved to town. A missing-person case begins. Over time, the player investigates, builds trust, gathers evidence, manages stamina and Exposure, and tries to identify the killer before becoming a target.
+The player has just moved to town. Noah Williams helps them during the move, warns them to lock the back gate and disappears that night. Noah's damaged phone is found outside the new house, pulling the player into the investigation as a witness, possible suspect and potential target.
 
 ## Current Milestone
 
-**Milestone 1 — The Book**
+**Milestone 2 — The Living Book**
 
-Exposure is now presented as an interactive crime novel. Choosing a destination opens a narrated travel chapter before the investigation scene, and the return journey becomes a saved reflection chapter.
+Exposure is presented as an interactive crime novel connected to the player's real local time. Choosing a destination opens a narrated travel chapter, while time, appointments and relationships change what happens.
 
 Includes:
 
-- Opening playable prologue
-- Story-integrated tutorial
-- Book-style reader overlay
-- Typewriter text and instant reveal
-- Adjustable reading speed
-- Previous and next page controls
-- Interactive choices inside narrative pages
+- Revised opening prologue connecting the player directly to Noah
+- Noah's damaged phone as the first evidence object
+- Emily's 10:00 meeting request
+- Real local time displayed as Blackwood time
+- Day, evening and night versions of every current mission
+- Missions that can cross midnight
+- Living appointment system
+- Phone-based rescheduling
+- NPC willingness calculations based on trust, affection, respect, reliability, fear, suspicion, interest and schedule conflicts
+- Consequences for arriving unannounced
+- Consequences for missed appointments
+- Social Score for each important character
+- NPC suspicion states, including believing the player may be the killer
+- `While You Were Away` offline simulation summaries
+- Offline events saved into the Memory Book
+- Book-style reader overlay and typewriter presentation
 - Travel observations that can become evidence
-- Outbound travel chapters for every current task
-- Return reflection chapters
-- Persistent searchable Memory Book
-- Chapter bookmarks and rereading
-- Mobile-first game interface
+- Outbound and return chapters
+- Searchable, bookmarkable Memory Book
 - Time, stamina and Exposure systems
 - NPC Health, Stamina, Focus, Stress, Fear, Trust, Interest and Suspicion
-- Focus-draining conversations
-- Phone messages and unknown threats
-- Suspect marking, notes, evidence and case file
-- Town, Director and Killer tick foundations
+- Town, Director and Killer simulation foundations
 - Backend `/api/talk`, `/api/director` and `/api/killer` scaffolds
+- Automated JavaScript and JSON validation through GitHub Actions
 
 ## Play
 
@@ -42,16 +46,19 @@ https://nightmaregame26.github.io/exposure-game/
 Use a version query after major updates when the browser caches an older build:
 
 ```text
-https://nightmaregame26.github.io/exposure-game/?v=book1
+https://nightmaregame26.github.io/exposure-game/?v=living1
 ```
 
 ## Main Files
 
-- `index.html` — game and reader interface
+- `index.html` — game, Phone and reader interface
 - `app.js` — current game simulation
 - `book-engine.js` — prologue, travel chapters and Memory Book
-- `style.css` — game and book presentation
+- `living-time-patch.js` — real-time task execution and reset integration
+- `living-social-engine.js` — appointments, rescheduling, social scores, suspicion and offline time
+- `style.css` — game, book and Living Time presentation
 - `data/book-content.json` — authored prologue and travel content
+- `data/living-appointments.json` — schedules, social defaults and time-based mission outcomes
 
 ## Project Documents
 
@@ -70,28 +77,15 @@ https://nightmaregame26.github.io/exposure-game/?v=book1
 - `docs/WORLD_MEMORY_SYSTEM.md`
 - `docs/CASE_GENERATION_ENGINE.md`
 - `docs/BOOK_ENGINE.md`
-
-## Data Files
-
-- `data/characters.json`
-- `data/locations.json`
-- `data/agent-rules.json`
-- `data/killer-profile-template.json`
-- `data/town-state.json`
-- `data/relationships.json`
-- `data/world-memory.json`
-- `data/director-rules.json`
-- `data/book-content.json`
+- `docs/LIVING_TIME_SOCIAL_SYSTEM.md`
 
 ## Next Build Block
 
-**Milestone 2 — The Town**
-
-- Director-selected travel variations
-- Time-of-day and weather variants
-- NPC movement schedules
-- Dynamic encounters during travel
-- Businesses opening and closing
-- Rumour transmission through relationships
-- Audio ambience and page sounds
-- Real AI conversations through a deployed backend
+- Connect appointment negotiation to real AI messaging
+- Add server-verified time and authoritative offline simulation
+- Add full NPC daily movement schedules
+- Make businesses visibly open and closed
+- Add relationship-driven rumour transmission
+- Add time-sensitive calls and notifications
+- Connect the killer's knowledge to appointments and missed meetings
+- Deploy the AI backend for real conversations
