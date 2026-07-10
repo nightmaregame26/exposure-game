@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Café Hollow on a rainy Blackwood evening</title>
+<desc id="desc">A wet cobblestone street with warm café windows, lamp posts and a dark church spire.</desc>
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#091119"/><stop offset=".55" stop-color="#1b272e"/><stop offset="1" stop-color="#080b0d"/></linearGradient>
+  <linearGradient id="street" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#323b3e"/><stop offset="1" stop-color="#090b0c"/></linearGradient>
+  <linearGradient id="shop" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#efc07e"/><stop offset=".48" stop-color="#9b572d"/><stop offset="1" stop-color="#32170f"/></linearGradient>
+  <radialGradient id="glow"><stop stop-color="#ffd38e" stop-opacity=".92"/><stop offset=".35" stop-color="#d98c48" stop-opacity=".3"/><stop offset="1" stop-color="#d98c48" stop-opacity="0"/></radialGradient>
+  <pattern id="rain" width="44" height="44" patternUnits="userSpaceOnUse" patternTransform="rotate(11)"><line x1="8" y1="0" x2="8" y2="21" stroke="#c8d6dc" stroke-opacity=".15" stroke-width="2"/><line x1="30" y1="14" x2="30" y2="38" stroke="#e1e9ec" stroke-opacity=".1" stroke-width="1.5"/></pattern>
+  <filter id="blur"><feGaussianBlur stdDeviation="13"/></filter>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".5" numOctaves="2" seed="4" result="n"/><feColorMatrix in="n" type="saturate" values="0" result="g"/><feBlend in="SourceGraphic" in2="g" mode="soft-light"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#sky)"/>
+<path d="M0 300Q180 185 390 260T760 230T1110 255T1600 195V520H0z" fill="#0b1417"/>
+<g fill="#091011"><path d="M0 455 190 350 340 390V720H0z"/><path d="M220 420 420 328 560 385V706H220z"/><path d="M450 415 618 330 700 390V690H450z"/></g>
+<g stroke="#344147" stroke-width="5"><path d="M72 456V327l72-96 72 96v129" fill="#111719"/><path d="M470 420V300l65-115 65 115v120" fill="#0e1416"/></g>
+<path d="M535 185v-72l17-34 17 34v72" fill="#080b0c"/>
+<g id="cafe">
+  <path d="M930 185 1600 122V735H895z" fill="#111416" stroke="#3c4548" stroke-width="7"/>
+  <path d="M895 185 1260 55 1600 122z" fill="#080a0b"/>
+  <rect x="986" y="212" width="520" height="120" fill="#0a0c0d" stroke="#725438" stroke-width="5"/>
+  <text x="1246" y="276" text-anchor="middle" fill="#d5ab72" font-family="Georgia,serif" font-size="64" letter-spacing="8">CAFÉ HOLLOW</text>
+  <text x="1246" y="307" text-anchor="middle" fill="#8e7556" font-family="Georgia,serif" font-size="17" letter-spacing="5">COFFEE · CONVERSATION · CONFIDENCES</text>
+  <path d="M930 355h620l-40 82H900z" fill="#151719" stroke="#67492f" stroke-width="5"/>
+  <g>
+    <rect x="965" y="438" width="185" height="230" fill="url(#shop)" stroke="#513720" stroke-width="7"/>
+    <rect x="1178" y="438" width="185" height="230" fill="url(#shop)" stroke="#513720" stroke-width="7"/>
+    <rect x="1391" y="438" width="125" height="230" fill="#1b1512" stroke="#513720" stroke-width="7"/>
+    <path d="M1057 438v230M1270 438v230M1454 438v230M965 548h185M1178 548h185M1391 548h125" stroke="#211815" stroke-width="6"/>
+  </g>
+  <g fill="#151516" stroke="#8b6438" stroke-width="4"><rect x="1060" y="590" width="80" height="18" rx="5"/><rect x="1210" y="590" width="80" height="18" rx="5"/><rect x="1310" y="590" width="70" height="18" rx="5"/></g>
+  <g fill="#201915"><circle cx="1100" cy="572" r="20"/><circle cx="1250" cy="572" r="20"/><circle cx="1344" cy="572" r="20"/></g>
+  <rect x="864" y="600" width="156" height="142" rx="5" fill="#151515" stroke="#735136" stroke-width="6" transform="rotate(-4 942 671)"/>
+  <text x="942" y="652" text-anchor="middle" fill="#d1ac74" font-family="Georgia,serif" font-size="27" transform="rotate(-4 942 671)">CAFÉ</text>
+  <text x="942" y="686" text-anchor="middle" fill="#d1ac74" font-family="Georgia,serif" font-size="27" transform="rotate(-4 942 671)">HOLLOW</text>
+  <text x="942" y="720" text-anchor="middle" fill="#e3c28e" font-family="Georgia,serif" font-size="22" transform="rotate(-4 942 671)">OPEN</text>
+</g>
+<path d="M0 900 0 632 650 500 940 500 850 900z" fill="#090b0c"/>
+<path d="M270 900 650 500h290l330 400z" fill="url(#street)" stroke="#394246" stroke-width="6"/>
+<path d="M690 900 765 522M895 900 826 522" stroke="#aa8b63" stroke-opacity=".22" stroke-width="5" stroke-dasharray="28 31"/>
+<g opacity=".54"><path d="M620 900 720 520h38l-44 380z" fill="#d28d4c"/><path d="M890 900 846 520h36l83 380z" fill="#a75b32"/><path d="M760 900 790 528h18l10 372z" fill="#b63d34"/></g>
+<g stroke="#202426" stroke-width="9" fill="none"><path d="M370 360v415M680 420v300"/><path d="M335 370h70M650 430h60"/></g>
+<g fill="#f1c67f" stroke="#251c14" stroke-width="5"><rect x="338" y="338" width="64" height="65" rx="10"/><rect x="652" y="408" width="56" height="57" rx="10"/></g>
+<g filter="url(#blur)" opacity=".52"><circle cx="370" cy="370" r="115" fill="url(#glow)"/><circle cx="680" cy="435" r="85" fill="url(#glow)"/><ellipse cx="1250" cy="535" rx="280" ry="220" fill="#c77b3e" opacity=".2"/></g>
+<g fill="#15191b" stroke="#3b4548" stroke-width="4"><path d="M488 615q17-42 66-42h44q47 0 65 42l13 65H476z"/><path d="M708 570q14-35 53-35h35q38 0 52 35l10 55H698z"/></g>
+<g fill="#b33b34"><rect x="486" y="638" width="43" height="19" rx="6"/><rect x="624" y="638" width="43" height="19" rx="6"/><rect x="706" y="592" width="36" height="16" rx="5"/><rect x="814" y="592" width="36" height="16" rx="5"/></g>
+<rect width="1600" height="900" fill="url(#rain)"/>
+<rect width="1600" height="900" fill="none" stroke="#9c7a52" stroke-opacity=".18" stroke-width="14"/>
+<rect width="1600" height="900" fill="#000" opacity=".03" filter="url(#grain)"/>
+<radialGradient id="vig" cx="52%" cy="48%" r="72%"><stop offset=".5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".8"/></radialGradient><rect width="1600" height="900" fill="url(#vig)"/>
+</svg>
