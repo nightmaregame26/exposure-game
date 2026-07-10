@@ -1,7 +1,7 @@
+import { prepareApi } from './_security.js';
+
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'POST only' });
-  }
+  if (!prepareApi(req, res, { methods: ['POST'], bucket: 'director', limit: 60, maxBodyBytes: 24_000 })) return;
 
   const {
     day = 1,
@@ -39,7 +39,8 @@ export default async function handler(req, res) {
     newTasks,
     newsUpdate,
     killerPermission,
-    notes: 'Rule-based Director v0.1. AI Director will replace this after backend deployment.'
+    timelineItemsRead: Array.isArray(recentTimeline) ? Math.min(recentTimeline.length, 5) : 0,
+    notes: 'Rule-based Director foundation.'
   });
 }
 
