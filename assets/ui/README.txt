@@ -1,0 +1,1 @@
+High-resolution UI artwork loader assets.
