@@ -1,0 +1,51 @@
+/* Android-safe high-resolution artwork compositor.
+   The previous master SVG referenced four external SVG slices from inside an SVG background.
+   Chromium/WebView can block those nested references, leaving a black canvas. These rules
+   load each self-contained slice directly as a CSS background layer. */
+
+.approved-canvas{
+  aspect-ratio:432/768;
+  background-color:#050708;
+  background-repeat:no-repeat;
+}
+
+.approved-home{
+  background-image:
+    url('assets/mockups/home-0.svg?v=art-7'),
+    url('assets/mockups/home-1.svg?v=art-7'),
+    url('assets/mockups/home-2.svg?v=art-7'),
+    url('assets/mockups/home-3.svg?v=art-7');
+  background-size:100% 25%,100% 25%,100% 25%,100% 25%;
+  background-position:center 0%,center 33.333333%,center 66.666667%,center 100%;
+  background-repeat:no-repeat;
+}
+
+.approved-map{
+  background-image:
+    url('assets/mockups/map-0.svg?v=art-7'),
+    url('assets/mockups/map-1.svg?v=art-7'),
+    url('assets/mockups/map-2.svg?v=art-7'),
+    url('assets/mockups/map-3.svg?v=art-7');
+  background-size:100% 25%,100% 25%,100% 25%,100% 25%;
+  background-position:center 0%,center 33.333333%,center 66.666667%,center 100%;
+  background-repeat:no-repeat;
+}
+
+.approved-scene{
+  background-image:
+    url('assets/mockups/scene-0.svg?v=art-7'),
+    url('assets/mockups/scene-1.svg?v=art-7'),
+    url('assets/mockups/scene-2.svg?v=art-7'),
+    url('assets/mockups/scene-3.svg?v=art-7');
+  background-size:100% 25%,100% 25%,100% 25%,100% 25%;
+  background-position:center 0%,center 33.333333%,center 66.666667%,center 100%;
+  background-repeat:no-repeat;
+}
+
+/* Keep interactive overlays aligned to the 432 × 768 artwork. */
+body.approved-art-ui #app{min-height:100svh}
+body.approved-emily-active #sceneOverlay .scene{min-height:100svh}
+
+@media (max-width:432px){
+  .approved-canvas{width:100vw;min-height:100svh;aspect-ratio:auto;background-size:100% 25%,100% 25%,100% 25%,100% 25%}
+}
