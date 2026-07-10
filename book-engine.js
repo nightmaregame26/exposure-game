@@ -18,7 +18,7 @@
     rest:{id:'rest',name:'Rest at home',t:120,s:-30,e:-4}
   };
 
-  const taskByName = Object.fromEntries(Object.values(taskConfig).map(t => [t.name, t]));
+  const taskByName = Object.fromEntries(Object.values(taskConfig).map(task => [task.name, task]));
 
   let content = null;
   let active = null;
@@ -40,7 +40,7 @@
     renderLibrary();
 
     if (content && !localStorage.getItem(PROLOGUE_KEY)) {
-      setTimeout(() => openPrologue(), 350);
+      window.setTimeout(openPrologue, 350);
     }
   }
 
@@ -71,8 +71,8 @@
 
   function interceptTasks() {
     originalStartTask = window.startTask;
-
     const tasks = byId('tasks');
+
     tasks.addEventListener('click', event => {
       const button = event.target.closest('button');
       if (!button || button.disabled) return;
@@ -80,10 +80,20 @@
       const task = taskByName[title];
       if (!task || !content?.tasks?.[task.id]) return;
 
+      const livingGate = window.ExposureLiving?.evaluateTask?.(task) || { allowed:true };
+      if (!livingGate.allowed) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        window.ExposureLiving?.openTaskGate?.(task, livingGate);
+        return;
+      }
+
       event.preventDefault();
       event.stopImmediatePropagation();
       pendingTask = task;
       lastTaskId = task.id;
+      window.ExposureLiving?.onTaskStarted?.(task, livingGate);
+
       openTaskChapter(task.id, 'outbound', () => {
         if (typeof originalStartTask === 'function') originalStartTask(task);
       });
@@ -93,9 +103,11 @@
   function interceptSceneExit() {
     const leave = byId('leaveSceneBtn');
     leave.addEventListener('click', () => {
-      if (!lastTaskId || !content?.tasks?.[lastTaskId]?.return) return;
+      if (!lastTaskId) return;
       const returnId = lastTaskId;
-      setTimeout(() => openTaskChapter(returnId, 'return'), 180);
+      window.ExposureLiving?.onTaskCompleted?.(returnId);
+      if (!content?.tasks?.[returnId]?.return) return;
+      window.setTimeout(() => openTaskChapter(returnId, 'return'), 180);
     });
   }
 
@@ -103,23 +115,23 @@
     if (!content?.prologue) return;
     const prologue = content.prologue;
     openReader({
-      id: prologue.id,
-      day: prologue.day,
-      chapter: prologue.chapter,
-      title: prologue.title,
-      pages: prologue.pages,
-      type: 'prologue',
-      onComplete: () => {
+      id:prologue.id,
+      day:prologue.day,
+      chapter:prologue.chapter,
+      title:prologue.title,
+      pages:deepClone(prologue.pages),
+      type:'prologue',
+      onComplete:() => {
         localStorage.setItem(PROLOGUE_KEY, 'true');
         saveEntry({
-          id: prologue.id,
-          day: 0,
-          chapter: 'Prologue',
-          title: prologue.title,
-          pages: prologue.pages.map(p => ({ text:p.text })),
-          completedAt: new Date().toISOString(),
-          bookmarked: false,
-          type: 'prologue'
+          id:prologue.id,
+          day:0,
+          chapter:'Prologue',
+          title:prologue.title,
+          pages:prologue.pages.map(page => ({ text:page.text })),
+          completedAt:new Date().toISOString(),
+          bookmarked:false,
+          type:'prologue'
         });
         renderLibrary();
       }
@@ -127,39 +139,41 @@
   }
 
   function openTaskChapter(taskId, phase, onComplete) {
-    const section = content?.tasks?.[taskId]?.[phase];
-    if (!section) {
+    const sourceSection = content?.tasks?.[taskId]?.[phase];
+    if (!sourceSection) {
       onComplete?.();
       return;
     }
 
+    const section = window.ExposureLiving?.decorateChapter?.(taskId, phase, sourceSection) || deepClone(sourceSection);
     const day = Number(byId('day')?.textContent || 1);
     const chapterNumber = readBook().length + 1;
+
     openReader({
-      id: `${taskId}_${phase}_${Date.now()}`,
+      id:`${taskId}_${phase}_${Date.now()}`,
       taskId,
       phase,
       day,
-      chapter: `Chapter ${chapterNumber}`,
-      title: section.title,
-      pages: structuredClone(section.pages),
-      type: phase === 'return' ? 'reflection' : 'travel',
-      onComplete: () => {
+      chapter:`Chapter ${chapterNumber}`,
+      title:section.title,
+      pages:deepClone(section.pages),
+      type:phase === 'return' ? 'reflection' : 'travel',
+      onComplete:() => {
         const entry = {
-          id: active.id,
+          id:active.id,
           day,
-          chapter: active.chapter,
-          title: active.title,
+          chapter:active.chapter,
+          title:active.title,
           taskId,
           phase,
-          pages: active.pages.map(page => ({
-            text: page.text,
-            selectedChoice: page.selectedChoice || null,
-            choiceResult: page.choiceResult || null
+          pages:active.pages.map(page => ({
+            text:page.text,
+            selectedChoice:page.selectedChoice || null,
+            choiceResult:page.choiceResult || null
           })),
-          completedAt: new Date().toISOString(),
-          bookmarked: false,
-          type: active.type
+          completedAt:new Date().toISOString(),
+          bookmarked:false,
+          type:active.type
         };
         saveEntry(entry);
         renderLibrary();
@@ -328,7 +342,7 @@
     if (!list) return;
     const query = (byId('bookSearch')?.value || '').trim().toLowerCase();
     const entries = readBook().filter(entry => {
-      const searchable = `${entry.title} ${entry.chapter} ${entry.pages.map(p => p.text).join(' ')}`.toLowerCase();
+      const searchable = `${entry.title} ${entry.chapter} ${entry.pages.map(page => page.text).join(' ')}`.toLowerCase();
       return !query || searchable.includes(query);
     });
 
@@ -350,7 +364,7 @@
   function openMemory(id) {
     const entry = readBook().find(item => item.id === id);
     if (!entry) return;
-    openReader({ ...structuredClone(entry), type:'memory', onComplete:null });
+    openReader({ ...deepClone(entry), type:'memory', onComplete:null });
     byId('bookBookmarkBtn').style.display = '';
   }
 
@@ -370,6 +384,10 @@
     return document.getElementById(id);
   }
 
+  function deepClone(value) {
+    return typeof structuredClone === 'function' ? structuredClone(value) : JSON.parse(JSON.stringify(value));
+  }
+
   function escapeHtml(value) {
     return String(value || '').replace(/[&<>"']/g, char => ({
       '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
@@ -379,6 +397,8 @@
   window.ExposureBook = {
     openPrologue,
     openMemory,
+    openReader,
+    saveEntry,
     renderLibrary,
     readBook
   };
