@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 760" role="img" aria-labelledby="title desc">
+  <title id="title">Emily Hart portrait</title><desc id="desc">A fictional young Blackwood resident in a dark coat, illustrated in a moody noir style.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#263038"/><stop offset=".5" stop-color="#12171b"/><stop offset="1" stop-color="#07090b"/></linearGradient>
+    <radialGradient id="skin" cx="45%" cy="35%"><stop stop-color="#e4c2a8"/><stop offset=".7" stop-color="#b8876f"/><stop offset="1" stop-color="#6d463d"/></radialGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#35251f"/><stop offset=".55" stop-color="#171313"/><stop offset="1" stop-color="#080809"/></linearGradient>
+    <linearGradient id="coat" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#252a2e"/><stop offset="1" stop-color="#08090b"/></linearGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="14"/></filter>
+  </defs>
+  <rect width="600" height="760" fill="url(#bg)"/>
+  <circle cx="430" cy="120" r="160" fill="#d79a50" opacity=".11" filter="url(#soft)"/>
+  <path d="M74 760c18-185 83-290 204-327 133-41 222 22 262 327z" fill="url(#coat)"/>
+  <path d="M120 397c-18-112 17-238 127-300 85-48 202-24 259 55 42 58 48 147 8 220-31 57-78 86-134 111-93 42-224 13-260-86z" fill="url(#hair)"/>
+  <path d="M218 181c31-47 96-71 154-45 69 31 97 119 68 205-25 74-83 123-141 117-65-7-113-78-110-158 2-48 10-89 29-119z" fill="url(#skin)"/>
+  <path d="M236 222c39-50 126-79 195-28-9-47-49-93-110-96-73-3-135 50-152 124 23 14 44 12 67 0z" fill="url(#hair)"/>
+  <path d="M197 158c-39 27-75 87-65 161 8 61 44 111 81 134-21-67-19-145 4-209 13-37 38-67 70-89-35-16-63-12-90 3z" fill="url(#hair)"/>
+  <path d="M429 178c43 39 70 101 64 165-4 47-27 92-64 119 13-52 9-111-10-166-15-43-42-78-78-104 37-20 65-23 88-14z" fill="url(#hair)"/>
+  <ellipse cx="269" cy="297" rx="24" ry="10" fill="#201a1b"/><ellipse cx="382" cy="296" rx="23" ry="10" fill="#201a1b"/>
+  <circle cx="270" cy="297" r="5" fill="#9a7458"/><circle cx="382" cy="296" r="5" fill="#9a7458"/>
+  <path d="M248 275c20-10 42-9 62 1M356 274c20-10 41-8 59 3" fill="none" stroke="#3c2926" stroke-width="8" stroke-linecap="round"/>
+  <path d="M329 297c-6 25-11 48-5 63 5 9 16 14 30 14" fill="none" stroke="#8d5d52" stroke-width="6" stroke-linecap="round"/>
+  <path d="M281 399c37 19 78 15 111-8-14 39-43 59-75 57-27-2-45-19-36-49z" fill="#7f403e"/>
+  <path d="M281 395c34 10 72 9 108-5" fill="none" stroke="#e0ad9c" stroke-width="4" stroke-linecap="round"/>
+  <path d="M208 482c33 58 88 91 151 89 55-2 101-29 129-74l42 263H98l59-252z" fill="url(#coat)"/>
+  <path d="M235 445c12 63 44 97 90 101 48 4 83-23 107-79l-11 103-96 65-96-68z" fill="#a77462"/>
+  <path d="M138 540c74 29 129 85 187 170 57-85 113-139 195-170" fill="none" stroke="#4c5152" stroke-width="34" opacity=".7"/>
+  <g opacity=".18" stroke="#d6a15a" fill="none"><circle cx="90" cy="102" r="46"/><path d="M58 116l32-59 32 59M67 96h46"/></g>
+</svg>
