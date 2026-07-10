@@ -19,18 +19,11 @@ jobs:
           node-version: 22
 
       - name: Check JavaScript syntax
-        run: |
-          node --check app.js
-          node --check book-engine.js
-          node --check living-time-patch.js
-          node --check living-social-engine.js
-          node --check api/talk.js
-          node --check api/director.js
-          node --check api/killer.js
+        run: npm run check
 
-      - name: Validate JSON data
+      - name: Validate JSON data and deployment config
         run: |
-          node -e "const fs=require('fs'); for (const file of fs.readdirSync('data').filter(f=>f.endsWith('.json'))) JSON.parse(fs.readFileSync('data/'+file,'utf8')); console.log('All JSON files are valid.');"
+          node -e "const fs=require('fs'); for (const file of fs.readdirSync('data').filter(f=>f.endsWith('.json'))) JSON.parse(fs.readFileSync('data/'+file,'utf8')); JSON.parse(fs.readFileSync('package.json','utf8')); JSON.parse(fs.readFileSync('vercel.json','utf8')); console.log('All JSON files are valid.');"
 
       - name: Verify required web files
         run: |
@@ -40,5 +33,13 @@ jobs:
           test -f book-engine.js
           test -f living-time-patch.js
           test -f living-social-engine.js
+          test -f ai-bridge.js
+          test -f api/_security.js
+          test -f api/health.js
+          test -f api/talk.js
+          test -f api/director.js
+          test -f api/killer.js
           test -f data/book-content.json
           test -f data/living-appointments.json
+          test -f vercel.json
+          test -f .env.example
