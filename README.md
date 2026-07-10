@@ -6,57 +6,63 @@ The player has just moved to town. Noah Williams helps them during the move, war
 
 ## Current Milestone
 
-**Milestone 2 — The Living Book**
+**Milestone 3 — The First Case Loop**
 
-Exposure is presented as an interactive crime novel connected to the player's real local time. Choosing a destination opens a narrated travel chapter, while time, appointments and relationships change what happens.
+Exposure is presented as an interactive crime novel connected to the player's real local time. Travel, appointments, relationships and suspicion affect what happens. The repository is now prepared for a Vercel deployment that serves both the game and its protected AI conversation endpoint.
 
 Includes:
 
 - Revised opening prologue connecting the player directly to Noah
-- Noah's damaged phone as the first evidence object
-- Emily's 10:00 meeting request
 - Real local time displayed as Blackwood time
-- Day, evening and night versions of every current mission
-- Missions that can cross midnight
-- Living appointment system
-- Phone-based rescheduling
-- NPC willingness calculations based on trust, affection, respect, reliability, fear, suspicion, interest and schedule conflicts
-- Consequences for arriving unannounced
-- Consequences for missed appointments
-- Social Score for each important character
-- NPC suspicion states, including believing the player may be the killer
-- `While You Were Away` offline simulation summaries
-- Offline events saved into the Memory Book
-- Book-style reader overlay and typewriter presentation
-- Travel observations that can become evidence
-- Outbound and return chapters
-- Searchable, bookmarkable Memory Book
-- Time, stamina and Exposure systems
-- NPC Health, Stamina, Focus, Stress, Fear, Trust, Interest and Suspicion
-- Town, Director and Killer simulation foundations
-- Backend `/api/talk`, `/api/director` and `/api/killer` scaffolds
+- Day, evening and night mission variations
+- Living appointment system and phone-based rescheduling
+- NPC willingness based on trust, affection, respect, reliability, fear, suspicion, interest and schedule conflicts
+- Social Score and player-suspicion states
+- `While You Were Away` Memory Book chapters
+- Book-style reader, travel chapters and saved evidence
+- Real AI scene-dialogue bridge with automatic local fallback
+- AI health indicator inside NPC scenes
+- Server-side Focus, Trust, Stress, Fear, Interest, Suspicion and Exposure updates
+- Protected `/api/talk`, `/api/director` and `/api/killer` routes
+- API origin checks, body limits, prototype rate limiting and no-store headers
+- Vercel deployment configuration and environment-variable template
 - Automated JavaScript and JSON validation through GitHub Actions
 
-## Play
+## Play Current Static Build
 
 ```text
-https://nightmaregame26.github.io/exposure-game/
+https://nightmaregame26.github.io/exposure-game/?v=ai1
 ```
 
-Use a version query after major updates when the browser caches an older build:
+GitHub Pages runs the game with local dialogue fallback. Live AI dialogue becomes available on the Vercel deployment after `OPENAI_API_KEY` is configured.
+
+## Deploy Live AI Build
+
+Import this repository into Vercel, then add:
 
 ```text
-https://nightmaregame26.github.io/exposure-game/?v=living1
+OPENAI_API_KEY=<secret key>
+OPENAI_MODEL=<supported JSON-capable chat model>
+APP_ORIGIN=<production Exposure URL>
 ```
+
+Full instructions are in `docs/VERCEL_DEPLOYMENT.md`.
 
 ## Main Files
 
-- `index.html` — game, Phone and reader interface
-- `app.js` — current game simulation
+- `index.html` — game, Phone, scene and reader interface
+- `app.js` — current game simulation and local dialogue fallback
+- `ai-bridge.js` — live AI conversation connection and fallback handling
 - `book-engine.js` — prologue, travel chapters and Memory Book
 - `living-time-patch.js` — real-time task execution and reset integration
 - `living-social-engine.js` — appointments, rescheduling, social scores, suspicion and offline time
-- `style.css` — game, book and Living Time presentation
+- `api/_security.js` — shared origin, request-size and rate-limit checks
+- `api/health.js` — deployment and OpenAI configuration check
+- `api/talk.js` — live NPC conversation endpoint
+- `api/director.js` — rule-based Director endpoint
+- `api/killer.js` — hidden killer-behaviour endpoint
+- `vercel.json` — serverless deployment configuration
+- `.env.example` — environment-variable names without secrets
 - `data/book-content.json` — authored prologue and travel content
 - `data/living-appointments.json` — schedules, social defaults and time-based mission outcomes
 
@@ -78,14 +84,13 @@ https://nightmaregame26.github.io/exposure-game/?v=living1
 - `docs/CASE_GENERATION_ENGINE.md`
 - `docs/BOOK_ENGINE.md`
 - `docs/LIVING_TIME_SOCIAL_SYSTEM.md`
+- `docs/VERCEL_DEPLOYMENT.md`
 
 ## Next Build Block
 
-- Connect appointment negotiation to real AI messaging
-- Add server-verified time and authoritative offline simulation
-- Add full NPC daily movement schedules
-- Make businesses visibly open and closed
-- Add relationship-driven rumour transmission
-- Add time-sensitive calls and notifications
-- Connect the killer's knowledge to appointments and missed meetings
-- Deploy the AI backend for real conversations
+- Deploy the repository through the owner's Vercel account
+- Confirm the configured OpenAI model is available to the account
+- Test Emily's complete AI conversation and appointment flow
+- Add server-authoritative player sessions and persistent rate limiting
+- Add Mason's formal witness/suspect interview
+- Connect AI conversation memory to the social graph and Director
