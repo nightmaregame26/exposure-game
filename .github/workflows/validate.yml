@@ -22,6 +22,8 @@ jobs:
         run: |
           node --check app.js
           node --check book-engine.js
+          node --check living-time-patch.js
+          node --check living-social-engine.js
           node --check api/talk.js
           node --check api/director.js
           node --check api/killer.js
@@ -36,4 +38,7 @@ jobs:
           test -f style.css
           test -f app.js
           test -f book-engine.js
+          test -f living-time-patch.js
+          test -f living-social-engine.js
           test -f data/book-content.json
+          test -f data/living-appointments.json
