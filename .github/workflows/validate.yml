@@ -29,11 +29,17 @@ jobs:
         run: |
           test -f index.html
           test -f style.css
+          test -f premium-ui.css
           test -f app.js
           test -f book-engine.js
           test -f living-time-patch.js
           test -f living-social-engine.js
           test -f ai-bridge.js
+          test -f premium-ui.js
+          test -f assets/blackwood-main-street.svg
+          test -f assets/cafe-hollow.svg
+          test -f assets/blackwood-map.svg
+          test -f assets/emily-hart.svg
           test -f api/_security.js
           test -f api/health.js
           test -f api/talk.js
