@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-labelledby="title desc">
+<title id="title">Emily Hart portrait</title><desc id="desc">A guarded young woman in a dark scarf, lit by warm café light.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0a1116"/><stop offset=".55" stop-color="#182027"/><stop offset="1" stop-color="#07090b"/></linearGradient>
+  <radialGradient id="skin" cx="43%" cy="36%" r="70%"><stop stop-color="#d2a47e"/><stop offset=".45" stop-color="#9f7058"/><stop offset="1" stop-color="#593c34"/></radialGradient>
+  <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#211b1b"/><stop offset=".55" stop-color="#0d1013"/><stop offset="1" stop-color="#030506"/></linearGradient>
+  <linearGradient id="coat" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#252d31"/><stop offset="1" stop-color="#080b0d"/></linearGradient>
+  <filter id="soft"><feGaussianBlur stdDeviation="16"/></filter>
+  <pattern id="rain" width="36" height="36" patternUnits="userSpaceOnUse" patternTransform="rotate(10)"><line x1="8" y1="0" x2="8" y2="16" stroke="#d4e0e5" stroke-opacity=".1" stroke-width="2"/></pattern>
+</defs>
+<rect width="600" height="800" fill="url(#bg)"/>
+<circle cx="445" cy="200" r="170" fill="#d98545" opacity=".18" filter="url(#soft)"/>
+<path d="M90 800q5-225 145-290h132q145 70 163 290z" fill="url(#coat)"/>
+<path d="M174 800q13-185 79-254l72 32 82-34q70 88 84 256z" fill="#11171a"/>
+<path d="M232 536q72 64 157 6l50 92q-130 99-269 0z" fill="#1d2427" stroke="#394247" stroke-width="5"/>
+<path d="M260 458h116v122q-58 42-116 0z" fill="#875e4c"/>
+<path d="M183 204q32-120 144-124 124-4 158 128v155q-5 132-155 174-146-46-147-178z" fill="url(#skin)" stroke="#3a2724" stroke-width="5"/>
+<path d="M161 230q8-163 166-170 148 7 176 160-45-63-113-70-125-12-229 80z" fill="url(#hair)"/>
+<path d="M162 213q-20 106 24 253 20-68 35-147 14-74 41-133z" fill="url(#hair)"/>
+<path d="M496 208q31 119-17 270-31-70-39-150-8-84-46-170z" fill="url(#hair)"/>
+<path d="M188 193q45-93 141-99 116 8 158 122-42-39-93-52-117-29-206 29z" fill="#171416"/>
+<path d="M220 280q46-32 92-3" fill="none" stroke="#4d352e" stroke-width="11" stroke-linecap="round"/>
+<path d="M356 276q50-29 92 6" fill="none" stroke="#4d352e" stroke-width="11" stroke-linecap="round"/>
+<ellipse cx="270" cy="302" rx="15" ry="11" fill="#1c2324"/><ellipse cx="405" cy="302" rx="15" ry="11" fill="#1c2324"/>
+<circle cx="266" cy="299" r="4" fill="#b7a77c"/><circle cx="401" cy="299" r="4" fill="#b7a77c"/>
+<path d="M335 300q-7 73-30 99 30 18 63-2" fill="none" stroke="#6e493f" stroke-width="7" stroke-linecap="round"/>
+<path d="M273 438q59 30 119-1-54 57-119 1z" fill="#7a393b"/>
+<path d="M226 495q102 58 216-1" fill="none" stroke="#3a2927" stroke-width="7" opacity=".55"/>
+<path d="M172 247q10 218 67 294-73-40-93-149z" fill="#0c0d10" opacity=".9"/>
+<path d="M483 238q2 224-63 306 77-43 94-156z" fill="#090b0d" opacity=".92"/>
+<rect width="600" height="800" fill="url(#rain)"/>
+<path d="M0 0h600v800H0z" fill="none" stroke="#9b784f" stroke-opacity=".2" stroke-width="12"/>
+<radialGradient id="vig" cx="50%" cy="43%" r="70%"><stop offset=".48" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".78"/></radialGradient><rect width="600" height="800" fill="url(#vig)"/>
+</svg>
