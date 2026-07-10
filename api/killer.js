@@ -1,7 +1,7 @@
+import { prepareApi } from './_security.js';
+
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'POST only' });
-  }
+  if (!prepareApi(req, res, { methods: ['POST'], bucket: 'killer', limit: 60, maxBodyBytes: 24_000 })) return;
 
   const {
     exposure = 0,
@@ -17,13 +17,11 @@ export default async function handler(req, res) {
   }
 
   const risk = clamp(Number(policePresence || 0) + Number(exposure || 0) * 0.4);
-
   if (risk > 75) {
     return res.status(200).json({ action: 'delay', targetId: null, reason: 'Risk is too high. Killer waits.' });
   }
 
   const target = chooseTarget(possibleTargets);
-
   if (killerPermission === 'stalk_only') {
     return res.status(200).json({ action: 'stalk', targetId: target?.id || null, reason: 'Pressure is high, but murder is not approved.' });
   }
@@ -38,7 +36,13 @@ export default async function handler(req, res) {
 function chooseTarget(targets) {
   if (!Array.isArray(targets) || !targets.length) return null;
   return targets
-    .map(t => ({ ...t, score: Number(t.vulnerability || 0) + Number(t.knowsDangerousFact ? 25 : 0) - Number(t.protection || 0) }))
+    .slice(0, 50)
+    .map(target => ({
+      ...target,
+      score: Number(target.vulnerability || 0)
+        + Number(target.knowsDangerousFact ? 25 : 0)
+        - Number(target.protection || 0)
+    }))
     .sort((a, b) => b.score - a.score)[0];
 }
 
