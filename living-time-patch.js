@@ -35,14 +35,33 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    const bootstrap = window.setInterval(() => {
+      try {
+        if (!state?.people || !Array.isArray(state.messages)) return;
+        if (!state.messages.some(message => message.from === 'Emily Hart')) {
+          state.messages.unshift({
+            from:'Emily Hart',
+            text:'You spoke to Noah last night. Café Hollow, 10:00. Please come alone. I need to know what he left with you.',
+            threat:false
+          });
+          save?.();
+          render?.();
+        }
+        window.clearInterval(bootstrap);
+      } catch {}
+    }, 150);
+
     document.getElementById('resetBtn')?.addEventListener('click', () => {
-      localStorage.removeItem('exposure-social-matrix-v1');
-      localStorage.removeItem('exposure-appointments-v1');
-      localStorage.removeItem('exposure-last-seen-v1');
-      localStorage.removeItem('exposure-memory-book-v1');
-      localStorage.removeItem('exposure-prologue-complete-v1');
-      localStorage.removeItem('exposure-prologue-1-1-migrated');
-    }, true);
+      window.setTimeout(() => {
+        if (localStorage.getItem('exposure-alpha-04')) return;
+        localStorage.removeItem('exposure-social-matrix-v1');
+        localStorage.removeItem('exposure-appointments-v1');
+        localStorage.removeItem('exposure-last-seen-v1');
+        localStorage.removeItem('exposure-memory-book-v1');
+        localStorage.removeItem('exposure-prologue-complete-v1');
+        localStorage.removeItem('exposure-prologue-1-1-migrated');
+      }, 50);
+    });
 
     window.setInterval(() => {
       let stamina = 100;
