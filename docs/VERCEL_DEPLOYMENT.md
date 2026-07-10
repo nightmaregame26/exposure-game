@@ -7,7 +7,7 @@ The repository is prepared to serve the static game and the serverless API from 
 Create these in the Vercel project settings:
 
 - `OPENAI_API_KEY` — required for live AI dialogue.
-- `OPENAI_MODEL` — optional. Defaults to `gpt-4o-mini`; set this to a supported JSON-capable chat model available to the account.
+- `OPENAI_MODEL` — required. Set this to a supported JSON-capable chat model available to the account.
 - `APP_ORIGIN` — optional. Set it to the production Exposure URL. Multiple origins can be comma-separated.
 
 Never place `OPENAI_API_KEY` in `index.html`, frontend JavaScript, GitHub Pages settings or any committed file.
@@ -41,7 +41,7 @@ After deployment:
 6. Confirm the dialogue badge reads `AI dialogue online`.
 7. Type a question and verify the reply changes NPC Focus and social state.
 
-If the API is missing or the key is not configured, the frontend automatically returns to the existing local dialogue system.
+If the API is missing or either required OpenAI variable is not configured, the frontend automatically returns to the existing local dialogue system.
 
 ## Security currently included
 
