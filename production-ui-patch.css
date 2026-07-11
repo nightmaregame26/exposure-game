@@ -1,0 +1,57 @@
+/* Connect the production renderer to the existing game engine DOM. */
+body:not(.native-mode) #app,
+body:not(.native-mode) > nav.tabs,
+body:not(.native-mode) > #sceneOverlay,
+body:not(.native-mode) > #bookOverlay{
+  position:fixed!important;
+  left:-200vw!important;
+  top:0!important;
+  width:1px!important;
+  height:1px!important;
+  overflow:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+
+body.native-mode #productionUi{display:none!important}
+body.native-mode #app{
+  position:relative!important;
+  left:auto!important;
+  top:auto!important;
+  width:min(100%,920px)!important;
+  height:auto!important;
+  min-height:100dvh!important;
+  margin:0 auto!important;
+  overflow:visible!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  padding-bottom:84px!important;
+}
+body.native-mode > nav.tabs{
+  position:fixed!important;
+  display:flex!important;
+  left:50%!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:0!important;
+  width:min(100%,920px)!important;
+  height:auto!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  transform:translateX(-50%)!important;
+  z-index:4000!important;
+}
+body.native-scene #sceneOverlay,
+body.native-book #bookOverlay{
+  position:fixed!important;
+  display:block!important;
+  inset:0!important;
+  left:0!important;
+  top:0!important;
+  width:100%!important;
+  height:100dvh!important;
+  overflow:auto!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  z-index:5000!important;
+}
