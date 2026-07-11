@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import base64
+import re
+from io import BytesIO
 from pathlib import Path
 
 from PIL import Image
@@ -23,20 +25,19 @@ CROPS = {
 }
 
 
-def load_master() -> Image.Image:
-    chunks = sorted(SOURCE_DIR.glob("*.txt"))
+def source_chunks() -> list[Path]:
+    chunks = [path for path in SOURCE_DIR.glob("*.txt") if re.fullmatch(r"\d+\.txt", path.name)]
+    chunks.sort(key=lambda path: int(path.stem))
     if not chunks:
-        raise FileNotFoundError(f"No source chunks found in {SOURCE_DIR}")
+        raise FileNotFoundError(f"No numbered source chunks found in {SOURCE_DIR}")
+    return chunks
 
-    encoded = "".join(path.read_text(encoding="utf-8").strip() for path in chunks)
+
+def load_master() -> Image.Image:
+    encoded = "".join(path.read_text(encoding="utf-8").strip() for path in source_chunks())
     raw = base64.b64decode(encoded, validate=True)
-    temporary = OUTPUT_DIR / "_master.webp"
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    temporary.write_bytes(raw)
-
-    image = Image.open(temporary).convert("RGB")
+    image = Image.open(BytesIO(raw)).convert("RGB")
     image.load()
-    temporary.unlink(missing_ok=True)
     return image
 
 
@@ -60,12 +61,20 @@ def main() -> None:
         crop.save(
             OUTPUT_DIR / f"{name}.webp",
             format="WEBP",
-            quality=92,
+            quality=94,
             method=6,
             lossless=False,
         )
+        crop.save(
+            OUTPUT_DIR / f"{name}.png",
+            format="PNG",
+            optimize=True,
+        )
 
-    print(f"Generated {len(CROPS)} component assets from {master.size[0]}x{master.size[1]} master artwork.")
+    print(
+        f"Generated {len(CROPS)} independent WebP and PNG panel assets "
+        f"from {master.size[0]}x{master.size[1]} master artwork."
+    )
 
 
 if __name__ == "__main__":
