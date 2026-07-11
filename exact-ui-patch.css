@@ -1,0 +1,39 @@
+body.exact-ui-active.exact-native-mode.exact-native-scene #sceneOverlay{
+  position:fixed!important;
+  inset:0!important;
+  left:0!important;
+  top:0!important;
+  width:100%!important;
+  height:100dvh!important;
+  overflow:auto!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  z-index:4200!important;
+}
+
+.exact-toast{
+  position:fixed;
+  z-index:5000;
+  left:50%;
+  bottom:max(18px,env(safe-area-inset-bottom));
+  width:min(82vw,390px);
+  padding:11px 14px;
+  border:1px solid rgba(198,155,98,.48);
+  border-radius:8px;
+  background:rgba(5,8,9,.97);
+  color:#e4d2b6;
+  box-shadow:0 14px 40px rgba(0,0,0,.75);
+  font:600 12px/1.45 Arial,sans-serif;
+  text-align:center;
+  opacity:0;
+  transform:translate(-50%,12px);
+  transition:opacity .18s ease,transform .18s ease;
+  pointer-events:none;
+}
+.exact-toast.show{opacity:1;transform:translate(-50%,0)}
+
+@supports not (height:100dvh){
+  body.exact-ui-active{min-height:100vh}
+  .exact-stage{width:min(100vw,56.25vh);height:min(100vh,177.777vw);max-height:100vh}
+  body.exact-ui-active.exact-native-mode.exact-native-scene #sceneOverlay{height:100vh!important}
+}
