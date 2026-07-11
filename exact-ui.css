@@ -1,14 +1,8 @@
-/* Exposure exact art-first UI
-   The approved 9:16 mockups are rendered as four direct image slices.
-   They are never stretched outside their original 432:768 ratio. */
-
+/* Exposure exact art-first UI v13 */
 :root{
-  --exact-w:432;
-  --exact-h:768;
-  --exact-ratio:calc(var(--exact-w) / var(--exact-h));
+  --exact-ratio:0.5625;
   --exact-ivory:#eadbc1;
   --exact-gold:#c69b62;
-  --exact-red:#b83e38;
 }
 
 html,body{
@@ -16,119 +10,134 @@ html,body{
   width:100%;
   min-height:100%;
   background:#020405;
-  overflow:hidden;
   overscroll-behavior:none;
 }
 
 body.exact-ui-active{
   min-height:100dvh;
+  overflow:hidden;
   color:var(--exact-ivory);
-  background:
-    radial-gradient(circle at 50% 30%,#11181a 0,#050708 43%,#010203 100%);
+  background:#020405;
 }
 
 body.exact-ui-active #app,
 body.exact-ui-active > nav.tabs,
 body.exact-ui-active #sceneOverlay{
-  position:fixed!important;
-  left:-200vw!important;
-  top:0!important;
-  width:1px!important;
-  height:1px!important;
-  overflow:hidden!important;
-  opacity:0!important;
-  pointer-events:none!important;
+  display:none!important;
 }
 
-body.exact-ui-active.exact-native-mode #exactUi{display:none!important}
+body.exact-ui-active.exact-native-mode{
+  overflow:auto;
+}
+body.exact-ui-active.exact-native-mode #exactUi{
+  display:none!important;
+}
 body.exact-ui-active.exact-native-mode #app{
+  display:block!important;
   position:relative!important;
-  left:auto!important;
-  top:auto!important;
   width:min(100%,920px)!important;
-  height:auto!important;
   min-height:100dvh!important;
   margin:0 auto!important;
-  overflow:visible!important;
-  opacity:1!important;
-  pointer-events:auto!important;
   padding-bottom:calc(86px + env(safe-area-inset-bottom))!important;
 }
 body.exact-ui-active.exact-native-mode > nav.tabs{
+  display:flex!important;
   position:fixed!important;
   left:50%!important;
-  top:auto!important;
+  right:auto!important;
   bottom:0!important;
   width:min(100%,920px)!important;
-  height:auto!important;
-  opacity:1!important;
-  pointer-events:auto!important;
   transform:translateX(-50%)!important;
-  z-index:3000!important;
+  z-index:3500!important;
 }
-body.exact-ui-active.exact-native-mode #bookOverlay{
+body.exact-ui-active.exact-native-mode.exact-native-scene #sceneOverlay{
+  display:block!important;
+  position:fixed!important;
+  inset:0!important;
+  width:100%!important;
+  height:100dvh!important;
+  overflow:auto!important;
+  z-index:4200!important;
+}
+body.exact-ui-active #bookOverlay:not(.hidden){
   z-index:5000!important;
 }
 
 #exactUi{
   position:fixed;
   inset:0;
-  z-index:2500;
-  display:grid;
-  place-items:center;
+  z-index:3000;
   overflow:hidden;
-  background:#020405;
+  background:
+    radial-gradient(circle at 50% 40%,#11181a 0,#050708 48%,#010203 100%);
   user-select:none;
   -webkit-user-select:none;
   touch-action:manipulation;
 }
 
 .exact-stage{
-  position:relative;
-  width:min(100vw,calc(100dvh * var(--exact-ratio)));
-  height:min(100dvh,calc(100vw / var(--exact-ratio)));
-  max-width:100vw;
-  max-height:100dvh;
-  aspect-ratio:432/768;
-  overflow:hidden;
-  background:#050708;
-  box-shadow:0 0 80px rgba(0,0,0,.92);
-}
-
-.exact-stage[hidden]{display:none!important}
-
-.exact-art{
   position:absolute;
   inset:0;
+  overflow:hidden;
+}
+.exact-stage[hidden]{display:none!important}
+
+.exact-artboard{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(100vw,calc(100dvh * var(--exact-ratio)));
+  height:min(100dvh,calc(100vw / var(--exact-ratio)));
+  aspect-ratio:432/768;
+  overflow:hidden;
+  transform:translate(-50%,-50%);
+  background:#050708;
+  box-shadow:0 0 90px rgba(0,0,0,.95);
+}
+
+.exact-full-art,
+.exact-slices,
+.exact-loading,
+.exact-error{
+  position:absolute;
+  inset:0;
+}
+
+.exact-full-art{
+  z-index:1;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  opacity:0;
+}
+.exact-slices{
   z-index:1;
   display:grid;
   grid-template-rows:repeat(4,25%);
-  overflow:hidden;
-  background:#050708;
+  opacity:0;
 }
-.exact-art img{
-  display:block;
+.exact-slice{
   width:100%;
   height:100%;
-  object-fit:fill;
-  opacity:0;
-  transition:opacity .18s ease;
-  pointer-events:none;
-  -webkit-user-drag:none;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
 }
-.exact-art.ready img{opacity:1}
-.exact-art::after{
+.exact-artboard.uses-full-art .exact-full-art,
+.exact-artboard.uses-slices .exact-slices{
+  opacity:1;
+}
+.exact-artboard::after{
   content:"";
   position:absolute;
   inset:0;
+  z-index:3;
   pointer-events:none;
-  box-shadow:inset 0 0 18px rgba(0,0,0,.45);
+  box-shadow:inset 0 0 18px rgba(0,0,0,.48);
 }
 
 .exact-loading{
-  position:absolute;
-  inset:0;
-  z-index:2;
+  z-index:4;
   display:grid;
   place-items:center;
   color:#a99170;
@@ -137,11 +146,23 @@ body.exact-ui-active.exact-native-mode #bookOverlay{
   letter-spacing:.24em;
   text-transform:uppercase;
 }
-.exact-art.ready + .exact-loading{display:none}
+.exact-artboard.loaded .exact-loading{display:none}
+.exact-error{
+  z-index:5;
+  display:none;
+  place-items:center;
+  padding:16%;
+  color:#d7c4a7;
+  background:#050708;
+  font:13px/1.5 Arial,sans-serif;
+  text-align:center;
+}
+.exact-artboard.asset-error .exact-loading{display:none}
+.exact-artboard.asset-error .exact-error{display:grid}
 
 .exact-hit{
   position:absolute;
-  z-index:10;
+  z-index:20;
   margin:0!important;
   padding:0!important;
   border:0!important;
@@ -163,7 +184,7 @@ body.exact-ui-active.exact-native-mode #bookOverlay{
 
 .exact-live-block{
   position:absolute;
-  z-index:9;
+  z-index:18;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -173,12 +194,10 @@ body.exact-ui-active.exact-native-mode #bookOverlay{
   text-align:center;
   text-shadow:0 2px 8px #000;
 }
-
-/* Only the location line is replaced because the approved artwork still says Washington. */
 .exact-county-mask{
   left:4.7%;
   top:11.4%;
-  width:26.5%;
+  width:27%;
   height:8.3%;
   align-items:flex-start;
   justify-content:center;
@@ -198,10 +217,9 @@ body.exact-ui-active.exact-native-mode #bookOverlay{
   letter-spacing:.2em;
 }
 
-/* Scene free-talk is a real control aligned over the approved field. */
 .exact-talk{
   position:absolute;
-  z-index:15;
+  z-index:22;
   left:5.4%;
   top:87.15%;
   width:89.2%;
@@ -244,7 +262,6 @@ body.exact-ui-active.exact-native-mode #bookOverlay{
   box-shadow:none!important;
 }
 
-/* Home hotspots */
 [data-action="enter-town"]{left:66.3%;top:31.6%;width:28.4%;height:4.2%}
 [data-action="news"]{left:4.5%;top:45.8%;width:22%;height:3.6%}
 [data-action="chapter"]{left:4.3%;top:60.4%;width:43.5%;height:15.5%}
@@ -255,7 +272,6 @@ body.exact-ui-active.exact-native-mode #bookOverlay{
 [data-action="recent-events"]{left:4.1%;top:76.7%;width:91.6%;height:12.2%}
 [data-action="settings"]{left:89.4%;top:1.5%;width:7.7%;height:5.1%}
 
-/* Map hotspots */
 [data-location="forest"]{left:8%;top:26%;width:17%;height:11%}
 [data-location="house"]{left:24%;top:26.5%;width:17%;height:8.5%}
 [data-location="cafe"]{left:38%;top:33.5%;width:17%;height:8%}
@@ -272,12 +288,10 @@ body.exact-ui-active.exact-native-mode #bookOverlay{
 [data-action="area-intel"]{left:60.4%;top:84.2%;width:33.6%;height:4.3%}
 [data-action="map-objective"]{left:4.8%;top:66.5%;width:52.2%;height:13.3%}
 
-/* Scene hotspots */
 [data-choice="0"]{left:5.4%;top:77.35%;width:89.2%;height:2.85%}
 [data-choice="1"]{left:5.4%;top:80.55%;width:89.2%;height:2.85%}
 [data-choice="2"]{left:5.4%;top:83.75%;width:89.2%;height:2.85%}
 
-/* Shared bottom navigation: exact same hit map on every approved screen. */
 .exact-nav-hit{top:93.1%;height:6.4%}
 [data-tab-hit="home"]{left:2.3%;width:12.2%}
 [data-tab-hit="book"]{left:14.5%;width:12.1%}
@@ -288,30 +302,50 @@ body.exact-ui-active.exact-native-mode #bookOverlay{
 [data-tab-hit="diary"]{left:75.5%;width:12.2%}
 [data-tab-hit="case"]{left:87.7%;width:10.2%}
 
-.exact-error{
-  position:absolute;
-  z-index:20;
-  left:8%;
-  right:8%;
-  top:44%;
-  padding:14px;
-  display:none;
-  border:1px solid rgba(182,61,55,.55);
+.exact-toast{
+  position:fixed;
+  z-index:5000;
+  left:50%;
+  bottom:max(18px,env(safe-area-inset-bottom));
+  width:min(82vw,390px);
+  padding:11px 14px;
+  border:1px solid rgba(198,155,98,.48);
   border-radius:8px;
-  background:rgba(8,10,11,.96);
-  color:#d7c4a7;
-  font:13px/1.5 Arial,sans-serif;
+  background:rgba(5,8,9,.97);
+  color:#e4d2b6;
+  box-shadow:0 14px 40px rgba(0,0,0,.75);
+  font:600 12px/1.45 Arial,sans-serif;
   text-align:center;
+  opacity:0;
+  transform:translate(-50%,12px);
+  transition:opacity .18s ease,transform .18s ease;
+  pointer-events:none;
 }
-.exact-stage.asset-error .exact-error{display:block}
+.exact-toast.show{opacity:1;transform:translate(-50%,0)}
 
-@media (orientation:landscape) and (max-height:700px){
-  .exact-stage{
-    width:min(56.25dvh,100vw);
-    height:min(100dvh,177.777vw);
+/* Phones fill the viewport. The artboard keeps 9:16 and crops only the excess edge. */
+@media (max-width:600px) and (orientation:portrait){
+  .exact-artboard{
+    width:max(100vw,calc(100dvh * var(--exact-ratio)));
+    height:max(100dvh,calc(100vw / var(--exact-ratio)));
   }
 }
 
-@media (prefers-reduced-motion:reduce){
-  .exact-art img{transition:none}
+@supports not (height:100dvh){
+  body.exact-ui-active{min-height:100vh}
+  .exact-artboard{
+    width:min(100vw,56.25vh);
+    height:min(100vh,177.777vw);
+  }
+  @media (max-width:600px) and (orientation:portrait){
+    .exact-artboard{
+      width:max(100vw,56.25vh);
+      height:max(100vh,177.777vw);
+    }
+  }
+  body.exact-ui-active.exact-native-mode.exact-native-scene #sceneOverlay{height:100vh!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .exact-toast{transition:none}
 }
