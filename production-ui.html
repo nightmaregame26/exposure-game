@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <title>Exposure — The Living Book</title>
+  <meta name="theme-color" content="#020405" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="premium-ui.css" />
+  <link rel="stylesheet" href="production-ui.css?v=production-2" />
+  <link rel="stylesheet" href="production-ui-patch.css?v=production-2" />
+</head>
+<body>
+  <main id="app">
+    <header class="topbar">
+      <div><h1>EXPOSURE</h1><p class="sub">Blackwood · The Living Book</p></div>
+      <button class="mini" id="resetBtn" aria-label="Reset investigation">Reset</button>
+    </header>
+
+    <section id="home" class="screen active">
+      <div class="hero premium-hero"><div class="hero-copy"><div><span class="hero-kicker">Blackwood · Greywick County</span><h2>Welcome to Blackwood</h2><p class="hero-quote">“Some stories don’t end. They only get rewritten.”</p></div><div class="hero-day"><span>Investigation</span><strong id="heroDayNumber">Day 1</strong></div></div></div>
+      <div class="dashboard-grid two"><article class="card dashboard-card news-card"><h2>▤ Blackwood News</h2><p id="news" class="news"></p></article><article class="card dashboard-card date-card"><span class="big-time" id="time"></span><span class="date-line" id="dateDisplay"></span><span class="weather-line" id="periodDisplay">Living Time · Blackwood</span><span hidden id="day"></span></article></div>
+      <div class="dashboard-grid three"><article class="card dashboard-card metric-card"><span class="metric-label">⚡ Stamina</span><div class="metric-value"><span id="stamina"></span><small>/100</small></div><div class="bar"><i id="staminaBar"></i></div></article><article class="card dashboard-card metric-card"><span class="metric-label">◉ Exposure</span><div class="metric-value danger"><span id="exposure"></span><small>%</small></div><div class="bar red"><i id="exposureBar"></i></div></article><article class="card dashboard-card metric-card"><span class="metric-label">♟ Social Tension</span><div class="metric-value"><span id="socialTension">0</span><small>%</small></div><div class="bar social-bar"><i id="socialTensionBar"></i></div><p id="socialTensionLabel"></p></article></div>
+      <div class="dashboard-grid equal"><article class="card dashboard-card objective-card"><span class="section-kicker">Current objectives</span><h2>Available Chapters</h2><div id="tasks"></div></article><article class="card dashboard-card appointment-card"><span class="section-kicker">Upcoming appointment</span><div id="appointmentSummary"></div><button id="viewAppointmentBtn" class="secondary">Open Phone</button></article></div>
+      <div class="dashboard-grid equal"><article class="card dashboard-card memory-preview"><span class="section-kicker">Memory Book</span><div class="memory-title" id="currentChapterTitle">The Road Into Blackwood</div><div class="memory-stats"><span id="currentChapterMeta">Prologue</span></div><button id="viewMemoryBtn" class="secondary">View Chapter</button></article><article class="card dashboard-card events-card"><span class="section-kicker">Recent memory</span><p id="recentMemoryText"></p><button id="viewMapObjective" class="secondary">Open Blackwood Map</button></article></div>
+      <article class="card events-card"><h2>◷ Recent Events</h2><div id="storyLog" class="storylog"></div></article>
+      <article class="card tutorial"><h2>Reader Guidance</h2><p id="tutorialText"></p><button id="tutorialNext" class="secondary">Next tip</button></article>
+    </section>
+
+    <section id="book" class="screen"><div class="card book-library"><h2>📖 Memory Book</h2><p class="small">Journeys, reflections, offline events and missed appointments are saved here.</p><input id="bookSearch" class="book-search" type="search" placeholder="Search chapters, places or clues..." /><div id="bookList"></div></div></section>
+    <section id="map" class="screen"><div class="map-layout"><div class="map-stage"><div id="mapList"></div></div><aside class="map-side"><article class="card" id="mapDetail"><h3>Your House</h3></article></aside></div></section>
+    <section id="contacts" class="screen"><div class="card"><h2>👥 People of Blackwood</h2><div id="contactsList"></div></div></section>
+    <section id="phone" class="screen"><div class="card"><h2>📱 Phone</h2><div id="phoneList"></div></div></section>
+    <section id="suspects" class="screen"><div class="card"><h2>🕵️ Suspects</h2><div id="suspectsList"></div></div></section>
+    <section id="diary" class="screen"><div class="card"><h2>📓 Case Notes</h2><textarea id="noteInput" placeholder="Write your theory..."></textarea><button id="saveNoteBtn">Save note</button><div id="diaryList"></div></div></section>
+    <section id="case" class="screen"><div class="card"><h2>📂 Case File</h2><div id="caseFile"></div></div></section>
+  </main>
+
+  <aside id="sceneOverlay" class="overlay hidden">
+    <div class="scene">
+      <div class="sceneArt" id="sceneArt"><h2 id="sceneTitle"></h2><p id="sceneLocation"></p></div>
+      <div class="card"><div id="sceneCharacterPanel" hidden></div><div id="sceneText" class="sceneText"></div><div id="npcStateBox" class="npcStateBox"></div></div>
+      <div class="card"><h2>Choices</h2><div id="sceneChoices"></div></div>
+      <div class="card"><h2>Say Anything</h2><span id="aiStatus" class="badge">Checking AI…</span><textarea id="freeTalk" maxlength="400" placeholder="Say anything..."></textarea><button id="sendTalkBtn">Send</button></div>
+      <button class="ghost" id="leaveSceneBtn">Leave scene</button>
+    </div>
+  </aside>
+
+  <aside id="bookOverlay" class="book-overlay hidden" aria-live="polite">
+    <div class="book-reader">
+      <div class="book-reader-top"><button id="bookCloseBtn" class="book-icon-button">✕</button><div class="book-reader-meta"><span id="bookDay"></span><span id="bookChapter"></span></div><button id="bookBookmarkBtn" class="book-icon-button">Bookmark page</button></div>
+      <article class="book-page"><div class="book-page-inner"><div class="book-rule"></div><h2 id="bookTitle"></h2><p id="bookText" class="book-prose"></p><div id="bookChoices" class="book-choices"></div><div class="book-page-footer"><span id="bookPageNumber"></span></div></div></article>
+      <div class="book-controls"><button id="bookPrevBtn" class="secondary">Previous page</button><button id="bookRevealBtn" class="secondary">Reveal text</button><button id="bookNextBtn">Continue</button></div>
+      <label class="reader-speed-label">Text speed<select id="readerSpeed"><option value="32">Slow</option><option value="18">Normal</option><option value="8">Fast</option><option value="0">Instant</option></select></label>
+    </div>
+  </aside>
+
+  <nav class="tabs" aria-label="Primary navigation">
+    <button data-tab="home">⌂<br>Home</button><button data-tab="book">▥<br>Book</button><button data-tab="map">⌖<br>Map</button><button data-tab="contacts">♟<br>People</button><button data-tab="phone">☎<br>Phone</button><button data-tab="suspects">♜<br>Suspects</button><button data-tab="diary">▤<br>Notes</button><button data-tab="case">▣<br>Case</button>
+  </nav>
+
+  <script src="app.js"></script>
+  <script src="living-time-patch.js"></script>
+  <script src="living-social-engine.js"></script>
+  <script src="book-engine.js"></script>
+  <script src="ai-bridge.js"></script>
+  <script src="premium-ui.js"></script>
+  <script src="production-ui-v2.js?v=production-2"></script>
+</body>
+</html>
