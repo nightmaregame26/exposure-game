@@ -4,9 +4,10 @@ import sharp from 'sharp';
 
 const ROOT = process.cwd();
 const DIST = path.join(ROOT, 'dist');
-const SOURCE_DIR = path.join(ROOT, 'assets', 'exact', 'home');
+const MOCKUP_DIR = path.join(ROOT, 'assets', 'mockups');
 const COMPONENT_DIR = path.join(DIST, 'assets', 'ui', 'components');
 const MASTER_REFERENCE = { width: 864, height: 1536 };
+const SLICE_SIZE = { width: 432, height: 192 };
 const CROPS = {
   header:   { left: 0,   top: 0,    width: 864, height: 174 },
   hero:     { left: 26,  top: 174,  width: 812, height: 390 },
@@ -48,19 +49,41 @@ async function copyStaticProject() {
 }
 
 async function loadMasterArtwork() {
-  const names = (await fs.readdir(SOURCE_DIR))
-    .filter(name => /^\d+\.txt$/.test(name))
-    .sort((a, b) => Number.parseInt(a, 10) - Number.parseInt(b, 10));
+  const composites = [];
 
-  if (!names.length) {
-    throw new Error(`No numbered artwork chunks were found in ${SOURCE_DIR}`);
+  for (let index = 0; index < 4; index += 1) {
+    const file = path.join(MOCKUP_DIR, `home-${index}.svg`);
+    const svg = await fs.readFile(file, 'utf8');
+    const match = svg.match(/href=["']data:image\/(?:jpeg|jpg|png|webp);base64,([^"']+)["']/i);
+
+    if (!match) {
+      throw new Error(`No embedded artwork was found in ${file}`);
+    }
+
+    const sourceBuffer = Buffer.from(match[1].replace(/\s+/g, ''), 'base64');
+    const normalized = await sharp(sourceBuffer)
+      .resize(SLICE_SIZE.width, SLICE_SIZE.height, { fit: 'fill' })
+      .png()
+      .toBuffer();
+
+    composites.push({
+      input: normalized,
+      left: 0,
+      top: index * SLICE_SIZE.height
+    });
   }
 
-  const chunks = await Promise.all(
-    names.map(name => fs.readFile(path.join(SOURCE_DIR, name), 'utf8'))
-  );
-  const encoded = chunks.join('').replace(/\s+/g, '');
-  return Buffer.from(encoded, 'base64');
+  return sharp({
+    create: {
+      width: SLICE_SIZE.width,
+      height: SLICE_SIZE.height * 4,
+      channels: 3,
+      background: '#020405'
+    }
+  })
+    .composite(composites)
+    .png()
+    .toBuffer();
 }
 
 async function buildPanels(masterBuffer) {
