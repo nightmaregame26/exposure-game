@@ -3,9 +3,10 @@
 
   const VERSION = 'exact-14';
   const screens = ['home', 'map', 'scene'];
+  const rendered = new WeakSet();
 
   async function waitForExactUi() {
-    for (let attempt = 0; attempt < 80; attempt += 1) {
+    for (let attempt = 0; attempt < 100; attempt += 1) {
       if (document.querySelector('#exactUi .exact-artboard')) return true;
       await new Promise(resolve => setTimeout(resolve, 50));
     }
@@ -36,14 +37,28 @@
         slices[index].style.backgroundImage = `url("${uri}")`;
       });
 
-      artboard.classList.remove('uses-full-art', 'asset-error');
-      artboard.classList.add('uses-slices', 'loaded');
-      const full = artboard.querySelector('.exact-full-art');
-      if (full) full.style.backgroundImage = 'none';
+      forceSlices(artboard);
+      rendered.add(artboard);
+
+      const observer = new MutationObserver(() => {
+        if (artboard.classList.contains('uses-full-art') || !artboard.classList.contains('uses-slices')) {
+          forceSlices(artboard);
+        }
+      });
+      observer.observe(artboard, { attributes: true, attributeFilter: ['class'] });
+
+      window.setTimeout(() => observer.disconnect(), 20000);
     } catch (error) {
       console.error('Exposure rescue renderer failed:', screen, error);
       artboard.classList.add('asset-error');
     }
+  }
+
+  function forceSlices(artboard) {
+    artboard.classList.remove('uses-full-art', 'asset-error');
+    artboard.classList.add('uses-slices', 'loaded');
+    const full = artboard.querySelector('.exact-full-art');
+    if (full) full.style.backgroundImage = 'none';
   }
 
   async function init() {
