@@ -1,30 +1,19 @@
 (() => {
   'use strict';
 
-  const VERSION = 'components-2';
-  const MASTER_W = 864;
-  const MASTER_H = 1536;
-  const CROPS = {
-    header:   [0, 0, 864, 174],
-    hero:     [26, 174, 812, 390],
-    news:     [27, 568, 431, 202],
-    clock:    [466, 568, 372, 202],
-    stamina:  [28, 777, 363, 171],
-    exposure: [398, 777, 440, 171],
-    chapter:  [28, 953, 386, 239],
-    tasks:    [421, 953, 417, 239],
-    events:   [28, 1198, 810, 208],
-    nav:      [14, 1425, 837, 105]
-  };
+  const VERSION = 'components-3';
+  const PANEL_NAMES = [
+    'header', 'hero', 'news', 'clock', 'stamina',
+    'exposure', 'chapter', 'tasks', 'events', 'nav'
+  ];
 
-  let objectUrls = [];
   let ready = false;
   let syncTimer = null;
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init, { once: true });
   } else {
-    init();
+    void init();
   }
 
   async function init() {
@@ -33,8 +22,7 @@
     observeGame();
 
     try {
-      const master = await loadMasterImage();
-      const panels = await cropPanels(master);
+      const panels = await preloadPanels();
       applyPanels(panels);
       ready = true;
       document.getElementById('componentUi')?.classList.add('ready');
@@ -52,6 +40,7 @@
 
   function buildShell() {
     if (document.getElementById('componentUi')) return;
+
     const root = document.createElement('div');
     root.id = 'componentUi';
     root.innerHTML = `
@@ -94,6 +83,7 @@
                 <small id="componentStaminaRegen">Ready</small>
               </span>
             </div>
+
             <div class="component-panel component-stat exposure-stat" data-panel="exposure">
               <span class="panel-veil stat-veil"></span>
               <span class="dynamic stat-dynamic">
@@ -119,7 +109,10 @@
             <div class="component-panel component-tasks" data-panel="tasks">
               <span class="panel-veil tasks-veil"></span>
               <span class="dynamic tasks-dynamic">
-                <div class="task-head"><span class="eyebrow">Tasks</span><small id="componentTaskCount">0 active</small></div>
+                <div class="task-head">
+                  <span class="eyebrow">Tasks</span>
+                  <small id="componentTaskCount">0 active</small>
+                </div>
                 <div id="componentTaskList" class="component-task-list"></div>
               </span>
             </div>
@@ -128,7 +121,10 @@
           <button class="component-panel component-events" data-panel="events" id="componentEvents" type="button">
             <span class="panel-veil events-veil"></span>
             <span class="dynamic events-dynamic">
-              <div class="events-head"><span class="eyebrow">◷ Recent Events</span><small>View all</small></div>
+              <div class="events-head">
+                <span class="eyebrow">◷ Recent Events</span>
+                <small>View all</small>
+              </div>
               <div id="componentEventList" class="component-event-list"></div>
             </span>
           </button>
@@ -149,8 +145,8 @@
         </nav>
 
         <div class="component-loading">Loading Blackwood…</div>
-      </main>
-    `;
+      </main>`;
+
     document.body.appendChild(root);
 
     root.querySelector('#componentEnter')?.addEventListener('click', () => openTab('map'));
@@ -169,77 +165,37 @@
     return `<button type="button" data-component-tab="${id}" aria-label="${label}"><span>${icon}</span><small>${label}</small></button>`;
   }
 
-  async function loadMasterImage() {
-    const parts = await Promise.all([0, 1, 2, 3].map(async index => {
-      const response = await fetch(`assets/exact/home/${String(index).padStart(2, '0')}.txt?v=${VERSION}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`Home artwork part ${index} returned ${response.status}`);
-      return (await response.text()).trim();
-    }));
-    const base64 = parts.join('').replace(/\s+/g, '');
-    const bytes = base64ToBytes(base64);
-    const url = URL.createObjectURL(new Blob([bytes], { type: 'image/webp' }));
-    objectUrls.push(url);
-
-    const image = new Image();
-    image.decoding = 'async';
-    image.src = url;
-    await new Promise((resolve, reject) => {
-      if (image.complete && image.naturalWidth) return resolve();
-      image.onload = resolve;
-      image.onerror = reject;
-      if (image.decode) image.decode().then(resolve).catch(() => {});
-    });
-    if (!image.naturalWidth || !image.naturalHeight) throw new Error('Master artwork decoded with no dimensions');
-    return image;
-  }
-
-  function base64ToBytes(base64) {
-    const binary = atob(base64);
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
-    return bytes;
-  }
-
-  async function cropPanels(image) {
-    const scaleX = image.naturalWidth / MASTER_W;
-    const scaleY = image.naturalHeight / MASTER_H;
-    const entries = await Promise.all(Object.entries(CROPS).map(async ([name, crop]) => {
-      const [x, y, width, height] = crop;
-      const sx = Math.round(x * scaleX);
-      const sy = Math.round(y * scaleY);
-      const sw = Math.round(width * scaleX);
-      const sh = Math.round(height * scaleY);
-
-      const canvas = document.createElement('canvas');
-      canvas.width = sw;
-      canvas.height = sh;
-      const context = canvas.getContext('2d', { alpha: false });
-      context.imageSmoothingEnabled = true;
-      context.imageSmoothingQuality = 'high';
-      context.drawImage(image, sx, sy, sw, sh, 0, 0, sw, sh);
-
-      const blob = await canvasToBlob(canvas);
-      const url = URL.createObjectURL(blob);
-      objectUrls.push(url);
+  async function preloadPanels() {
+    const entries = await Promise.all(PANEL_NAMES.map(async name => {
+      const webp = `assets/ui/components/${name}.webp?v=${VERSION}`;
+      const png = `assets/ui/components/${name}.png?v=${VERSION}`;
+      const url = await loadImageWithFallback(webp, png);
       return [name, url];
     }));
     return Object.fromEntries(entries);
   }
 
-  function canvasToBlob(canvas) {
+  function loadImageWithFallback(primary, fallback) {
     return new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        if (blob) return resolve(blob);
-        canvas.toBlob(png => png ? resolve(png) : reject(new Error('Panel conversion failed')), 'image/png');
-      }, 'image/webp', 0.92);
+      const image = new Image();
+      image.decoding = 'async';
+      image.onload = () => resolve(image.currentSrc || image.src);
+      image.onerror = () => {
+        if (image.dataset.fallback === '1') {
+          reject(new Error(`Unable to load ${primary} or ${fallback}`));
+          return;
+        }
+        image.dataset.fallback = '1';
+        image.src = fallback;
+      };
+      image.src = primary;
     });
   }
 
   function applyPanels(panels) {
     document.querySelectorAll('#componentUi [data-panel]').forEach(panel => {
-      const name = panel.dataset.panel;
-      if (!panels[name]) return;
-      panel.style.setProperty('--panel-image', `url("${panels[name]}")`);
+      const url = panels[panel.dataset.panel];
+      if (url) panel.style.setProperty('--panel-image', `url("${url}")`);
     });
   }
 
@@ -256,10 +212,17 @@
 
   function syncClock() {
     const now = new Date();
-    const sourceTime = textOf('time');
-    setText('componentTime', sourceTime || now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }));
-    setText('componentDate', (textOf('dateDisplay') || now.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' })) + ' · Greywick County');
-    setText('componentDayLabel', textOf('day') ? `Day ${textOf('day')} · ${now.toLocaleDateString(undefined, { weekday: 'long' })}` : now.toLocaleDateString(undefined, { weekday: 'long' }));
+    setText('componentTime', textOf('time') || now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }));
+    setText(
+      'componentDate',
+      `${textOf('dateDisplay') || now.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' })} · Greywick County`
+    );
+    setText(
+      'componentDayLabel',
+      textOf('day')
+        ? `Day ${textOf('day')} · ${now.toLocaleDateString(undefined, { weekday: 'long' })}`
+        : now.toLocaleDateString(undefined, { weekday: 'long' })
+    );
     setText('componentWeather', textOf('periodDisplay') || 'Raining · 9°C');
   }
 
@@ -275,8 +238,7 @@
   function syncNews() {
     const news = textOf('news');
     if (!news) return;
-    const cleaned = news.replace(/^Blackwood News\s*:?\s*/i, '').trim();
-    setText('componentNewsHeadline', cleaned.slice(0, 110));
+    setText('componentNewsHeadline', news.replace(/^Blackwood News\s*:?\s*/i, '').trim().slice(0, 110));
   }
 
   function syncChapter() {
@@ -290,13 +252,21 @@
     const sourceButtons = [...document.querySelectorAll('#tasks button')];
     const list = document.getElementById('componentTaskList');
     if (!list) return;
+
     setText('componentTaskCount', `${sourceButtons.filter(button => !button.disabled).length} active`);
     list.innerHTML = '';
+
     sourceButtons.slice(0, 3).forEach((source, index) => {
       const button = document.createElement('button');
       button.type = 'button';
       button.disabled = source.disabled;
-      button.innerHTML = `<span class="task-icon">${index + 1}</span><span><strong>${escapeHtml(source.textContent.replace(/\s+/g, ' ').trim())}</strong><small>${source.disabled ? 'Unavailable at this time.' : 'Open investigation task.'}</small></span><b>›</b>`;
+      button.innerHTML = `
+        <span class="task-icon">${index + 1}</span>
+        <span>
+          <strong>${escapeHtml(source.textContent.replace(/\s+/g, ' ').trim())}</strong>
+          <small>${source.disabled ? 'Unavailable at this time.' : 'Open investigation task.'}</small>
+        </span>
+        <b>›</b>`;
       button.addEventListener('click', () => source.click());
       list.appendChild(button);
     });
@@ -305,13 +275,20 @@
   function syncEvents() {
     const list = document.getElementById('componentEventList');
     if (!list) return;
+
     const texts = [...document.querySelectorAll('#storyLog > *')]
       .map(node => node.textContent.replace(/\s+/g, ' ').trim())
       .filter(Boolean)
       .slice(-3)
       .reverse();
-    if (!texts.length) texts.push(textOf('recentMemoryText') || 'You arrived in Blackwood. The town has already begun to remember you.');
-    list.innerHTML = texts.map((text, index) => `<div><time>${index === 0 ? 'NOW' : 'RECENT'}</time><span>${escapeHtml(text.slice(0, 150))}</span></div>`).join('');
+
+    if (!texts.length) {
+      texts.push(textOf('recentMemoryText') || 'You arrived in Blackwood. The town has already begun to remember you.');
+    }
+
+    list.innerHTML = texts
+      .map((text, index) => `<div><time>${index === 0 ? 'NOW' : 'RECENT'}</time><span>${escapeHtml(text.slice(0, 150))}</span></div>`)
+      .join('');
   }
 
   function syncActiveTab() {
@@ -337,6 +314,7 @@
       document.body.classList.toggle('component-native-view', active !== 'home' || bookOpen || sceneOpen);
       syncAll();
     });
+
     document.querySelectorAll('.screen, #bookOverlay, #sceneOverlay, #tasks, #storyLog').forEach(node => {
       observer.observe(node, { childList: true, subtree: true, attributes: true, characterData: true });
     });
@@ -362,11 +340,12 @@
   }
 
   function escapeHtml(value) {
-    return String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char]);
+    return String(value).replace(/[&<>"']/g, character => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+    })[character]);
   }
 
   window.addEventListener('beforeunload', () => {
     if (syncTimer) window.clearInterval(syncTimer);
-    objectUrls.forEach(url => URL.revokeObjectURL(url));
   });
 })();
