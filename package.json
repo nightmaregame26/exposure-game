@@ -1,6 +1,6 @@
 {
   "name": "exposure-game",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "type": "module",
   "private": true,
   "engines": {
@@ -9,13 +9,12 @@
   "scripts": {
     "start": "npx serve .",
     "dev": "npx serve .",
-    "build": "node scripts/build-component-assets.mjs",
-    "vercel-build": "node scripts/build-component-assets.mjs",
-    "check": "node --check app.js && node --check book-engine.js && node --check living-time-patch.js && node --check living-social-engine.js && node --check ai-bridge.js && node --check premium-ui.js && node --check component-ui.js && node --check api/_security.js && node --check api/health.js && node --check api/talk.js && node --check api/director.js && node --check api/killer.js"
+    "build": "node scripts/build-static.mjs",
+    "vercel-build": "node scripts/build-static.mjs",
+    "check": "node --check app.js && node --check book-engine.js && node --check living-time-patch.js && node --check living-social-engine.js && node --check ai-bridge.js && node --check premium-ui.js && node --check exact-ui.js && node --check api/_security.js && node --check api/health.js && node --check api/talk.js && node --check api/director.js && node --check api/killer.js"
   },
   "dependencies": {
-    "openai": "latest",
-    "sharp": "^0.33.5"
+    "openai": "latest"
   },
   "devDependencies": {
     "serve": "latest"
