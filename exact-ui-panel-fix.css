@@ -1,0 +1,81 @@
+/* Exposure exact UI panel correction v17
+   Approved artwork is rendered as independent 432x192 panels.
+   Nothing is stretched, covered, or cropped to fill an arbitrary viewport. */
+
+body.exact-ui-active,
+#exactUi,
+.exact-stage{
+  background:#020405!important;
+}
+
+.exact-artboard{
+  top:50%!important;
+  bottom:auto!important;
+  width:min(100vw,calc(100dvh * .5625))!important;
+  height:auto!important;
+  aspect-ratio:9 / 16!important;
+  transform:translate(-50%,-50%)!important;
+  overflow:hidden!important;
+}
+
+/* Never use the old single-image full-screen renderer. */
+.exact-full-art{
+  display:none!important;
+  background-image:none!important;
+}
+
+/* Each approved panel keeps its own native 432:192 ratio. */
+.exact-slices{
+  display:flex!important;
+  flex-direction:column!important;
+  width:100%!important;
+  height:100%!important;
+  opacity:1;
+}
+
+.exact-slice{
+  display:block!important;
+  flex:0 0 25%!important;
+  width:100%!important;
+  height:25%!important;
+  min-height:0!important;
+  background-repeat:no-repeat!important;
+  background-position:center center!important;
+  background-size:contain!important;
+  image-rendering:auto!important;
+}
+
+.exact-artboard.uses-full-art .exact-slices,
+.exact-artboard.uses-slices .exact-slices,
+.exact-artboard.loaded .exact-slices{
+  opacity:1!important;
+}
+
+/* Portrait phones keep the navigation edge aligned to the bottom.
+   Any unused room stays above the artwork rather than cropping the design. */
+@media (max-width:700px) and (orientation:portrait){
+  .exact-artboard{
+    top:auto!important;
+    bottom:0!important;
+    width:min(100vw,calc(100dvh * .5625))!important;
+    height:auto!important;
+    transform:translateX(-50%)!important;
+  }
+}
+
+/* Wide screens show the original phone canvas centred, without enlarging it past its ratio. */
+@media (orientation:landscape){
+  .exact-artboard{
+    top:50%!important;
+    bottom:auto!important;
+    width:min(100vw,calc(100dvh * .5625))!important;
+    max-width:560px!important;
+    transform:translate(-50%,-50%)!important;
+  }
+}
+
+@supports not (height:100dvh){
+  .exact-artboard{
+    width:min(100vw,56.25vh)!important;
+  }
+}
