@@ -1,0 +1,153 @@
+/* Android portrait build: approved artwork is rendered at its natural aspect ratio. */
+#androidBuild{display:none}
+
+@media (max-width:600px) and (orientation:portrait){
+  html,body{
+    width:100%;
+    min-height:100%;
+    margin:0;
+    overflow-x:hidden;
+    background:#020304!important;
+  }
+
+  body.android-art-active{
+    min-height:100dvh;
+    background:#020304!important;
+  }
+
+  body.android-art-active:not(.android-native-view)>#app,
+  body.android-art-active:not(.android-native-view)>nav.tabs,
+  body.android-art-active:not(.android-native-view)>#sceneOverlay,
+  body.android-art-active:not(.android-native-view)>#bookOverlay{
+    position:fixed!important;
+    left:-200vw!important;
+    top:0!important;
+    width:1px!important;
+    height:1px!important;
+    overflow:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+  }
+
+  body.android-art-active.android-native-view>#androidBuild{display:none!important}
+  body.android-art-active.android-native-view>#app{display:block!important}
+  body.android-art-active.android-native-view>nav.tabs{display:flex!important}
+
+  #androidBuild{
+    display:block;
+    position:relative;
+    width:100%;
+    max-width:600px;
+    min-height:100dvh;
+    margin:0 auto;
+    background:#020304;
+    overflow-x:hidden;
+  }
+
+  .android-art-stage{
+    position:relative;
+    width:100%;
+    margin:0;
+    padding:0;
+    line-height:0;
+    background:#020304;
+  }
+
+  .android-art-image{
+    display:block;
+    width:100%;
+    height:auto;
+    margin:0;
+    padding:0;
+    border:0;
+    object-fit:contain;
+    object-position:top center;
+    image-rendering:auto;
+  }
+
+  .android-loading{
+    position:absolute;
+    inset:0;
+    display:grid;
+    place-items:center;
+    min-height:100dvh;
+    background:#020304;
+    color:#bda782;
+    font:600 11px/1.4 Georgia,serif;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    z-index:5;
+  }
+
+  #androidBuild.ready .android-loading{display:none}
+
+  .android-hotspot{
+    position:absolute;
+    z-index:4;
+    display:block;
+    margin:0;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    opacity:.001;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  .android-hotspot:focus{outline:1px solid transparent}
+
+  /* Approved 9:16 Home artwork navigation regions. */
+  .android-home .hot-hero{left:2%;top:12.5%;width:96%;height:26%}
+  .android-home .hot-news{left:2%;top:39%;width:47%;height:13%}
+  .android-home .hot-clock{left:51%;top:39%;width:47%;height:13%}
+  .android-home .hot-stamina{left:2%;top:52.5%;width:47%;height:10.5%}
+  .android-home .hot-exposure{left:51%;top:52.5%;width:47%;height:10.5%}
+  .android-home .hot-chapter{left:2%;top:63.5%;width:47%;height:15%}
+  .android-home .hot-tasks{left:51%;top:63.5%;width:47%;height:15%}
+  .android-home .hot-events{left:2%;top:79%;width:96%;height:10%}
+
+  .android-bottom-hotspots{
+    position:absolute;
+    z-index:6;
+    left:0;
+    right:0;
+    bottom:0;
+    height:11.5%;
+    display:grid;
+    grid-template-columns:repeat(8,1fr);
+  }
+
+  .android-bottom-hotspots button{
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+    border:0;
+    background:transparent;
+    opacity:.001;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  .android-retry{
+    position:absolute;
+    z-index:10;
+    inset:0;
+    display:none;
+    place-items:center;
+    padding:28px;
+    background:#020304;
+    color:#d7c3a0;
+    text-align:center;
+    font:600 14px/1.5 Georgia,serif;
+  }
+
+  #androidBuild.failed .android-retry{display:grid}
+}
+
+@supports not (height:100dvh){
+  @media (max-width:600px) and (orientation:portrait){
+    body.android-art-active,#androidBuild,.android-loading{min-height:100vh}
+  }
+}
