@@ -33,8 +33,9 @@ export default function handler(req, res) {
       return;
     }
 
-    res.setHeader('Content-Type', 'image/webp');
-    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    // The approved source artwork is AVIF (ftypavif), not WebP.
+    res.setHeader('Content-Type', 'image/avif');
+    res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
     res.setHeader('Content-Length', String(image.length));
     res.status(200).send(image);
   } catch (error) {
